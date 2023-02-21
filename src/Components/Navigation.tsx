@@ -61,8 +61,11 @@ export default function Navigation() {
   }
 
   return (
-    <div className="flex justify-between items-center ">
-      <div className="text-xl">Liver</div>
+    <div className="flex justify-between items-center">
+      <div className="text-xl font-light">
+        <span className="font-medium">Live</span>
+        <span className="opacity-60">r</span>
+      </div>
       <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
         <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <ArrowPathIcon

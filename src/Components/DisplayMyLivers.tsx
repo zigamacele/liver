@@ -104,7 +104,10 @@ export default function DisplayMyLivers() {
                           <p className="text-[10px]">OFFLINE</p>
                         </div>
                       ) : (
-                        <PulseDot className="text-xl" color="danger" />
+                        <PulseDot
+                          className="absolute text-xl bottom-[-0.15em]"
+                          color="danger"
+                        />
                       )}
                     </div>
                   )}

@@ -36,13 +36,13 @@ export default function SelectLiver() {
   }
 
   return (
-    <div>
+    <div className="mt-2">
       {database.map((branch) => {
         return (
-          <div key={branch.branchID}>
-            <div className="flex">
+          <div key={branch.branchID} className="mt-2">
+            <div className="flex justify-between items-center">
               <p>{branch.branchID}</p>
-              <p>{branch.debut}</p>
+              <p className="font-light">{branch.debut}</p>
             </div>
             <div className="flex gap-1">
               {branch.members.map((member) => {
@@ -50,12 +50,13 @@ export default function SelectLiver() {
                   <div
                     key={member.name}
                     onClick={() => handleARLiver(member.channelID)}
+                    className="mt-1"
                   >
                     {!selectedLivers.includes(member.channelID) ? (
                       <img
                         src={member.imageURL}
                         alt={member.name}
-                        className="h-12 w-12 rounded"
+                        className="h-14 w-14 rounded-full border-2 border-slate-200 dark:border-slate-700"
                       />
                     ) : (
                       <div className="relative">
@@ -63,7 +64,7 @@ export default function SelectLiver() {
                         <img
                           src={member.imageURL}
                           alt={member.name}
-                          className="h-12 w-12 opacity-50 rounded"
+                          className="h-14 w-14 opacity-50 rounded-full p-2 bg-slate-200 dark:bg-slate-700"
                         />
                       </div>
                     )}
@@ -77,3 +78,5 @@ export default function SelectLiver() {
     </div>
   );
 }
+
+//TODO do something with retired members
