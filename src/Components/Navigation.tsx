@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-chrome-extension-router';
 
 import {
+  ArrowPathIcon,
   Cog6ToothIcon as Cog6ToothIconOutline,
   SunIcon as SunIconOutline,
 } from '@heroicons/react/24/outline';
@@ -57,28 +58,48 @@ export default function Navigation() {
   function handleDarkMode() {
     chrome.storage.local.set({ darkMode: !darkMode });
   }
+  function handleReload() {
+    window.location.reload();
+  }
 
   return (
     <div className="flex justify-between items-center">
       <div className="text-xl">Liver</div>
-      <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded p-1.5 dark:text-blue-500 text-slate-700">
-        {darkMode ? (
-          <SunIconOutline onClick={handleDarkMode} className="h-5 w-5" />
-        ) : (
-          <SunIcon onClick={handleDarkMode} className="h-5 w-5" />
-        )}
-        {gotoSettings ? (
-          <Link component={Settings}>
-            <Cog6ToothIconOutline
-              className="h-5 w-5 "
-              onClick={handleGoToSettings}
+      <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
+        <div className="bg-white dark:bg-slate-700 rounded py-1.5 px-2">
+          <ArrowPathIcon
+            className="h-5 w-5 cursor-pointer"
+            onClick={handleReload}
+          />
+        </div>
+        <div className="flex items-center gap-2 bg-white dark:bg-slate-700 rounded py-1.5 px-2">
+          {darkMode ? (
+            <SunIconOutline
+              onClick={handleDarkMode}
+              className="h-5 w-5 cursor-pointer"
             />
-          </Link>
-        ) : (
-          <Link component={Home}>
-            <Cog6ToothIcon className="h-5 w-5 " onClick={handleGoToSettings} />
-          </Link>
-        )}
+          ) : (
+            <SunIcon
+              onClick={handleDarkMode}
+              className="h-5 w-5 cursor-pointer"
+            />
+          )}
+          {gotoSettings ? (
+            <Link component={Settings}>
+              <Cog6ToothIconOutline
+                className="h-5 w-5 cursor-pointer"
+                onClick={handleGoToSettings}
+              />
+            </Link>
+          ) : (
+            <Link component={Home}>
+              <Cog6ToothIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={handleGoToSettings}
+              />
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

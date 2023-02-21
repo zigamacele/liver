@@ -23,4 +23,46 @@ export const database = [
       },
     ],
   },
+  {
+    branchID: 'XSOLEIL',
+    debut: '2022/12/10',
+    members: [
+      {
+        name: 'Zaion LanZa',
+        imageURL: 'https://i.imgur.com/ELGyqmW.png',
+        channelID: 'UCIairB9UMDvqSKfMdv1jmjg',
+        retired: false,
+      },
+      {
+        name: 'Doppio Dropscythe',
+        imageURL: 'https://i.imgur.com/SKJ4Qin.png',
+        channelID: 'UCy91xBlY_Brh3bnHxKtjrrg',
+        retired: false,
+      },
+      {
+        name: 'Meloco Kyoran',
+        imageURL: 'https://i.imgur.com/Tb74c6l.png',
+        channelID: 'UChKXd7oqD18qiIYBoRIHTlw',
+        retired: false,
+      },
+      {
+        name: 'Hex Haywire',
+        imageURL: 'https://i.imgur.com/PV7KfPU.png',
+        channelID: 'UCz_ZRw6ak4Foy8zZy0kEprQ',
+        retired: false,
+      },
+      {
+        name: 'Kotoka Torahime',
+        imageURL: 'https://i.imgur.com/HcMh49k.png',
+        channelID: 'UCggO2c1unS-oLwTLT0ICywg',
+        retired: false,
+      },
+      {
+        name: 'Ver Vermillion',
+        imageURL: 'https://i.imgur.com/rWzpX7f.png',
+        channelID: 'UCO8WcDsF5znr-qsXlzZNpqg',
+        retired: false,
+      },
+    ],
+  },
 ];

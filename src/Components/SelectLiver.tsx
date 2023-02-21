@@ -25,7 +25,6 @@ export default function SelectLiver() {
 
   return (
     <div>
-      <p>Select Liver</p>
       {database.map((branch) => {
         return (
           <div key={branch.branchID}>
@@ -40,8 +39,12 @@ export default function SelectLiver() {
                     key={member.name}
                     onClick={() => handleARLiver(member.channelID)}
                   >
-                    <img src={member.imageURL} alt={member.name} />
-                    <p>{member.name}</p>
+                    <img
+                      src={member.imageURL}
+                      alt={member.name}
+                      className="h-12 w-12"
+                    />
+                    {/* <p className="text-xs">{member.name}</p> */}
                   </div>
                 );
               })}
