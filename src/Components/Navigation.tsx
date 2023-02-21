@@ -17,7 +17,7 @@ export default function Navigation() {
   useEffect(() => {
     fetchChromeStorage();
 
-    chrome.storage.onChanged.addListener(function (changes, namespace) {
+    chrome.storage.onChanged.addListener(function (changes) {
       if ('goToSettings' in changes) {
         setGoToSettings(changes.goToSettings.newValue);
       }
@@ -45,6 +45,7 @@ export default function Navigation() {
       setDarkMode(data.darkMode);
     });
     chrome.storage.local.get('goToSettings', function (data: any) {
+      console.log(data.goToSettings);
       if (data.goToSettings === undefined) {
         return;
       }
@@ -52,9 +53,6 @@ export default function Navigation() {
     });
   }
 
-  function handleGoToSettings() {
-    chrome.storage.local.set({ goToSettings: !gotoSettings });
-  }
   function handleDarkMode() {
     chrome.storage.local.set({ darkMode: !darkMode });
   }
@@ -63,40 +61,34 @@ export default function Navigation() {
   }
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center ">
       <div className="text-xl">Liver</div>
       <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
-        <div className="bg-white dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <ArrowPathIcon
-            className="h-5 w-5 cursor-pointer"
+            className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
             onClick={handleReload}
           />
         </div>
-        <div className="flex items-center gap-2 bg-white dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           {darkMode ? (
             <SunIconOutline
               onClick={handleDarkMode}
-              className="h-5 w-5 cursor-pointer"
+              className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
             />
           ) : (
             <SunIcon
               onClick={handleDarkMode}
-              className="h-5 w-5 cursor-pointer"
+              className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
             />
           )}
           {gotoSettings ? (
             <Link component={Settings}>
-              <Cog6ToothIconOutline
-                className="h-5 w-5 cursor-pointer"
-                onClick={handleGoToSettings}
-              />
+              <Cog6ToothIconOutline className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
             </Link>
           ) : (
             <Link component={Home}>
-              <Cog6ToothIcon
-                className="h-5 w-5 cursor-pointer"
-                onClick={handleGoToSettings}
-              />
+              <Cog6ToothIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
             </Link>
           )}
         </div>
