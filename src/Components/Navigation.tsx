@@ -10,7 +10,7 @@ import {
 import { Cog6ToothIcon, SunIcon } from '@heroicons/react/24/solid';
 
 export default function Navigation() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [gotoSettings, setGoToSettings] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,14 @@ export default function Navigation() {
       if ('goToSettings' in changes) {
         setGoToSettings(changes.goToSettings.newValue);
       }
+      if ('darkMode' in changes) {
+        setDarkMode(changes.darkMode.newValue);
+        if (changes.darkMode.newValue === true)
+          document.documentElement.classList.add('dark');
+
+        if (changes.darkMode.newValue === false)
+          document.documentElement.classList.remove('dark');
+      }
     });
   }, []);
 
@@ -28,6 +36,11 @@ export default function Navigation() {
       if (data.darkMode === undefined) {
         return;
       }
+      if (data.darkMode === true)
+        document.documentElement.classList.add('dark');
+
+      if (data.darkMode === false)
+        document.documentElement.classList.remove('dark');
       setDarkMode(data.darkMode);
     });
     chrome.storage.local.get('goToSettings', function (data: any) {
@@ -43,7 +56,6 @@ export default function Navigation() {
   }
   function handleDarkMode() {
     chrome.storage.local.set({ darkMode: !darkMode });
-    setDarkMode(!darkMode);
   }
 
   return (
@@ -51,9 +63,9 @@ export default function Navigation() {
       <div className="text-xl">Liver</div>
       <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded p-1.5 dark:text-blue-500 text-slate-700">
         {darkMode ? (
-          <SunIconOutline onClick={handleDarkMode} className="h-5 w-5 " />
+          <SunIconOutline onClick={handleDarkMode} className="h-5 w-5" />
         ) : (
-          <SunIcon onClick={handleDarkMode} className="h-5 w-5 " />
+          <SunIcon onClick={handleDarkMode} className="h-5 w-5" />
         )}
         {gotoSettings ? (
           <Link component={Settings}>
