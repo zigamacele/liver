@@ -1,8 +1,5 @@
-import React from 'react';
-import { Link } from 'react-chrome-extension-router';
-import Home from './Home';
+import React, { useEffect } from 'react';
 
-import { ArrowSmallLeftIcon } from '@heroicons/react/24/outline';
 import SelectLiver from '../Components/SelectLiver';
 
 function handleReset() {
@@ -12,15 +9,8 @@ function handleReset() {
 export default function Settings() {
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <Link component={Home}>
-          <ArrowSmallLeftIcon className="h-6 w-6 text-blue-500" />
-        </Link>
-        <p>Settings</p>
-      </div>
-      <div>Dark mode /Light mode</div>
+      <button onClick={handleReset}> chrome.storage</button>
       <SelectLiver />
-      <button onClick={handleReset}>reset chrome.storage</button>
     </div>
   );
 }

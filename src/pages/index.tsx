@@ -18,5 +18,3 @@ export default function Index() {
   }
   return <Router>{showSettings ? <Settings /> : <Home />}</Router>;
 }
-
-//TODO open settings page if there is nothing in google storage

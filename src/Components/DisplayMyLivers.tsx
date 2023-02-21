@@ -19,7 +19,7 @@ export default function DisplayMyLivers() {
 
   useEffect(() => {
     databaseSearch();
-    setLoading(false);
+    getLiveStatus();
   }, [displayLivers]);
 
   function getMyLivers() {
@@ -43,16 +43,24 @@ export default function DisplayMyLivers() {
       });
     });
     setDatabaseInfo(tempDatabase);
+    setLoading(false);
   }
 
-  async function getLiveStatus(memberID: string) {
-    const url = `https://holodex.net/api/v2/live?channel_id=${memberID}`;
-    try {
-      const response = await axios.get(url, config);
-      setLiverStatus({ ...liverStatus, [memberID]: response });
-    } catch (error) {
-      console.log(error);
+  function getLiveStatus() {
+    let tempLiveStatus = {};
+    async function individualLiveStatus(memberID: string) {
+      const url = `https://holodex.net/api/v2/live?channel_id=${memberID}`;
+
+      try {
+        const response = await axios.get(url, config);
+        tempLiveStatus = { ...tempLiveStatus, [memberID]: response };
+        if (Object.keys(tempLiveStatus).length === displayLivers.length)
+          setLiverStatus(tempLiveStatus);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    displayLivers.forEach((memberID) => individualLiveStatus(memberID));
   }
 
   return (
@@ -65,7 +73,15 @@ export default function DisplayMyLivers() {
             // getLiver(memberID);
             return (
               <div key={memberID}>
-                {database[memberID] ? databaseInfo[memberID].name : null}
+                {!databaseInfo[memberID] ? null : (
+                  <div>
+                    <p>{databaseInfo[memberID].name}</p>
+                    <img
+                      src={databaseInfo[memberID].imageURL}
+                      alt={databaseInfo[memberID].name}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}
