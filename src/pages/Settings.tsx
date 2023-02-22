@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import SelectLiver from '../Components/SelectLiver';
 
 import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/solid';
+import { BsGithub } from 'react-icons/bs';
 
 function handleReset() {
   chrome.storage.local.remove('myLivers');
@@ -15,11 +16,20 @@ export default function Settings() {
 
   return (
     <div>
-      <div className="flex items-end justify-end">
-        <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2 hover:text-rose-500">
+      <div className="flex items-end justify-between">
+        <p className="text-lg font-light">NIJISANJI EN</p>
+        <div className="flex gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <ArchiveBoxXMarkIcon
             onClick={handleReset}
-            className="h-5 w-5 cursor-pointer"
+            className="h-5 w-5 cursor-pointer hover:text-rose-500"
+          />
+          <BsGithub
+            className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
+            onClick={() =>
+              chrome.tabs.create({
+                url: 'https://github.com/zigamacele/liver',
+              })
+            }
           />
         </div>
       </div>
@@ -27,6 +37,3 @@ export default function Settings() {
     </div>
   );
 }
-
-//TODO github icon
-//TODO hover icon color

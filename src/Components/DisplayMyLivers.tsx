@@ -1,4 +1,5 @@
 import { database } from '@/database';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -16,10 +17,6 @@ export default function DisplayMyLivers() {
   useEffect(() => {
     getMyLivers();
   }, []);
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   useEffect(() => {
     databaseSearch();
@@ -67,7 +64,6 @@ export default function DisplayMyLivers() {
           ...tempLiveStatus,
           [memberID]: response.data,
         };
-        console.log(tempLiveStatus);
         if (Object.keys(tempLiveStatus).length === displayLivers.length) {
           setLiverStatus(tempLiveStatus);
           setLoading(false);
@@ -80,9 +76,10 @@ export default function DisplayMyLivers() {
   }
 
   return (
-    <div className="mt-2">
+    <div className="my-2">
       <div className="flex flex-wrap justify-center gap-2">
         {displayLivers.map((memberID) => {
+          const url = `https://youtube.com/channel/${memberID}/live`;
           return (
             <div key={memberID}>
               {!databaseInfo[memberID] ? null : (
@@ -90,8 +87,12 @@ export default function DisplayMyLivers() {
                   <img
                     src={databaseInfo[memberID].imageURL}
                     alt={databaseInfo[memberID].name}
-                    className="rounded-full h-20 liver border-4 border-white dark:border-slate-700"
+                    className="rounded-full h-20 liver border-4 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
+                    onClick={(e) => {
+                      chrome.tabs.create({ url: url });
+                    }}
                   />
+
                   {loading ? (
                     <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700">
                       <ClipLoader size={15} />
@@ -120,5 +121,3 @@ export default function DisplayMyLivers() {
     </div>
   );
 }
-
-//TODO when clicking on image go to youtube link

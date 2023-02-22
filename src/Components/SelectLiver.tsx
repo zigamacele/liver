@@ -20,29 +20,26 @@ export default function SelectLiver() {
         return;
       }
       liversArray = data.myLivers;
-      console.log('data', data.myLivers, 'liversarray', liversArray);
       if (liversArray.includes(memberID)) {
         const filtered = liversArray.filter((mID) => mID !== memberID);
         chrome.storage.local.set({ myLivers: filtered });
         setSelectedLivers(filtered);
-        console.log('filtered:', filtered, 'liversarray:', liversArray);
       } else {
         liversArray.push(memberID);
         chrome.storage.local.set({ myLivers: liversArray });
         setSelectedLivers(liversArray);
-        console.log('liversarray:', liversArray);
       }
     });
   }
 
   return (
-    <div className="mt-2">
+    <div className="mt-4">
       {database.map((branch) => {
         return (
           <div key={branch.branchID} className="mt-2">
             <div className="flex justify-between items-center">
-              <p>{branch.branchID}</p>
-              <p className="font-light">{branch.debut}</p>
+              <p className="font-medium">{branch.branchID}</p>
+              {/* <p className="font-light opacity-60">{branch.debut}</p> */}
             </div>
             <div className="flex gap-1">
               {branch.members.map((member) => {
@@ -56,15 +53,15 @@ export default function SelectLiver() {
                       <img
                         src={member.imageURL}
                         alt={member.name}
-                        className="h-14 w-14 rounded-full border-2 border-slate-200 dark:border-slate-700"
+                        className="h-14 w-14 rounded-full border-2 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
                       />
                     ) : (
-                      <div className="relative">
+                      <div className="relative cursor-pointer">
                         <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50" />
                         <img
                           src={member.imageURL}
                           alt={member.name}
-                          className="h-14 w-14 opacity-50 rounded-full p-2 bg-slate-200 dark:bg-slate-700"
+                          className="h-14 w-14 opacity-50 rounded-full p-1 bg-slate-200 dark:bg-slate-700"
                         />
                       </div>
                     )}
@@ -78,5 +75,3 @@ export default function SelectLiver() {
     </div>
   );
 }
-
-//TODO do something with retired members
