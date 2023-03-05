@@ -39,7 +39,6 @@ export default function SelectLiver() {
           <div key={branch.branchID} className="mt-2">
             <div className="flex justify-between items-center">
               <p className="font-medium">{branch.branchID}</p>
-              {/* <p className="font-light opacity-60">{branch.debut}</p> */}
             </div>
             <div className="flex gap-1">
               {branch.members.map((member) => {

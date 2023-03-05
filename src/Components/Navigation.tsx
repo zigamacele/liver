@@ -16,7 +16,6 @@ export default function Navigation() {
 
   useEffect(() => {
     fetchChromeStorage();
-
     chrome.storage.onChanged.addListener(function (changes) {
       if ('goToSettings' in changes) {
         setGoToSettings(changes.goToSettings.newValue);
