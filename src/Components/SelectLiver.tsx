@@ -4,16 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 export default function SelectLiver() {
-  const [selectedLivers, setSelectedLivers] = useState<any>([]);
+  const [selectedLivers, setSelectedLivers] = useState<string[]>([]);
+
   useEffect(() => {
-    chrome.storage.local.get('myLivers', function (data: any) {
+    chrome.storage.local.get('myLivers', function (data) {
       setSelectedLivers([...data.myLivers]);
     });
   }, []);
 
   function handleARLiver(memberID: string) {
     let liversArray: string[] = [];
-    chrome.storage.local.get('myLivers', function (data: any) {
+    chrome.storage.local.get('myLivers', function (data) {
       if (data.myLivers === undefined || data.myLivers.length === 0) {
         chrome.storage.local.set({ myLivers: [memberID] });
         setSelectedLivers([memberID]);

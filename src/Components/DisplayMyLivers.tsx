@@ -6,13 +6,27 @@ import ClipLoader from 'react-spinners/ClipLoader';
 // @ts-ignore
 import PulseDot from 'react-pulse-dot';
 
+import { AiFillTwitterCircle } from 'react-icons/ai';
+
 export default function DisplayMyLivers() {
   const [displayLivers, setDisplayLivers] = useState([]);
-  const [liverStatus, setLiverStatus] = useState<any>({});
-  const [databaseInfo, setDatabaseInfo] = useState<any>({});
+  const [liverStatus, setLiverStatus] = useState({});
+  const [databaseInfo, setDatabaseInfo] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
   const axios = require('axios');
+
+  interface vtuberInfo {
+    name: string;
+    imageURL: string;
+    channelID: string;
+    retired: boolean;
+    twitter: string;
+  }
+
+  interface vtubersFromDB {
+    [key: string]: vtuberInfo;
+  }
 
   useEffect(() => {
     getMyLivers();
@@ -28,7 +42,7 @@ export default function DisplayMyLivers() {
   }, [APIResponse]);
 
   function getMyLivers() {
-    chrome.storage.local.get('myLivers', function (data: any) {
+    chrome.storage.local.get('myLivers', function (data) {
       if (data.myLivers === undefined || data.myLivers.length === 0) {
         return;
       }
@@ -39,8 +53,8 @@ export default function DisplayMyLivers() {
   async function databaseSearch() {
     let tempDatabase = {};
     displayLivers.forEach((memberID) => {
-      database.forEach((branch: any) => {
-        branch.members.forEach((member: any) => {
+      database.forEach((branch) => {
+        branch.members.forEach((member) => {
           if (member.channelID === memberID) {
             tempDatabase = { ...tempDatabase, [memberID]: member };
           }
@@ -61,7 +75,6 @@ export default function DisplayMyLivers() {
     try {
       const response = await axios.get(url, config);
       setAPIResponse(response.data);
-      console.log('api', response.data);
     } catch (error) {
       console.log(error);
     }
@@ -87,47 +100,69 @@ export default function DisplayMyLivers() {
     });
   }
 
-  const test = displayLivers.map((memberID) => {
-    const url = `https://youtube.com/channel/${memberID}/live`;
-    return (
-      <div key={memberID}>
-        {!databaseInfo[memberID] ? null : (
-          <div className="relative">
-            <img
-              src={databaseInfo[memberID].imageURL}
-              alt={databaseInfo[memberID].name}
-              className="rounded-full h-20 liver border-4 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
-              onClick={(e) => {
-                chrome.tabs.create({ url: url });
-              }}
-            />
+  function handleTwitter(memberID: string) {
+    database.forEach((branch) => {
+      branch.members.forEach((member) => {
+        const url = 'https://twitter.com/';
+        if (member.channelID === memberID) {
+          chrome.tabs.create({ url: url + member.twitter });
+        }
+      });
+    });
+  }
 
-            {loading ? (
-              <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700">
-                <ClipLoader size={15} />
-              </div>
-            ) : (
-              <div className="absolute left-[4em] bottom-[4em]">
-                {liverStatus[memberID] === 'offline' ? (
-                  <div className="absolute left-[-1em] bottom-[0.7em] py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
-                    <p className="text-[10px]">OFFLINE</p>
-                  </div>
-                ) : (
-                  <PulseDot
-                    className="absolute text-xl bottom-[-0.15em]"
-                    color="danger"
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  });
   return (
     <div className="my-2">
-      <div className="flex flex-wrap justify-center gap-2">{test}</div>
+      <div className="flex flex-wrap justify-center gap-3">
+        {displayLivers.map((memberID) => {
+          const url = `https://youtube.com/channel/${memberID}/live`;
+          return (
+            <div key={memberID}>
+              {!databaseInfo[memberID] ? null : (
+                <div className="relative">
+                  <img
+                    src={databaseInfo[memberID].imageURL}
+                    alt={databaseInfo[memberID].name}
+                    className="rounded-full h-20 liver border-4 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
+                    onClick={(e) => {
+                      chrome.tabs.create({ url: url });
+                    }}
+                  />
+                  <div
+                    className="text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer absolute left-[4em] bottom-[4em]"
+                    onClick={() => handleTwitter(memberID)}
+                  >
+                    <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em]  z-10 " />
+                    <span className="absolute text-xl left-[0.975em] bottom-[-0.82em] bg-white dark:bg-slate-700 h-5 w-5 rounded-full"></span>
+                  </div>
+
+                  {loading ? (
+                    <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700">
+                      <ClipLoader size={15} />
+                    </div>
+                  ) : (
+                    <div className="absolute left-[4em] bottom-[4em]">
+                      {liverStatus[memberID] === 'offline' ? (
+                        <div className="absolute left-[-1em] bottom-[0.7em] py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
+                          <p className="text-[10px]">OFFLINE</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <PulseDot
+                            className="absolute text-xl bottom-[-0.15em] z-10"
+                            color="danger"
+                          />
+                          <span className="absolute text-xl  left-[0.3em] bottom-[0.17em] bg-white dark:bg-slate-700 h-7 w-7 rounded-full"></span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,6 @@
-# Liver
+# Liver ![version](https://img.shields.io/badge/Version-v0.0.2-pink?style=for-the-badge&logo)
+
+<a><img align="right" src="https://i.imgur.com/F9qenDY.png"></a>
 
 ### Check if you favorite VTuber is live!
 
@@ -13,8 +15,10 @@ _Insert video here_
 
 ## Images
 
-<img src="https://i.imgur.com/eYe2wI5.png" width="280"><img src="https://i.imgur.com/Iq9BXVd.png" width="280">
-<img src="https://i.imgur.com/QIWMuNI.png" width="280"><img src="https://i.imgur.com/4Ty40Wq.png" width="280">
+<img src="https://i.imgur.com/FTHCArK.png" width="280"><img src="https://i.imgur.com/wLZK69d.png" width="280">
+<img src="https://i.imgur.com/RViLUqa.png" width="280"><img src="https://i.imgur.com/rZykb4w.png" width="280">
+
+<br />
 
 ## Technologies used
 
@@ -22,6 +26,8 @@ _Insert video here_
 -TypeScript \
 -TailwindCSS \
 -Chrome Storage API
+
+<br />
 
 ## Use extension with your own API key
 
@@ -40,7 +46,6 @@ Download extension from Releases and extract it outside of repo you just cloned.
 Get your own API key from [Holodex](https://docs.holodex.net/docs/holodex/ZG9jOjQ2Nzk1-getting-started)
 
 Go back into the repo you just cloned, create .env file and paste in your API key.
-<img src="https://i.imgur.com/8fpa3yb.png" width="280">
 
 ```sh
 NEXT_PUBLIC_HOLODEX=YOUR_API_KEY

@@ -32,7 +32,7 @@ export default function Navigation() {
   }, []);
 
   function fetchChromeStorage() {
-    chrome.storage.local.get('darkMode', function (data: any) {
+    chrome.storage.local.get('darkMode', function (data) {
       if (data.darkMode === undefined) {
         return;
       }
@@ -43,7 +43,7 @@ export default function Navigation() {
         document.documentElement.classList.remove('dark');
       setDarkMode(data.darkMode);
     });
-    chrome.storage.local.get('goToSettings', function (data: any) {
+    chrome.storage.local.get('goToSettings', function (data) {
       if (data.goToSettings === undefined) {
         return;
       }
@@ -64,7 +64,7 @@ export default function Navigation() {
       <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
         <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <ArrowPathIcon
-            className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
+            className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500 hover:animate-spin"
             onClick={handleReload}
           />
         </div>
