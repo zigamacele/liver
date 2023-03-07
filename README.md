@@ -4,14 +4,14 @@
 
 ### Check if you favorite VTuber is live!
 
-Liver is a chrome extension powered by Holodex API that lets you quickly check if your favorite Liver is streaming.
+Liver is a Chrome extension powered by Holodex API that lets you quickly check if your favorite Liver is streaming.
 Liver is designed to be a fast and simple way to check Livers stream status.
 
-You can get it here: Link
+Get it [here](https://github.com/zigamacele/liver/releases/tag/v0.0.2)
 
 ## Demo
-
-_Insert video here_
+  
+https://user-images.githubusercontent.com/19758116/223499125-e0670046-c6e6-4348-8d4e-0cac1b0ca473.mov
 
 ## Images
 
