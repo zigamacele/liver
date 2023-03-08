@@ -7,7 +7,7 @@
 Liver is a Chrome extension powered by Holodex API that lets you quickly check if your favorite Liver is streaming.
 Liver is designed to be a fast and simple way to check Livers stream status.
 
-Get it [here](https://github.com/zigamacele/liver/releases/tag/v0.0.2)
+Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmjikjjmbaiabncnhcbkphfh?hl=en&authuser=0)
 
 ## Demo
   
