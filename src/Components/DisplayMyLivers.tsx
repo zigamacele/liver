@@ -53,11 +53,13 @@ export default function DisplayMyLivers() {
   async function databaseSearch() {
     let tempDatabase = {};
     displayLivers.forEach((memberID) => {
-      database.forEach((branch) => {
-        branch.members.forEach((member) => {
-          if (member.channelID === memberID) {
-            tempDatabase = { ...tempDatabase, [memberID]: member };
-          }
+      Object.keys(database).forEach((group) => {
+        database[group].forEach((branch: any) => {
+          branch.members.forEach((member: any) => {
+            if (member.channelID === memberID) {
+              tempDatabase = { ...tempDatabase, [memberID]: member };
+            }
+          });
         });
       });
     });
@@ -101,12 +103,14 @@ export default function DisplayMyLivers() {
   }
 
   function handleTwitter(memberID: string) {
-    database.forEach((branch) => {
-      branch.members.forEach((member) => {
-        const url = 'https://twitter.com/';
-        if (member.channelID === memberID) {
-          chrome.tabs.create({ url: url + member.twitter });
-        }
+    Object.keys(database).forEach((group) => {
+      database[group].forEach((branch: any) => {
+        branch.members.forEach((member: any) => {
+          if (member.channelID === memberID) {
+            const url = 'https://twitter.com/';
+            chrome.tabs.create({ url: url + member.twitter });
+          }
+        });
       });
     });
   }
