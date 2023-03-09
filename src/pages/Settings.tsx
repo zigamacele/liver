@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import SelectLiver from '../Components/SelectLiver';
 
-import { Switch } from '@headlessui/react';
+import { Listbox, Transition } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Fragment } from 'react';
+
+const languageSelector = [{ name: 'EN' }, { name: 'JP' }];
+
+const languageSelectorHolo = [{ name: 'EN' }, { name: 'JP' }, { name: 'ID' }];
+
+const corpoSelector = [
+  { name: 'NIJISANJI' },
+  { name: 'HOLOLIVE' },
+  { name: 'HOLOSTARS' },
+];
 
 import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/solid';
 import { BsGithub } from 'react-icons/bs';
@@ -12,46 +24,142 @@ function handleReset() {
 }
 
 export default function Settings() {
-  const [enabled, setEnabled] = useState(false);
-  const [corpo, setCorpo] = useState('NIJISANJI');
-  const [language, setLanguage] = useState('EN');
   const [settingsQuery, setSettingsQuery] = useState('NIJISANJI_EN');
+
+  const [selectedLanguage, setSelectedLanguage] = useState(languageSelector[0]);
+  const [selectedCorpo, setSelectedCorpo] = useState(corpoSelector[0]);
 
   useEffect(() => {
     chrome.storage.local.set({ goToSettings: false });
   }, []);
 
   useEffect(() => {
-    // setSettingsQuery('NIJISANJI_EN');
-  }, [language, enabled]);
+    if (selectedLanguage.name === 'ID' && selectedCorpo.name !== 'HOLOLIVE')
+      setSelectedLanguage(languageSelector[0]);
+    else setSettingsQuery(`${selectedCorpo.name}_${selectedLanguage.name}`);
+  }, [selectedLanguage, selectedCorpo]);
+
+  function showLanguages() {
+    if (selectedCorpo.name === 'HOLOLIVE') return languageSelectorHolo;
+    else return languageSelector;
+  }
 
   return (
     <div>
-      <div className="flex items-end justify-between">
-        <div className="flex gap-4 items-center">
-          <div className="flex items-center gap-1">
-            <p className="text-lg font-light"> EN</p>
-            <Switch
-              checked={enabled}
-              onChange={setEnabled}
-              className={`${
-                enabled
-                  ? 'dark:bg-blue-500 bg-slate-700'
-                  : 'bg-gray-200 dark:bg-slate-700'
-              } relative inline-flex h-6 w-11 items-center rounded-full`}
-            >
-              <span className="sr-only">Enable notifications</span>
-              <span
-                className={`${
-                  enabled ? 'translate-x-6' : 'translate-x-1'
-                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-              />
-            </Switch>
-            <p className="text-lg font-light"> JP</p>
-          </div>
-          <div className="flex gap-2 font-light">
-            <span>NIJISANJI</span>
-            <span>HOLOLIVE</span>
+      <div className="flex items-center justify-between">
+        <div className="flex gap-1">
+          <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
+            <div className="relative mt-1 z-50">
+              <Listbox.Button className="relative w-20 cursor-default rounded-lg bg-white py-2 pl-3 pr-5 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <span className="block truncate">{selectedLanguage.name}</span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <ChevronUpDownIcon
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </span>
+              </Listbox.Button>
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Listbox.Options className="absolute mt-1 max-h-60 w-20 overflow-auto rounded-md bg-white py-1 text-base  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  {showLanguages().map((person, personIdx) => (
+                    <Listbox.Option
+                      key={personIdx}
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active
+                            ? 'bg-amber-100 text-amber-900'
+                            : 'text-gray-900'
+                        }`
+                      }
+                      value={person}
+                    >
+                      {({ selected }) => (
+                        <>
+                          <span
+                            className={`block truncate ${
+                              selected ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            {person.name}
+                          </span>
+                          {selected ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    </Listbox.Option>
+                  ))}
+                </Listbox.Options>
+              </Transition>
+            </div>
+          </Listbox>
+
+          <div className="w-40">
+            <Listbox value={selectedCorpo} onChange={setSelectedCorpo}>
+              <div className="relative mt-1 z-50">
+                <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-5 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                  <span className="block truncate">{selectedCorpo.name}</span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronUpDownIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Listbox.Button>
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {corpoSelector.map((person, personIdx) => (
+                      <Listbox.Option
+                        key={personIdx}
+                        className={({ active }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active
+                              ? 'bg-amber-100 text-amber-900'
+                              : 'text-gray-900'
+                          }`
+                        }
+                        value={person}
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={`block truncate ${
+                                selected ? 'font-medium' : 'font-normal'
+                              }`}
+                            >
+                              {person.name}
+                            </span>
+                            {selected ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
           </div>
         </div>
 

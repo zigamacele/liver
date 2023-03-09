@@ -1,3 +1,21 @@
+interface database {
+  [key: string]: [
+    {
+      branchID: string;
+      debut: string;
+      members: Members[];
+    }
+  ];
+}
+
+interface Members {
+  name: string;
+  imageURL: string;
+  channelID: string;
+  retired: boolean;
+  twitter: string;
+}
+
 export const database: any = {
   NIJISANJI_EN: [
     {
@@ -363,40 +381,6 @@ export const database: any = {
         },
       ],
     },
-    {
-      branchID: 'TEMPUS',
-      debut: '2022/07/22',
-      members: [
-        {
-          name: 'Regis Altare',
-          imageURL: 'https://i.imgur.com/ghDjE1V.png',
-          channelID: 'UCyxtGMdWlURZ30WSnEjDOQw',
-          retired: false,
-          twitter: 'regisaltare',
-        },
-        {
-          name: 'Magni Dezmond',
-          imageURL: 'https://i.imgur.com/ml0NMRU.png',
-          channelID: 'UC7MMNHR-kf9EN1rXiesMTMw',
-          retired: false,
-          twitter: 'magnidezmond',
-        },
-        {
-          name: 'Axel Syrios',
-          imageURL: 'https://i.imgur.com/Gs7Lnrp.png',
-          channelID: 'UC2hx0xVkMoHGWijwr_lA01w',
-          retired: false,
-          twitter: 'axelsyrios',
-        },
-        {
-          name: 'Noir Vesper',
-          imageURL: 'https://i.imgur.com/xWr5yDU.png',
-          channelID: 'UCDRWSO281bIHYVi-OV3iFYA',
-          retired: false,
-          twitter: 'noirvesper_en',
-        },
-      ],
-    },
   ],
   HOLOLIVE_JP: [
     {
@@ -687,5 +671,703 @@ export const database: any = {
       ],
     },
   ],
-  // NIJISANJI_JP: {},
+  HOLOSTARS_EN: [
+    {
+      branchID: 'TEMPUS',
+      debut: '2022/07/22',
+      members: [
+        {
+          name: 'Regis Altare',
+          imageURL: 'https://i.imgur.com/ghDjE1V.png',
+          channelID: 'UCyxtGMdWlURZ30WSnEjDOQw',
+          retired: false,
+          twitter: 'regisaltare',
+        },
+        {
+          name: 'Magni Dezmond',
+          imageURL: 'https://i.imgur.com/ml0NMRU.png',
+          channelID: 'UC7MMNHR-kf9EN1rXiesMTMw',
+          retired: false,
+          twitter: 'magnidezmond',
+        },
+        {
+          name: 'Axel Syrios',
+          imageURL: 'https://i.imgur.com/Gs7Lnrp.png',
+          channelID: 'UC2hx0xVkMoHGWijwr_lA01w',
+          retired: false,
+          twitter: 'axelsyrios',
+        },
+        {
+          name: 'Noir Vesper',
+          imageURL: 'https://i.imgur.com/xWr5yDU.png',
+          channelID: 'UCDRWSO281bIHYVi-OV3iFYA',
+          retired: false,
+          twitter: 'noirvesper_en',
+        },
+      ],
+    },
+  ],
+  HOLOSTARS_JP: [
+    {
+      branchID: '1st Generation',
+      debut: '2019/06/08',
+      members: [
+        {
+          name: 'Hanasaki Miyabi',
+          imageURL: 'https://i.imgur.com/e631H8Y.png',
+          channelID: 'UC6t3-_N8A6ME1JShZHHqOMw',
+          retired: false,
+          twitter: 'miyabihanasaki',
+        },
+        {
+          name: 'Kanade Izuru',
+          imageURL: 'https://i.imgur.com/1X0i7SR.png',
+          channelID: 'UCZgOv3YDEs-ZnZWDYVwJdmA',
+          retired: false,
+          twitter: 'kanadeizuru',
+        },
+        {
+          name: 'Arurandeisu',
+          imageURL: 'https://i.imgur.com/dL1OsUA.png',
+          channelID: 'UCKeAhJvy8zgXWbh9duVjIaQ',
+          retired: false,
+          twitter: 'arurandeisu',
+        },
+        {
+          name: 'Rikka',
+          imageURL: 'https://i.imgur.com/l2S3slW.png',
+          channelID: 'UC9mf_ZVpouoILRY9NUIaK-w',
+          retired: false,
+          twitter: 'rikkaroid',
+        },
+      ],
+    },
+    {
+      branchID: '2nd Generation',
+      debut: '2019/12/24',
+      members: [
+        {
+          name: 'Astel Leda',
+          imageURL: 'https://i.imgur.com/nkFZo2C.png',
+          channelID: 'UCNVEsYbiZjH5QLmGeSgTSzg',
+          retired: false,
+          twitter: 'astelleda',
+        },
+        {
+          name: 'Kishido Temma',
+          imageURL: 'https://i.imgur.com/quFTTIU.png',
+          channelID: 'UCGNI4MENvnsymYjKiZwv9eg',
+          retired: false,
+          twitter: 'kishidotemma',
+        },
+        {
+          name: 'Yukoku Roberu',
+          imageURL: 'https://i.imgur.com/plh23sK.png',
+          channelID: 'UCANDOlYTJT7N5jlRC3zfzVA',
+          retired: false,
+          twitter: 'yukokuroberu',
+        },
+      ],
+    },
+    {
+      branchID: '3rd Generation',
+      debut: '2020/04/30',
+      members: [
+        {
+          name: 'Kageyama Shien',
+          imageURL: 'https://i.imgur.com/6zqy5Kh.png',
+          channelID: 'UChSvpZYRPh0FvG4SJGSga3g',
+          retired: false,
+          twitter: 'kageyamashien',
+        },
+        {
+          name: 'Aragami Oga',
+          imageURL: 'https://i.imgur.com/gHpq6EL.png',
+          channelID: 'UCwL7dgTxKo8Y4RFIKWaf8gA',
+          retired: false,
+          twitter: 'aragamioga',
+        },
+      ],
+    },
+    {
+      branchID: 'UPROAR!!',
+      debut: '2020/04/30',
+      members: [
+        {
+          name: 'Yatogami Fuma',
+          imageURL: 'https://i.imgur.com/INONYsk.png',
+          channelID: 'UCc88OV45ICgHbn3ZqLLb52w',
+          retired: false,
+          twitter: 'yatogamifuma',
+        },
+        {
+          name: 'Utsugi Uyu',
+          imageURL: 'https://i.imgur.com/rsJtKPI.png',
+          channelID: 'UCgRqGV1gBf2Esxh0Tz1vxzw',
+          retired: false,
+          twitter: 'utsugiuyu',
+        },
+        {
+          name: 'Hizaki Gamma',
+          imageURL: 'https://i.imgur.com/yl2ELE6.png',
+          channelID: 'UCkT1u65YS49ca_LsFwcTakw',
+          retired: false,
+          twitter: 'hizakigamma',
+        },
+        {
+          name: 'Minase Rio',
+          imageURL: 'https://i.imgur.com/qPdkycy.png',
+          channelID: 'UCdfMHxjcCc2HSd9qFvfJgjg',
+          retired: false,
+          twitter: 'minaserioch',
+        },
+      ],
+    },
+  ],
+  HOLOLIVE_ID: [
+    {
+      branchID: '1st Generation',
+      debut: '2020/04/10',
+      members: [
+        {
+          name: 'Ayunda Risu',
+          imageURL: 'https://i.imgur.com/yDewLh4.png',
+          channelID: 'UCOyYb1c43VlX9rc_lT6NKQw',
+          retired: false,
+          twitter: 'ayunda_risu',
+        },
+        {
+          name: 'Moona Hoshinova',
+          imageURL: 'https://i.imgur.com/cRWszw8.png',
+          channelID: 'UCP0BspO_AMEe3aQqqpo89Dg',
+          retired: false,
+          twitter: 'moonahoshinova',
+        },
+        {
+          name: 'Airani Iofifteen',
+          imageURL: 'https://i.imgur.com/rYCmHu9.png',
+          channelID: 'UCAoy6rzhSf4ydcYjJw3WoVg',
+          retired: false,
+          twitter: 'airaniiofifteen',
+        },
+      ],
+    },
+    {
+      branchID: '2nd Generation',
+      debut: '2020/12/05',
+      members: [
+        {
+          name: 'Kureiji Ollie',
+          imageURL: 'https://i.imgur.com/pcDqYj3.png',
+          channelID: 'UCYz_5n-uDuChHtLo7My1HnQ',
+          retired: false,
+          twitter: 'kureijiollie',
+        },
+        {
+          name: 'Anya Melfissa',
+          imageURL: 'https://i.imgur.com/fnuggzt.png',
+          channelID: 'UC727SQYUvx5pDDGQpTICNWg',
+          retired: false,
+          twitter: 'anyamelfissa',
+        },
+        {
+          name: 'Pavolia Reine',
+          imageURL: 'https://i.imgur.com/v9YbxwH.png',
+          channelID: 'UChgTyjG-pdNvxxhdsXfHQ5Q',
+          retired: false,
+          twitter: 'pavoliareine',
+        },
+      ],
+    },
+    {
+      branchID: '3rd Generation',
+      debut: '2022/03/25',
+      members: [
+        {
+          name: 'Vestia Zeta',
+          imageURL: 'https://i.imgur.com/b88I3pi.png',
+          channelID: 'UCTvHWSfBZgtxE4sILOaurIQ',
+          retired: false,
+          twitter: 'vestiazeta',
+        },
+        {
+          name: 'Kaela Kovalskia',
+          imageURL: 'https://i.imgur.com/B0NC0gF.png',
+          channelID: 'UCZLZ8Jjx_RN2CXloOmgTHVg',
+          retired: false,
+          twitter: 'kaelakovalskia',
+        },
+        {
+          name: 'Kobo Kanaeru',
+          imageURL: 'https://i.imgur.com/lFd3qAK.png',
+          channelID: 'UCjLEmnpCNeisMxy134KPwWw',
+          retired: false,
+          twitter: 'kobokanaeru',
+        },
+      ],
+    },
+  ],
+  NIJISANJI_JP: [
+    {
+      branchID: '1st Generation',
+      debut: '2018/02/08',
+      members: [
+        {
+          name: 'Tsukino Mito',
+          imageURL: 'https://i.imgur.com/P5CdFz2.png',
+          channelID: 'UCD-miitqNY3nyukJ4Fnf4_A',
+          retired: false,
+          twitter: 'MitoTsukino',
+        },
+        {
+          name: 'Shibuya Hajime',
+          imageURL: 'https://i.imgur.com/xNt7r5n.png',
+          channelID: 'UCeK9HFcRZoTrvqcUCtccMoQ',
+          retired: false,
+          twitter: 'sibuya_hajime',
+        },
+        {
+          name: 'Higuchi Kaede',
+          imageURL: 'https://i.imgur.com/pS2eMTX.png',
+          channelID: 'UCsg-YqdqQ-KFF0LNk23BY4A',
+          retired: false,
+          twitter: 'HiguchiKaede',
+        },
+        {
+          name: 'Yuki Chihiro',
+          imageURL: 'https://i.imgur.com/VId7G9M.png',
+          channelID: 'UCLO9QDxVL4bnvRRsz6K4bsQ',
+          retired: false,
+          twitter: 'Chihiro_yuki23',
+        },
+        {
+          name: 'Shizuka Rin',
+          imageURL: 'https://i.imgur.com/yAdWLNA.png',
+          channelID: 'UC6oDys1BGgBsIC3WhG1BovQ',
+          retired: false,
+          twitter: 'ShizuRin23',
+        },
+        {
+          name: 'Moira',
+          imageURL: 'https://i.imgur.com/8xEYE1o.png',
+          channelID: 'UCvmppcdYf4HOv-tFQhHHJMA',
+          retired: false,
+          twitter: 'Moiramoimoimoi',
+        },
+        {
+          name: 'Suzuya Aki',
+          imageURL: 'https://i.imgur.com/pa96FNG.png',
+          channelID: 'UCpnvhOIJ6BN-vPkYU9ls-Eg',
+          retired: false,
+          twitter: 'aki_suzuya',
+        },
+        {
+          name: 'Elu',
+          imageURL: 'https://i.imgur.com/SHyd4KP.png',
+          channelID: 'UCYKP16oMX9KKPbrNgo_Kgag',
+          retired: false,
+          twitter: 'Elu_World',
+        },
+      ],
+    },
+    {
+      branchID: '2nd Generation',
+      debut: '2018/03/12',
+      members: [
+        {
+          name: 'Ienaga Mugi',
+          imageURL: 'https://i.imgur.com/f0LICgh.png',
+          channelID: 'UC_GCs6GARLxEHxy1w40d6VQ',
+          retired: false,
+          twitter: 'ienaga_mugi23',
+        },
+        {
+          name: 'Mononobe Alice',
+          imageURL: 'https://i.imgur.com/Qqzdn8u.png',
+          channelID: 'UCt0clH12Xk1-Ej5PXKGfdPA',
+          retired: false,
+          twitter: 'AliceMononobe',
+        },
+        {
+          name: 'Kenmochi Toya',
+          imageURL: 'https://i.imgur.com/m0xjxZd.png',
+          channelID: 'UCv1fFr156jc65EMiLbaLImw',
+          retired: false,
+          twitter: 'rei_Toya_rei',
+        },
+        {
+          name: 'Morinaka Kazaki',
+          imageURL: 'https://i.imgur.com/weWYgt2.png',
+          channelID: 'UCtpB6Bvhs1Um93ziEDACQ8g',
+          retired: false,
+          twitter: 'KazakiMorinaka',
+        },
+        {
+          name: 'Fushimi Gaku',
+          imageURL: 'https://i.imgur.com/0R9PyyU.png',
+          channelID: 'UCXU7YYxy_iQd3ulXyO-zC2w',
+          retired: false,
+          twitter: 'gaku_fushimi',
+        },
+        {
+          name: 'Gilzaren III',
+          imageURL: 'https://i.imgur.com/bbRE6AC.png',
+          channelID: 'UCUzJ90o1EjqUbk2pBAy0_aw',
+          retired: false,
+          twitter: 'Gilzaren_III',
+        },
+        {
+          name: 'Suzuka Utako',
+          imageURL: 'https://i.imgur.com/jOlh384.png',
+          channelID: 'UCwokZsOK_uEre70XayaFnzA',
+          retired: false,
+          twitter: 'suzukautako',
+        },
+        {
+          name: 'Fumino Tamaki',
+          imageURL: 'https://i.imgur.com/BhfCazi.png',
+          channelID: 'UCBiqkFJljoxAj10SoP2w2Cg',
+          retired: false,
+          twitter: 'nekokan_chu',
+        },
+        {
+          name: 'Ushimi Ichigo',
+          imageURL: 'https://i.imgur.com/8Tglquo.png',
+          channelID: 'UCmUjjW5zF1MMOhYUwwwQv9Q',
+          retired: false,
+          twitter: 'ushimi_ichigo',
+        },
+        {
+          name: 'Yuhi Riri',
+          imageURL: 'https://i.imgur.com/VS9he63.png',
+          channelID: 'UC48jH1ul-6HOrcSSfoR02fQ',
+          retired: false,
+          twitter: 'Yuuhi_Riri',
+        },
+      ],
+    },
+    {
+      branchID: 'GAMERS',
+      debut: '2018/03/12',
+      members: [
+        {
+          name: 'Kanae',
+          imageURL: 'https://i.imgur.com/l1XIDZE.png',
+          channelID: 'UCspv01oxUFf_MTSipURRhkA',
+          retired: false,
+          twitter: 'Kanae_2434',
+        },
+        {
+          name: 'Akabane Youko',
+          imageURL: 'https://i.imgur.com/CNb4e8n.png',
+          channelID: 'UCBi8YaVyZpiKWN3_Z0dCTfQ',
+          retired: false,
+          twitter: 'Youko_Akabane',
+        },
+      ],
+    },
+    {
+      branchID: '2nd GAMERS',
+      debut: '2018/03/12',
+      members: [
+        {
+          name: 'Sasaki Saku',
+          imageURL: 'https://i.imgur.com/68In4ON.png',
+          channelID: 'UCoztvTULBYd3WmStqYeoHcA',
+          retired: false,
+          twitter: 'saku_sasaki',
+        },
+        {
+          name: 'Honma Himawari',
+          imageURL: 'https://i.imgur.com/9CrSMsS.png',
+          channelID: 'UC0g1AE0DOjBYnLhkgoRWN1w',
+          retired: false,
+          twitter: 'honmahimawari',
+        },
+      ],
+    },
+    {
+      branchID: '3rd GAMERS',
+      debut: '2018/03/12',
+      members: [
+        {
+          name: 'Makaino Ririmu',
+          imageURL: 'https://i.imgur.com/B0zT5n1.png',
+          channelID: 'UC9EjSJ8pvxtvPdxLOElv73w',
+          retired: false,
+          twitter: 'makaino_ririmu',
+        },
+        {
+          name: 'Kuzuha',
+          imageURL: 'https://i.imgur.com/JZWF1Vc.png',
+          channelID: 'UCSFCh5NL4qXrAy9u-u2lX3g',
+          retired: false,
+          twitter: 'Vamp_Kuzu',
+        },
+        {
+          name: 'Shiina Yuika',
+          imageURL: 'https://i.imgur.com/4YMrRcn.png',
+          channelID: 'UC_4tXjqecqox5Uc05ncxpxg',
+          retired: false,
+          twitter: 'yuika_siina',
+        },
+      ],
+    },
+    {
+      branchID: 'SEEDs',
+      debut: '2018/06/07',
+      members: [
+        {
+          name: 'Dola',
+          imageURL: 'https://i.imgur.com/APlj7pQ.png',
+          channelID: 'UC53UDnhAAYwvNO7j_2Ju1cQ',
+          retired: false,
+          twitter: '___Dola',
+        },
+        {
+          name: 'Hanabatake_Chaika',
+          imageURL: 'https://i.imgur.com/pF3filI.png',
+          channelID: 'UCsFn_ueskBkMCEyzCEqAOvg',
+          retired: false,
+          twitter: 'ZulmIhP1nlMOT5y',
+        },
+        {
+          name: 'Azuchi Momo',
+          imageURL: 'https://i.imgur.com/A0CJ0HA.png',
+          channelID: 'UC6TfqY40Xt1Y0J-N18c85qQ',
+          retired: false,
+          twitter: 'momo_azuchi_',
+        },
+        {
+          name: 'Ryushen',
+          imageURL: 'https://i.imgur.com/fpTT4AK.png',
+          channelID: 'UCt5-0i4AVHXaWJrL8Wql3mw',
+          retired: false,
+          twitter: 'midori_2434',
+        },
+        {
+          name: 'Sister Claire',
+          imageURL: 'https://i.imgur.com/3wCAYBa.png',
+          channelID: 'UC1zFJrfEKvCixhsjNSb1toQ',
+          retired: false,
+          twitter: 'SisterCleaire',
+        },
+        {
+          name: 'Suzuki Masaru',
+          imageURL: 'https://i.imgur.com/9OYlMxT.png',
+          channelID: 'UCryOPk2GZ1meIDt53tL30Tw',
+          retired: false,
+          twitter: 'darkness_eater',
+        },
+        {
+          name: 'Todoroki Kyoko',
+          imageURL: 'https://i.imgur.com/6ZkKxHc.png',
+          channelID: 'UCRV9d6YCYIMUszK-83TwxVA',
+          retired: false,
+          twitter: 'KT_seeds',
+        },
+        {
+          name: 'Uzuki Kou',
+          imageURL: 'https://i.imgur.com/Tke5CVJ.png',
+          channelID: 'UC3lNFeJiTq6L3UWoz4g1e-A',
+          retired: false,
+          twitter: 'udukikohh',
+        },
+        {
+          name: 'Yashiro Kizuku',
+          imageURL: 'https://i.imgur.com/kQFdNYb.png',
+          channelID: 'UCKMYISTJAQ8xTplUPHiABlA',
+          retired: false,
+          twitter: '846kizuQ',
+        },
+        {
+          name: 'Harusaki Air',
+          imageURL: 'https://i.imgur.com/6DdQ87e.png',
+          channelID: 'UCtAvQ5U0aXyKwm2i4GqFgJg',
+          retired: false,
+          twitter: 'harusakiair2434',
+        },
+        {
+          name: 'Naruse Naru',
+          imageURL: 'https://i.imgur.com/Xje9wkS.png',
+          channelID: 'UCoM_XmK45j504hfUWvN06Qg',
+          retired: false,
+          twitter: 'narusenaru_2434',
+        },
+        {
+          name: 'Kanda Shoichi',
+          imageURL: 'https://i.imgur.com/TPmZohd.png',
+          channelID: 'UCWz0CSYCxf4MhRKPDm220AQ',
+          retired: false,
+          twitter: 'Kanda_Shoichi',
+        },
+        {
+          name: 'Amemori Sayo',
+          imageURL: 'https://i.imgur.com/DxziVAZ.png',
+          channelID: 'UCRWOdwLRsenx2jLaiCAIU4A',
+          retired: false,
+          twitter: 'Sayo_Amemori',
+        },
+        {
+          name: 'Takamiya Rion',
+          imageURL: 'https://i.imgur.com/EuOX5hJ.png',
+          channelID: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
+          retired: false,
+          twitter: 'TakamiyaRion',
+        },
+        {
+          name: 'Asuka Hina',
+          imageURL: 'https://i.imgur.com/vEo85Mt.png',
+          channelID: 'UCiSRx1a2k-0tOg-fs6gAolQ',
+          retired: false,
+          twitter: 'hina__asuka',
+        },
+        {
+          name: 'Maimoto Keisuke',
+          imageURL: 'https://i.imgur.com/oHiu8EX.png',
+          channelID: 'UCJubINhCcFXlsBwnHp0wl_g',
+          retired: false,
+          twitter: 'maimoto_k',
+        },
+        {
+          //
+          name: 'Yaguruma Rine',
+          imageURL: 'https://i.imgur.com/Insr6T2.png',
+          channelID: 'UCvzVB-EYuHFXHZrObB8a_Og',
+          retired: false,
+          twitter: 'rine_yaguruma',
+        },
+        {
+          name: 'Debidebi Debiru',
+          imageURL: 'https://i.imgur.com/QDii5pf.png',
+          channelID: 'UCjlmCrq4TP1I4xguOtJ-31w',
+          retired: false,
+          twitter: 'debidebiru_sama',
+        },
+        {
+          name: 'Rindou_Mikoto',
+          imageURL: 'https://i.imgur.com/Hf0GgaW.png',
+          channelID: 'UCPvGypSgfDkVe7JG2KygK7A',
+          retired: false,
+          twitter: 'RindouMikoto',
+        },
+        {
+          name: 'Joe Rikiichi',
+          imageURL: 'https://i.imgur.com/GrhWjmZ.png',
+          channelID: 'UChUJbHiTVeGrSkTdBzVfNCQ',
+          retired: false,
+          twitter: 'joerikiichi',
+        },
+        {
+          name: 'Machita Chima',
+          imageURL: 'https://i.imgur.com/mSBQRW7.png',
+          channelID: 'UCo7TRj3cS-f_1D9ZDmuTsjw',
+          retired: false,
+          twitter: 'chima_machita23',
+        },
+        {
+          name: 'Sakura Ritsuki',
+          imageURL: 'https://i.imgur.com/Qa5NQcW.png',
+          channelID: 'UCfQVs_KuXeNAlGa3fb8rlnQ',
+          retired: false,
+          twitter: 'SAKURA_RITSUKI',
+        },
+        {
+          name: 'Belmond Banderas',
+          imageURL: 'https://i.imgur.com/IKTMZzy.png',
+          channelID: 'UCbc8fwhdUNlqi-J99ISYu4A',
+          retired: false,
+          twitter: 'belmond_b_2434',
+        },
+        {
+          name: 'Yumeoi Kakeru',
+          imageURL: 'https://i.imgur.com/jRSsGhr.png',
+          channelID: 'UCTIE7LM5X15NVugV7Krp9Hw',
+          retired: false,
+          twitter: 'kakeru_yumeoi',
+        },
+        {
+          name: 'Kuroi Shiba',
+          imageURL: 'https://i.imgur.com/cnMMSRO.png',
+          channelID: 'UCmeyo5pRj_6PXG-CsGUuWWg',
+          retired: false,
+          twitter: 'BlackShiba_chan',
+        },
+      ],
+    },
+    {
+      branchID: '"Usa-chan Club" (うさちゃんクラブ)',
+      debut: '2019/01/20',
+      members: [
+        {
+          name: 'Gundo Mirei',
+          imageURL: 'https://i.imgur.com/SSbsYan.png',
+          channelID: 'UCeShTCVgZyq2lsBW9QwIJcw',
+          retired: false,
+          twitter: 'g9v9g_mirei',
+        },
+        {
+          name: 'Yuzuki Roa',
+          imageURL: 'https://i.imgur.com/cz05sJw.png',
+          channelID: 'UCCVwhI5trmaSxfcze_Ovzfw',
+          retired: false,
+          twitter: 'yuzuki_roa',
+        },
+      ],
+    },
+    {
+      branchID: '"Sanbaka" (さんばか)',
+      debut: '2019/03/23',
+      members: [
+        {
+          name: 'Inui Toko',
+          imageURL: 'https://i.imgur.com/aETk2Yu.png',
+          channelID: 'UCXRlIK3Cw_TJIQC5kSJJQMg',
+          retired: false,
+          twitter: 'inui_toko',
+        },
+        {
+          name: 'Ange Katrina',
+          imageURL: 'https://i.imgur.com/vsvKfYA.png',
+          channelID: 'UCHVXbQzkl3rDfsXWo8xi2qw',
+          retired: false,
+          twitter: 'ange_katrina_',
+        },
+        {
+          name: 'Lize Helesta',
+          imageURL: 'https://i.imgur.com/icMAU2b.png',
+          channelID: 'UCZ1xuCK1kNmn5RzPYIZop3w',
+          retired: false,
+          twitter: 'Lize_Helesta',
+        },
+      ],
+    },
+    {
+      branchID: 'Main Branch',
+      debut: '2019/01/20',
+      members: [
+        {
+          name: 'Onomachi Haruka',
+          imageURL: 'https://i.imgur.com/WG04pbW.png',
+          channelID: 'UCg63a3lk6PNeWhVvMRM_mrQ',
+          retired: false,
+          twitter: 'onomachi_haruka',
+        },
+        {
+          name: 'Kataribe Tsumugu',
+          imageURL: 'https://i.imgur.com/8YNXFTP.png',
+          channelID: 'UCufQu4q65z63IgE4cfKs1BQ',
+          retired: false,
+          twitter: 'KataribeTsumugu',
+        },
+        {
+          name: 'Seto Miyako',
+          imageURL: 'https://i.imgur.com/6BrVEqR.png',
+          channelID: 'UCHK5wkevfaGrPr7j3g56Jmw',
+          retired: false,
+          twitter: 'seto_miyako',
+        },
+      ],
+    },
+  ],
 };

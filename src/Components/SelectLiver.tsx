@@ -52,7 +52,7 @@ export default function SelectLiver({ settingsQuery }: { settingsQuery: any }) {
                   <div className="flex justify-between items-center">
                     <p className="font-medium">{branch.branchID}</p>
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap">
                     {branch.members.map((member: any) => {
                       return (
                         <div
@@ -68,7 +68,7 @@ export default function SelectLiver({ settingsQuery }: { settingsQuery: any }) {
                             />
                           ) : (
                             <div className="relative cursor-pointer">
-                              <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50" />
+                              <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10" />
                               <img
                                 src={member.imageURL}
                                 alt={member.name}
