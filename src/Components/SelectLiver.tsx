@@ -21,8 +21,6 @@ export default function SelectLiver({
     });
   }, []);
 
-  console.log('select', settingsQuery);
-
   function handleARLiver(memberID: string) {
     let liversArray: string[] = [];
     chrome.storage.local.get('myLivers', function (data) {

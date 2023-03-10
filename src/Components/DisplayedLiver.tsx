@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
 import ClipLoader from 'react-spinners/ClipLoader';
 
@@ -49,7 +49,7 @@ export function DisplayedLiver({
             className="text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer absolute left-[4em] bottom-[4em]"
             onClick={() => handleTwitter(memberID)}
           >
-            <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em]  z-10 " />
+            <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em] z-10 " />
             <span className="absolute text-xl left-[0.975em] bottom-[-0.82em] bg-white dark:bg-slate-700 h-5 w-5 rounded-full"></span>
           </div>
 
@@ -66,7 +66,7 @@ export function DisplayedLiver({
               ) : (
                 <div>
                   {!showWhenStarted ? null : (
-                    <div className="flex absolute justify-center items-center left-[-6em] bottom-[-4.5em] w-32 z-15 font-light text-xs animate-bounce">
+                    <div className="flex absolute justify-center items-center left-[-5.95em] bottom-[-4.5em] w-32 z-15 font-light text-xs animate-bounce">
                       <span className="py-0.5 px-1.5 bg-white dark:bg-slate-700 rounded-full ">
                         {startedStreaming(liverStatus[memberID]['started'])}
                       </span>

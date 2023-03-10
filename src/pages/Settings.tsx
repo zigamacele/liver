@@ -53,9 +53,9 @@ export default function Settings({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
           <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
-            <div className="relative mt-1 z-50">
+            <div className="relative mt-1 z-40">
               <Listbox.Button className="relative w-20 cursor-default rounded-lg bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
                 <span className="block truncate">{selectedLanguage.name}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -112,7 +112,7 @@ export default function Settings({
 
           <div className="w-40">
             <Listbox value={selectedCorpo} onChange={setSelectedCorpo}>
-              <div className="relative mt-1 z-50">
+              <div className="relative mt-1 z-40">
                 <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
                   <span className="block truncate">{selectedCorpo.name}</span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

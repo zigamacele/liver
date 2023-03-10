@@ -12,8 +12,6 @@ export default function Home({
     chrome.storage.local.set({ goToSettings: true });
   }, []);
 
-  console.log(showStreamTitle, setShowStreamTitle);
-
   return (
     <div>
       <DisplayMyLivers
