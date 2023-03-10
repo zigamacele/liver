@@ -3,7 +3,15 @@ import React, { useEffect, useState } from 'react';
 
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-export default function SelectLiver({ settingsQuery }: { settingsQuery: any }) {
+export default function SelectLiver({
+  settingsQuery,
+  showStreamTitle,
+  setShowStreamTitle,
+}: {
+  settingsQuery: any;
+  showStreamTitle: string;
+  setShowStreamTitle: any;
+}) {
   const [selectedLivers, setSelectedLivers] = useState<string[]>([]);
   const [selectedGroup, setSelectedGroup] = useState('');
 
@@ -51,13 +59,18 @@ export default function SelectLiver({ settingsQuery }: { settingsQuery: any }) {
                 <div key={branch.branchID} className="mt-2">
                   <div className="flex justify-between items-center">
                     <p className="font-medium">{branch.branchID}</p>
+                    {/* <p className="font-light">{branch.debut}</p> */}
                   </div>
                   <div className="flex gap-1 flex-wrap">
                     {branch.members.map((member: any) => {
                       return (
                         <div
                           key={member.name}
-                          onClick={() => handleARLiver(member.channelID)}
+                          onClick={() => {
+                            handleARLiver(member.channelID);
+                          }}
+                          onMouseEnter={() => setShowStreamTitle(member.name)}
+                          onMouseLeave={() => setShowStreamTitle('')}
                           className="mt-1"
                         >
                           {!selectedLivers.includes(member.channelID) ? (

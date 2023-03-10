@@ -4,10 +4,20 @@ import type { AppProps } from 'next/app';
 import { useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [showStreamTitle, setShowStreamTitle] = useState('');
+
   return (
     <div className="flex flex-col gap-2">
-      <Navigation {...pageProps} />
-      <Component {...pageProps} />
+      <Navigation
+        {...pageProps}
+        showStreamTitle={showStreamTitle}
+        setShowStreamTitle={setShowStreamTitle}
+      />
+      <Component
+        {...pageProps}
+        showStreamTitle={showStreamTitle}
+        setShowStreamTitle={setShowStreamTitle}
+      />
     </div>
   );
 }
