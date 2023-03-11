@@ -28,7 +28,7 @@ export default function Settings({
   setShowStreamTitle,
 }: {
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [settingsQuery, setSettingsQuery] = useState('NIJISANJI_EN');
 
@@ -52,11 +52,11 @@ export default function Settings({
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex gap-1 items-center">
+      <div className="flex justify-between">
+        <div className="flex gap-1">
           <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
-            <div className="relative mt-1 z-40">
-              <Listbox.Button className="relative w-20 cursor-default rounded-lg bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
+            <div className="relative z-40">
+              <Listbox.Button className="relative w-20 cursor-default rounded bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
                 <span className="block truncate">{selectedLanguage.name}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon
@@ -71,7 +71,7 @@ export default function Settings({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 w-20 overflow-auto rounded-md bg-white dark:bg-slate-700 py-1 text-xs ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute mt-1 max-h-60 w-20 overflow-auto rounded bg-white dark:bg-slate-700 py-1 text-xs ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {showLanguages().map((person, personIdx) => (
                     <Listbox.Option
                       key={personIdx}
@@ -112,8 +112,8 @@ export default function Settings({
 
           <div className="w-40">
             <Listbox value={selectedCorpo} onChange={setSelectedCorpo}>
-              <div className="relative mt-1 z-40">
-                <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
+              <div className="relative z-40">
+                <Listbox.Button className="relative w-full cursor-default rounded bg-white dark:bg-slate-700 py-2 pl-3 pr-5 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm">
                   <span className="block truncate">{selectedCorpo.name}</span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -128,7 +128,7 @@ export default function Settings({
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-slate-700 py-1 text-xs ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded bg-white dark:bg-slate-700 py-1 text-xs ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {corpoSelector.map((person, personIdx) => (
                       <Listbox.Option
                         key={personIdx}
@@ -168,14 +168,13 @@ export default function Settings({
             </Listbox>
           </div>
         </div>
-
-        <div className="flex gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="flex gap-1 items-center ">
           <ArchiveBoxXMarkIcon
             onClick={handleReset}
-            className="h-5 w-5 cursor-pointer hover:text-rose-500"
+            className="h-9 w-9 cursor-pointer hover:text-rose-500 bg-white dark:bg-slate-700 rounded py-0.5 px-2"
           />
           <BsGithub
-            className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
+            className="h-9 w-9 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500 bg-white dark:bg-slate-700 rounded py-0.5 px-2"
             onClick={() =>
               chrome.tabs.create({
                 url: 'https://github.com/zigamacele/liver',

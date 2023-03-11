@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         showStreamTitle={showStreamTitle}
         setShowStreamTitle={setShowStreamTitle}
       />
-      <div className="m-3 mt-12">
+      <div className="m-3 mt-14">
         <Component
           {...pageProps}
           showStreamTitle={showStreamTitle}

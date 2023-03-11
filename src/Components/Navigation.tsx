@@ -10,15 +10,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { Cog6ToothIcon, SunIcon } from '@heroicons/react/24/solid';
 
-// @ts-ignore
-import PulseDot from 'react-pulse-dot';
-
 export default function Navigation({
   showStreamTitle,
   setShowStreamTitle,
 }: {
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [darkMode, setDarkMode] = useState(false);
   const [gotoSettings, setGoToSettings] = useState(false);
@@ -68,15 +65,12 @@ export default function Navigation({
   }
 
   return (
-    <div className="flex justify-between items-center fixed w-96 z-50 dark:bg-slate-800 bg-slate-100 px-3 py-2">
+    <div className="flex justify-between items-center fixed w-96 z-50 dark:bg-slate-800/80 bg-slate-100/80 px-3 py-2 backdrop-blur-md">
       {showStreamTitle === '' ? (
         <div className="text-xl font-medium">Liver</div>
       ) : (
-        <div className="flex items-center gap-2">
-          <span
-            className="w-60 truncate overflow-auto text-sm font-light cursor-pointer"
-            onClick={() => setShowStreamTitle('')}
-          >
+        <div className="flex items-center gap-2 fade-in">
+          <span className="w-60 truncate overflow-auto text-sm font-light cursor-pointer">
             {showStreamTitle}
           </span>
         </div>

@@ -6,7 +6,7 @@ export default function Home({
   setShowStreamTitle,
 }: {
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   useEffect(() => {
     chrome.storage.local.set({ goToSettings: true });

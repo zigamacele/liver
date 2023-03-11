@@ -10,7 +10,7 @@ export default function SelectLiver({
 }: {
   settingsQuery: any;
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [selectedLivers, setSelectedLivers] = useState<string[]>([]);
   const [selectedGroup, setSelectedGroup] = useState('');
@@ -43,7 +43,7 @@ export default function SelectLiver({
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-6">
       <div>
         {Object.keys(database).map((group, index) => {
           return <p key={`${group}-${index}`}></p>;
@@ -52,7 +52,7 @@ export default function SelectLiver({
       <div>
         {!settingsQuery
           ? null
-          : database[settingsQuery].map((branch: any, index: any) => {
+          : database[settingsQuery].map((branch: any) => {
               return (
                 <div key={branch.branchID} className="mt-2">
                   <div className="flex justify-between items-center">
@@ -69,7 +69,7 @@ export default function SelectLiver({
                           }}
                           onMouseEnter={() => setShowStreamTitle(member.name)}
                           onMouseLeave={() => setShowStreamTitle('')}
-                          className="mt-1"
+                          className="mt-1 fade-in"
                         >
                           {!selectedLivers.includes(member.channelID) ? (
                             <img

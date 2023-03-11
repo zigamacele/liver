@@ -9,7 +9,7 @@ export default function DisplayMyLivers({
   setShowStreamTitle,
 }: {
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [displayLivers, setDisplayLivers] = useState([]);
   const [liverStatus, setLiverStatus] = useState({});

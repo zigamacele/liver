@@ -8,7 +8,7 @@ export default function Index({
   setShowStreamTitle,
 }: {
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [showSettings, setShowSettings] = useState(false);
 

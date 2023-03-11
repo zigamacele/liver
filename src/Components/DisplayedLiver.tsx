@@ -22,20 +22,27 @@ export function DisplayedLiver({
   liverStatus: any;
   handleTwitter: any;
   startedStreaming: any;
-  loading: any;
+  loading: boolean;
   showStreamTitle: string;
-  setShowStreamTitle: any;
+  setShowStreamTitle: Function;
 }) {
   const [showWhenStarted, setWhenStarted] = useState(false);
 
   const url = `https://youtube.com/channel/${memberID}/live`;
   return (
-    <div key={memberID}>
+    <div key={memberID} className="fade-in">
       {!databaseInfo[memberID] ? null : (
         <div
           className="relative"
-          onMouseEnter={() => setWhenStarted(true)}
-          onMouseLeave={() => setWhenStarted(false)}
+          onMouseEnter={() => {
+            setWhenStarted(true);
+            if (liverStatus[memberID].status === 'live')
+              setShowStreamTitle(liverStatus[memberID].title);
+          }}
+          onMouseLeave={() => {
+            setWhenStarted(false);
+            setShowStreamTitle('');
+          }}
         >
           <img
             src={databaseInfo[memberID].imageURL}
@@ -54,31 +61,26 @@ export function DisplayedLiver({
           </div>
 
           {loading ? (
-            <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700">
+            <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700 fade-in">
               <ClipLoader size={15} />
             </div>
           ) : (
             <div className="absolute left-[4em] bottom-[4em]">
               {liverStatus[memberID]['status'] === 'offline' ? (
                 <div className="absolute left-[-1em] bottom-[0.7em] py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
-                  <p className="text-[10px]">OFFLINE</p>
+                  <p className="text-[10px] fade-in">OFFLINE</p>
                 </div>
               ) : (
                 <div>
                   {!showWhenStarted ? null : (
                     <div className="flex absolute justify-center items-center left-[-5.95em] bottom-[-4.5em] w-32 z-15 font-light text-xs animate-bounce">
-                      <span className="py-0.5 px-1.5 bg-white dark:bg-slate-700 rounded-full ">
+                      <span className="py-0.5 px-1.5 bg-white dark:bg-slate-700 rounded-full fade-in">
                         {startedStreaming(liverStatus[memberID]['started'])}
                       </span>
                     </div>
                   )}
                   <PulseDot
-                    onClick={() => {
-                      if (showStreamTitle === liverStatus[memberID].title)
-                        setShowStreamTitle('');
-                      else setShowStreamTitle(liverStatus[memberID].title);
-                    }}
-                    className="absolute text-xl bottom-[-0.15em] z-10 cursor-pointer hover:opacity-60"
+                    className="absolute text-xl bottom-[-0.15em] z-10 cursor-pointer fade-in"
                     color="danger"
                   />
                   <span className="absolute text-xl left-[0.3em] bottom-[0.17em] bg-white dark:bg-slate-700 h-7 w-7 rounded-full"></span>

@@ -507,6 +507,40 @@ export const database: any = {
       ],
     },
     {
+      branchID: 'GAMERS',
+      debut: '2018/12/07',
+      members: [
+        {
+          name: 'Shirakami Fubuki',
+          imageURL: 'https://i.imgur.com/Ah9quN6.png',
+          channelID: 'UCdn5BQ06XqgXoAxIhbqw5Rg',
+          retired: false,
+          twitter: 'shirakamifubuki',
+        },
+        {
+          name: 'Ookami_Mio',
+          imageURL: 'https://i.imgur.com/OIvXBCr.png',
+          channelID: 'UCp-5t9SrOQwXMU7iIjQfARg',
+          retired: false,
+          twitter: 'ookamimio',
+        },
+        {
+          name: 'Nekomata Okayu',
+          imageURL: 'https://i.imgur.com/3bGeQOs.png',
+          channelID: 'UCvaTdHTWBGv3MKj3KVqJVCw',
+          retired: false,
+          twitter: 'nekomataokayu',
+        },
+        {
+          name: 'Inugami Korone',
+          imageURL: 'https://i.imgur.com/MqYq7cZ.png',
+          channelID: 'UChAnqc_AY5_I3Px5dig3X1Q',
+          retired: false,
+          twitter: 'inugamikorone',
+        },
+      ],
+    },
+    {
       branchID: '3rd Generation',
       debut: '2019/07/17',
       members: [
@@ -539,7 +573,7 @@ export const database: any = {
           twitter: 'houshoumarine',
         },
         {
-          name: 'Uruha_Rushia',
+          name: 'Uruha Rushia',
           imageURL: 'https://i.imgur.com/bFaSJ1U.png',
           channelID: 'UCl_gCybOJRIgOXw6Qb4qJzQ',
           retired: true,
