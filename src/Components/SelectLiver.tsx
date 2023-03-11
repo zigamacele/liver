@@ -3,8 +3,17 @@ import React, { useEffect, useState } from 'react';
 
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-export default function SelectLiver() {
+export default function SelectLiver({
+  settingsQuery,
+  showStreamTitle,
+  setShowStreamTitle,
+}: {
+  settingsQuery: any;
+  showStreamTitle: string;
+  setShowStreamTitle: Function;
+}) {
   const [selectedLivers, setSelectedLivers] = useState<string[]>([]);
+  const [selectedGroup, setSelectedGroup] = useState('');
 
   useEffect(() => {
     chrome.storage.local.get('myLivers', function (data) {
@@ -34,44 +43,58 @@ export default function SelectLiver() {
   }
 
   return (
-    <div className="mt-4">
-      {database.map((branch) => {
-        return (
-          <div key={branch.branchID} className="mt-2">
-            <div className="flex justify-between items-center">
-              <p className="font-medium">{branch.branchID}</p>
-            </div>
-            <div className="flex gap-1">
-              {branch.members.map((member) => {
-                return (
-                  <div
-                    key={member.name}
-                    onClick={() => handleARLiver(member.channelID)}
-                    className="mt-1"
-                  >
-                    {!selectedLivers.includes(member.channelID) ? (
-                      <img
-                        src={member.imageURL}
-                        alt={member.name}
-                        className="h-14 w-14 rounded-full border-2 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
-                      />
-                    ) : (
-                      <div className="relative cursor-pointer">
-                        <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50" />
-                        <img
-                          src={member.imageURL}
-                          alt={member.name}
-                          className="h-14 w-14 opacity-50 rounded-full p-1 bg-slate-200 dark:bg-slate-700"
-                        />
-                      </div>
-                    )}
+    <div className="mt-6">
+      <div>
+        {Object.keys(database).map((group, index) => {
+          return <p key={`${group}-${index}`}></p>;
+        })}
+      </div>
+      <div>
+        {!settingsQuery
+          ? null
+          : database[settingsQuery].map((branch: any) => {
+              return (
+                <div key={branch.branchID} className="mt-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium">{branch.branchID}</p>
+                    {/* <p className="font-light">{branch.debut}</p> */}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+                  <div className="flex gap-1 flex-wrap">
+                    {branch.members.map((member: any) => {
+                      return (
+                        <div
+                          key={member.name}
+                          onClick={() => {
+                            handleARLiver(member.channelID);
+                          }}
+                          onMouseEnter={() => setShowStreamTitle(member.name)}
+                          onMouseLeave={() => setShowStreamTitle('')}
+                          className="mt-1 fade-in"
+                        >
+                          {!selectedLivers.includes(member.channelID) ? (
+                            <img
+                              src={member.imageURL}
+                              alt={member.name}
+                              className="h-14 w-14 rounded-full border-2 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
+                            />
+                          ) : (
+                            <div className="relative cursor-pointer">
+                              <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10" />
+                              <img
+                                src={member.imageURL}
+                                alt={member.name}
+                                className="h-14 w-14 opacity-50 rounded-full p-1 bg-slate-200 dark:bg-slate-700"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+      </div>
     </div>
   );
 }

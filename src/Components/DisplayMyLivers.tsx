@@ -1,14 +1,16 @@
 import { database } from '@/database';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
-import ClipLoader from 'react-spinners/ClipLoader';
+import { DisplayedLiver } from './DisplayedLiver';
 
-// @ts-ignore
-import PulseDot from 'react-pulse-dot';
-
-import { AiFillTwitterCircle } from 'react-icons/ai';
-
-export default function DisplayMyLivers() {
+export default function DisplayMyLivers({
+  showStreamTitle,
+  setShowStreamTitle,
+}: {
+  showStreamTitle: string;
+  setShowStreamTitle: Function;
+}) {
   const [displayLivers, setDisplayLivers] = useState([]);
   const [liverStatus, setLiverStatus] = useState({});
   const [databaseInfo, setDatabaseInfo] = useState<vtubersFromDB>({});
@@ -26,6 +28,20 @@ export default function DisplayMyLivers() {
 
   interface vtubersFromDB {
     [key: string]: vtuberInfo;
+  }
+
+  interface Members {
+    name: string;
+    imageURL: string;
+    channelID: string;
+    retired: boolean;
+    twitter: string;
+  }
+
+  interface Branch {
+    branchID: string;
+    debut: string;
+    members: Members[];
   }
 
   useEffect(() => {
@@ -53,11 +69,13 @@ export default function DisplayMyLivers() {
   async function databaseSearch() {
     let tempDatabase = {};
     displayLivers.forEach((memberID) => {
-      database.forEach((branch) => {
-        branch.members.forEach((member) => {
-          if (member.channelID === memberID) {
-            tempDatabase = { ...tempDatabase, [memberID]: member };
-          }
+      Object.keys(database).forEach((group) => {
+        database[group].forEach((branch: Branch) => {
+          branch.members.forEach((member: Members) => {
+            if (member.channelID === memberID) {
+              tempDatabase = { ...tempDatabase, [memberID]: member };
+            }
+          });
         });
       });
     });
@@ -88,10 +106,20 @@ export default function DisplayMyLivers() {
           memberID === APIResponse[index].channel.id &&
           APIResponse[index].status === 'live'
         )
-          tempLiveStatus = { ...tempLiveStatus, [memberID]: 'live' };
+          tempLiveStatus = {
+            ...tempLiveStatus,
+            [memberID]: {
+              status: 'live',
+              title: APIResponse[index].title,
+              started: APIResponse[index].start_actual,
+            },
+          };
       }
       if (!Object.keys(tempLiveStatus).includes(memberID))
-        tempLiveStatus = { ...tempLiveStatus, [memberID]: 'offline' };
+        tempLiveStatus = {
+          ...tempLiveStatus,
+          [memberID]: { status: 'offline' },
+        };
 
       if (Object.keys(tempLiveStatus).length === displayLivers.length) {
         setLiverStatus(tempLiveStatus);
@@ -101,64 +129,41 @@ export default function DisplayMyLivers() {
   }
 
   function handleTwitter(memberID: string) {
-    database.forEach((branch) => {
-      branch.members.forEach((member) => {
-        const url = 'https://twitter.com/';
-        if (member.channelID === memberID) {
-          chrome.tabs.create({ url: url + member.twitter });
-        }
+    Object.keys(database).forEach((group) => {
+      database[group].forEach((branch: Branch) => {
+        branch.members.forEach((member: Members) => {
+          if (member.channelID === memberID) {
+            const url = 'https://twitter.com/';
+            chrome.tabs.create({ url: url + member.twitter });
+          }
+        });
       });
     });
+  }
+
+  function startedStreaming(startTime: string) {
+    const difference = +new Date() - +new Date(startTime);
+    const diffDuration = moment.duration(-difference).humanize(true);
+    if (diffDuration === 'Invalid date') return 'starting soon';
+    return diffDuration;
   }
 
   return (
     <div className="my-2">
       <div className="flex flex-wrap justify-center gap-3">
         {displayLivers.map((memberID) => {
-          const url = `https://youtube.com/channel/${memberID}/live`;
           return (
             <div key={memberID}>
-              {!databaseInfo[memberID] ? null : (
-                <div className="relative">
-                  <img
-                    src={databaseInfo[memberID].imageURL}
-                    alt={databaseInfo[memberID].name}
-                    className="rounded-full h-20 liver border-4 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
-                    onClick={(e) => {
-                      chrome.tabs.create({ url: url });
-                    }}
-                  />
-                  <div
-                    className="text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer absolute left-[4em] bottom-[4em]"
-                    onClick={() => handleTwitter(memberID)}
-                  >
-                    <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em]  z-10 " />
-                    <span className="absolute text-xl left-[0.975em] bottom-[-0.82em] bg-white dark:bg-slate-700 h-5 w-5 rounded-full"></span>
-                  </div>
-
-                  {loading ? (
-                    <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700">
-                      <ClipLoader size={15} />
-                    </div>
-                  ) : (
-                    <div className="absolute left-[4em] bottom-[4em]">
-                      {liverStatus[memberID] === 'offline' ? (
-                        <div className="absolute left-[-1em] bottom-[0.7em] py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
-                          <p className="text-[10px]">OFFLINE</p>
-                        </div>
-                      ) : (
-                        <div>
-                          <PulseDot
-                            className="absolute text-xl bottom-[-0.15em] z-10"
-                            color="danger"
-                          />
-                          <span className="absolute text-xl  left-[0.3em] bottom-[0.17em] bg-white dark:bg-slate-700 h-7 w-7 rounded-full"></span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
+              <DisplayedLiver
+                memberID={memberID}
+                databaseInfo={databaseInfo}
+                liverStatus={liverStatus}
+                handleTwitter={handleTwitter}
+                startedStreaming={startedStreaming}
+                loading={loading}
+                showStreamTitle={showStreamTitle}
+                setShowStreamTitle={setShowStreamTitle}
+              />
             </div>
           );
         })}

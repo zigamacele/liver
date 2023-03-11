@@ -10,7 +10,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { Cog6ToothIcon, SunIcon } from '@heroicons/react/24/solid';
 
-export default function Navigation() {
+export default function Navigation({
+  showStreamTitle,
+  setShowStreamTitle,
+}: {
+  showStreamTitle: string;
+  setShowStreamTitle: Function;
+}) {
   const [darkMode, setDarkMode] = useState(false);
   const [gotoSettings, setGoToSettings] = useState(false);
 
@@ -59,8 +65,16 @@ export default function Navigation() {
   }
 
   return (
-    <div className="flex justify-between items-center">
-      <div className="text-xl font-medium">Liver</div>
+    <div className="flex justify-between items-center fixed w-96 z-50 dark:bg-slate-800/80 bg-slate-100/80 px-3 py-2 backdrop-blur-md">
+      {showStreamTitle === '' ? (
+        <div className="text-xl font-medium">Liver</div>
+      ) : (
+        <div className="flex items-center gap-2 fade-in">
+          <span className="w-60 truncate overflow-auto text-sm font-light cursor-pointer">
+            {showStreamTitle}
+          </span>
+        </div>
+      )}
       <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
         <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <ArrowPathIcon
@@ -81,11 +95,25 @@ export default function Navigation() {
             />
           )}
           {gotoSettings ? (
-            <Link component={Settings}>
+            <Link
+              component={Settings}
+              onClick={() => setShowStreamTitle('')}
+              props={{
+                showStreamTitle: showStreamTitle,
+                setShowStreamTitle: setShowStreamTitle,
+              }}
+            >
               <Cog6ToothIconOutline className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
             </Link>
           ) : (
-            <Link component={Home}>
+            <Link
+              onClick={() => setShowStreamTitle('')}
+              component={Home}
+              props={{
+                showStreamTitle: showStreamTitle,
+                setShowStreamTitle: setShowStreamTitle,
+              }}
+            >
               <Cog6ToothIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
             </Link>
           )}
