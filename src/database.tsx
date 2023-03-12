@@ -518,7 +518,7 @@ export const database: any = {
           twitter: 'shirakamifubuki',
         },
         {
-          name: 'Ookami_Mio',
+          name: 'Ookami Mio',
           imageURL: 'https://i.imgur.com/OIvXBCr.png',
           channelID: 'UCp-5t9SrOQwXMU7iIjQfARg',
           retired: false,

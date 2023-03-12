@@ -9,13 +9,9 @@ Liver is designed to be a fast and simple way to check Livers stream status.
 
 Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmjikjjmbaiabncnhcbkphfh?hl=en&authuser=0)
 
-## Demo
-
-https://user-images.githubusercontent.com/19758116/223499125-e0670046-c6e6-4348-8d4e-0cac1b0ca473.mov
-
 ## Images
 
-<img src="https://i.imgur.com/YHybind.png" width="560">
+<img src="https://i.imgur.com/YHybind.png" width="700">
 
 <br />
 
