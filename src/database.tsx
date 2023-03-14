@@ -707,7 +707,7 @@ export const database: any = {
   ],
   HOLOSTARS_EN: [
     {
-      branchID: 'TEMPUS',
+      branchID: 'TEMPUS HQ',
       debut: '2022/07/22',
       members: [
         {
@@ -737,6 +737,40 @@ export const database: any = {
           channelID: 'UCDRWSO281bIHYVi-OV3iFYA',
           retired: false,
           twitter: 'noirvesper_en',
+        },
+      ],
+    },
+    {
+      branchID: 'TEMPUS Vanguard',
+      debut: '2023/01/08',
+      members: [
+        {
+          name: 'Gavis Bettel',
+          imageURL: 'https://i.imgur.com/sNZjrGP.png',
+          channelID: 'UCHP4f7G2dWD4qib7BMatGAw',
+          retired: false,
+          twitter: 'gavisbettel',
+        },
+        {
+          name: 'Machina X Flayon',
+          imageURL: 'https://i.imgur.com/lwZBxRx.png',
+          channelID: 'UC060r4zABV18vcahAWR1n7w',
+          retired: false,
+          twitter: 'machinaxflayon',
+        },
+        {
+          name: 'Banzoin Hakka',
+          imageURL: 'https://i.imgur.com/aYmGwGp.png',
+          channelID: 'UC7gxU6NXjKF1LrgOddPzgTw',
+          retired: false,
+          twitter: 'banzoinhakka',
+        },
+        {
+          name: 'Josuiji Shinri',
+          imageURL: 'https://i.imgur.com/wh4aoc9.png',
+          channelID: 'UCMqGG8BRAiI1lJfKOpETM_w',
+          retired: false,
+          twitter: 'josuijishinri',
         },
       ],
     },
