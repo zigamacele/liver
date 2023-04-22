@@ -1,6 +1,6 @@
 import { database } from '@/database';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
 import { DisplayedLiver } from './DisplayedLiver';
 
@@ -11,12 +11,16 @@ export default function DisplayMyLivers({
   showStreamTitle: string;
   setShowStreamTitle: Function;
 }) {
-  const [displayLivers, setDisplayLivers] = useState([]);
+  const [displayLivers, setDisplayLivers] = useState<string[]>([]);
   const [liverStatus, setLiverStatus] = useState({});
   const [databaseInfo, setDatabaseInfo] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
   const axios = require('axios');
+
+  const flattenedDatabase = Object.values(database).flatMap((group: any) =>
+    group.flatMap((branch: any) => branch.members)
+  );
 
   interface vtuberInfo {
     name: string;
@@ -68,16 +72,11 @@ export default function DisplayMyLivers({
 
   async function databaseSearch() {
     let tempDatabase = {};
-    displayLivers.forEach((memberID) => {
-      Object.keys(database).forEach((group) => {
-        database[group].forEach((branch: Branch) => {
-          branch.members.forEach((member: Members) => {
-            if (member.channelID === memberID) {
-              tempDatabase = { ...tempDatabase, [memberID]: member };
-            }
-          });
-        });
-      });
+
+    flattenedDatabase.forEach((member) => {
+      if (displayLivers.includes(member.channelID)) {
+        tempDatabase = { ...tempDatabase, [member.channelID]: member };
+      }
     });
     setDatabaseInfo(tempDatabase);
   }
@@ -129,15 +128,11 @@ export default function DisplayMyLivers({
   }
 
   function handleTwitter(memberID: string) {
-    Object.keys(database).forEach((group) => {
-      database[group].forEach((branch: Branch) => {
-        branch.members.forEach((member: Members) => {
-          if (member.channelID === memberID) {
-            const url = 'https://twitter.com/';
-            chrome.tabs.create({ url: url + member.twitter });
-          }
-        });
-      });
+    flattenedDatabase.forEach((member) => {
+      if (member.channelID === memberID) {
+        const url = 'https://twitter.com/';
+        chrome.tabs.create({ url: url + member.twitter });
+      }
     });
   }
 

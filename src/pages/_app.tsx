@@ -1,4 +1,4 @@
-import Navigation from '@/Components/Navigation';
+import Navigation from '@/layouts/Navigation';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';

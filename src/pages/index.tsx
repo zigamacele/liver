@@ -10,32 +10,12 @@ export default function Index({
   showStreamTitle: string;
   setShowStreamTitle: Function;
 }) {
-  const [showSettings, setShowSettings] = useState(false);
-
-  useEffect(() => {
-    checkForLivers();
-  }, []);
-
-  function checkForLivers() {
-    chrome.storage.local.get('myLivers', function (data) {
-      if (data.myLivers === undefined || data.myLivers.length === 0)
-        setShowSettings(true);
-    });
-  }
-
   return (
     <Router>
-      {showSettings ? (
-        <Settings
-          showStreamTitle={showStreamTitle}
-          setShowStreamTitle={setShowStreamTitle}
-        />
-      ) : (
-        <Home
-          showStreamTitle={showStreamTitle}
-          setShowStreamTitle={setShowStreamTitle}
-        />
-      )}
+      <Home
+        showStreamTitle={showStreamTitle}
+        setShowStreamTitle={setShowStreamTitle}
+      />
     </Router>
   );
 }
