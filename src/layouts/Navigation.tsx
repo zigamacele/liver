@@ -108,7 +108,7 @@ export default function Navigation({
         </div>
 
         <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
-          <Tooltip title="Light/Dark Mode">
+          <Tooltip title={`${darkMode ? 'Light' : 'Dark'} Mode`}>
             <SunIcon
               onClick={handleDarkMode}
               className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
