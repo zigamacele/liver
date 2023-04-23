@@ -1,4 +1,5 @@
 import Tooltip from '@/Components/Navigation/Tooltip';
+import Custom from '@/pages/Custom';
 import Home from '@/pages/Home';
 import Settings from '@/pages/Settings';
 import React, { useEffect, useState } from 'react';
@@ -6,9 +7,9 @@ import { Link } from 'react-chrome-extension-router';
 
 import {
   ArrowPathIcon,
-  Cog6ToothIcon as Cog6ToothIconOutline,
   SunIcon as SunIconOutline,
 } from '@heroicons/react/24/outline';
+
 import {
   Cog6ToothIcon,
   SunIcon,
@@ -24,14 +25,10 @@ export default function Navigation({
   setShowStreamTitle: Function;
 }) {
   const [darkMode, setDarkMode] = useState(false);
-  const [gotoSettings, setGoToSettings] = useState(false);
 
   useEffect(() => {
     fetchChromeStorage();
     chrome.storage.onChanged.addListener(function (changes) {
-      if ('goToSettings' in changes) {
-        setGoToSettings(changes.goToSettings.newValue);
-      }
       if ('darkMode' in changes) {
         setDarkMode(changes.darkMode.newValue);
         if (changes.darkMode.newValue === true)
@@ -55,12 +52,6 @@ export default function Navigation({
         document.documentElement.classList.remove('dark');
       setDarkMode(data.darkMode);
     });
-    chrome.storage.local.get('goToSettings', function (data) {
-      if (data.goToSettings === undefined) {
-        return;
-      }
-      setGoToSettings(data.goToSettings);
-    });
   }
 
   function handleDarkMode() {
@@ -81,7 +72,9 @@ export default function Navigation({
             setShowStreamTitle: setShowStreamTitle,
           }}
         >
-          <div className="text-xl font-medium cursor-pointer">Liver</div>
+          <div className="text-xl font-medium cursor-pointer hover:opacity-60">
+            Liver
+          </div>
         </Link>
       ) : (
         <div className="flex items-center gap-2 fade-in">
@@ -99,23 +92,39 @@ export default function Navigation({
         </div>
 
         <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
-          <Tooltip title="Add new VTuber">
-            <UserPlusIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
+          <Tooltip title="Add New VTuber">
+            <Link
+              component={Custom}
+              onClick={() => setShowStreamTitle('')}
+              props={{
+                showStreamTitle: showStreamTitle,
+                setShowStreamTitle: setShowStreamTitle,
+              }}
+            >
+              <UserPlusIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
+            </Link>
           </Tooltip>
-          <Tooltip title="All live VTubers">
+          <Tooltip title="All Live VTubers">
             <UserGroupIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
           </Tooltip>
         </div>
 
         <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
           <Tooltip title={`${darkMode ? 'Light' : 'Dark'} Mode`}>
-            <SunIcon
-              onClick={handleDarkMode}
-              className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
-            />
+            {darkMode ? (
+              <SunIconOutline
+                onClick={handleDarkMode}
+                className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
+              />
+            ) : (
+              <SunIcon
+                onClick={handleDarkMode}
+                className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500"
+              />
+            )}
           </Tooltip>
           <Link
-            component={gotoSettings ? Settings : Home}
+            component={Settings}
             onClick={() => setShowStreamTitle('')}
             props={{
               showStreamTitle: showStreamTitle,

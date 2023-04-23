@@ -1,4 +1,5 @@
 import { database } from '@/database';
+import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
@@ -16,7 +17,6 @@ export default function DisplayMyLivers({
   const [databaseInfo, setDatabaseInfo] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
-  const axios = require('axios');
 
   const flattenedDatabase = Object.values(database).flatMap((group: any) =>
     group.flatMap((branch: any) => branch.members)
