@@ -30,7 +30,7 @@ export default function DisplayCustomList({ customList }: { customList: any }) {
             <div className="flex justify-between items-center px-1 py-1 bg fade-in bg-slate-300/30 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700 rounded-full">
               <div className="flex items-center gap-2">
                 <img
-                  src={element.photo}
+                  src={element.imageURL}
                   className="h-10 w-10 rounded-full border-2 border-white dark:border-slate-500"
                   alt={element.name}
                 />
@@ -43,7 +43,7 @@ export default function DisplayCustomList({ customList }: { customList: any }) {
               </div>
 
               <XCircleIcon
-                onClick={() => removeFromCustom(element.id)}
+                onClick={() => removeFromCustom(element.channelID)}
                 className="h-6 w-6 mr-2 cursor-pointer hover:text-rose-500"
               />
             </div>

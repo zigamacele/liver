@@ -1,16 +1,16 @@
 import DisplayCustomList from '@/Components/Custom/DisplayCustomList';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import PulseLoader from 'react-spinners/PulseLoader';
 
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 
 export interface IliversArray {
   [key: string]: {
     name: string;
-    id: number;
-    photo: string;
+    channelID: number;
+    imageURL: string;
     twitter: string;
+    retired?: boolean;
   };
 }
 
@@ -18,7 +18,6 @@ export default function Custom() {
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [customList, setCustomList] = useState<any>({});
-  const [darkMode, setDarkMode] = React.useState(false);
 
   async function getAPIData() {
     const config = {
@@ -51,8 +50,8 @@ export default function Custom() {
           customList: {
             [userInput]: {
               name: APIData.english_name,
-              id: APIData.id,
-              photo: APIData.photo,
+              channelID: APIData.id,
+              imageURL: APIData.photo,
               twitter: APIData.twitter,
             },
           },
@@ -60,8 +59,8 @@ export default function Custom() {
         setCustomList({
           [userInput]: {
             name: APIData.english_name,
-            id: APIData.id,
-            photo: APIData.photo,
+            channelID: APIData.id,
+            imageURL: APIData.photo,
             twitter: APIData.twitter,
           },
         });
@@ -74,8 +73,8 @@ export default function Custom() {
           ...liversArray,
           [userInput]: {
             name: APIData.english_name,
-            id: APIData.id,
-            photo: APIData.photo,
+            channelID: APIData.id,
+            imageURL: APIData.photo,
             twitter: APIData.twitter,
           },
         };
@@ -88,8 +87,8 @@ export default function Custom() {
           ...liversArray,
           [userInput]: {
             name: APIData.english_name,
-            id: APIData.id,
-            photo: APIData.photo,
+            channelID: APIData.id,
+            imageURL: APIData.photo,
             twitter: APIData.twitter,
           },
         };
@@ -122,15 +121,6 @@ export default function Custom() {
 
   return (
     <section>
-      <div
-        onClick={() =>
-          chrome.storage.local.set({
-            customList: {},
-          })
-        }
-      >
-        clear
-      </div>
       <div className="relative">
         <input
           value={userInput}

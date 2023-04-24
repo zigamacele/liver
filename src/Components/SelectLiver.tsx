@@ -12,30 +12,52 @@ export default function SelectLiver({
   showStreamTitle: string;
   setShowStreamTitle: Function;
 }) {
-  const [selectedLivers, setSelectedLivers] = useState<string[]>([]);
-  const [selectedGroup, setSelectedGroup] = useState('');
+  const [selectedLivers, setSelectedLivers] = useState({});
+
+  const flattenedDatabase = Object.values(database).flatMap((group: any) =>
+    group.flatMap((branch: any) => branch.members)
+  );
+
+  function databaseSearch(memberID: string) {
+    for (const member of flattenedDatabase) {
+      if (member.channelID === memberID) {
+        return member;
+      }
+    }
+    return {};
+  }
 
   useEffect(() => {
     chrome.storage.local.get('myLivers', function (data) {
-      setSelectedLivers([...data.myLivers]);
+      setSelectedLivers({ ...data.myLivers });
     });
   }, []);
 
+  interface AnyArray {
+    [key: string]: any;
+  }
+
   function handleARLiver(memberID: string) {
-    let liversArray: string[] = [];
+    let liversArray: AnyArray = {};
     chrome.storage.local.get('myLivers', function (data) {
+      console.log(data);
       if (data.myLivers === undefined || data.myLivers.length === 0) {
-        chrome.storage.local.set({ myLivers: [memberID] });
-        setSelectedLivers([memberID]);
+        chrome.storage.local.set({
+          myLivers: { [memberID]: databaseSearch(memberID) },
+        });
+        setSelectedLivers({ [memberID]: databaseSearch(memberID) });
         return;
       }
       liversArray = data.myLivers;
-      if (liversArray.includes(memberID)) {
-        const filtered = liversArray.filter((mID) => mID !== memberID);
-        chrome.storage.local.set({ myLivers: filtered });
-        setSelectedLivers(filtered);
+      if (Object.keys(liversArray).includes(memberID)) {
+        delete liversArray[memberID as keyof AnyArray];
+        chrome.storage.local.set({ myLivers: liversArray });
+        setSelectedLivers(liversArray);
       } else {
-        liversArray.push(memberID);
+        liversArray = {
+          ...liversArray,
+          [memberID]: databaseSearch(memberID),
+        };
         chrome.storage.local.set({ myLivers: liversArray });
         setSelectedLivers(liversArray);
       }
@@ -70,7 +92,9 @@ export default function SelectLiver({
                           onMouseLeave={() => setShowStreamTitle('')}
                           className="mt-1 fade-in"
                         >
-                          {!selectedLivers.includes(member.channelID) ? (
+                          {!Object.keys(selectedLivers).includes(
+                            member.channelID
+                          ) ? (
                             <img
                               src={member.imageURL}
                               alt={member.name}

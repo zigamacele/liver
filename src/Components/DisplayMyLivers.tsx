@@ -5,6 +5,35 @@ import React, { useEffect, useMemo, useState } from 'react';
 import 'react-pulse-dot/dist/index.css';
 import { DisplayedLiver } from './DisplayedLiver';
 
+export interface vtuberInfo {
+  name: string;
+  imageURL: string;
+  channelID: string;
+  retired: boolean;
+  twitter: string;
+  status?: string;
+  title?: string;
+  started?: number;
+}
+
+interface vtubersFromDB {
+  [key: string]: vtuberInfo;
+}
+
+interface Members {
+  name: string;
+  imageURL: string;
+  channelID: string;
+  retired: boolean;
+  twitter: string;
+}
+
+interface Branch {
+  branchID: string;
+  debut: string;
+  members: Members[];
+}
+
 export default function DisplayMyLivers({
   showStreamTitle,
   setShowStreamTitle,
@@ -12,9 +41,7 @@ export default function DisplayMyLivers({
   showStreamTitle: string;
   setShowStreamTitle: Function;
 }) {
-  const [displayLivers, setDisplayLivers] = useState<string[]>([]);
-  const [liverStatus, setLiverStatus] = useState({});
-  const [databaseInfo, setDatabaseInfo] = useState<vtubersFromDB>({});
+  const [displayLivers, setDisplayLivers] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
 
@@ -22,63 +49,19 @@ export default function DisplayMyLivers({
     group.flatMap((branch: any) => branch.members)
   );
 
-  interface vtuberInfo {
-    name: string;
-    imageURL: string;
-    channelID: string;
-    retired: boolean;
-    twitter: string;
-  }
-
-  interface vtubersFromDB {
-    [key: string]: vtuberInfo;
-  }
-
-  interface Members {
-    name: string;
-    imageURL: string;
-    channelID: string;
-    retired: boolean;
-    twitter: string;
-  }
-
-  interface Branch {
-    branchID: string;
-    debut: string;
-    members: Members[];
-  }
-
   useEffect(() => {
     getMyLivers();
     getAPIData();
   }, []);
 
   useEffect(() => {
-    databaseSearch();
-  }, [displayLivers]);
-
-  useEffect(() => {
     getLiveStatus();
   }, [APIResponse]);
 
   function getMyLivers() {
-    chrome.storage.local.get('myLivers', function (data) {
-      if (data.myLivers === undefined || data.myLivers.length === 0) {
-        return;
-      }
-      setDisplayLivers(data.myLivers);
+    chrome.storage.local.get(['myLivers', 'customList'], function (data) {
+      setDisplayLivers({ ...data.myLivers, ...data.customList });
     });
-  }
-
-  async function databaseSearch() {
-    let tempDatabase = {};
-
-    flattenedDatabase.forEach((member) => {
-      if (displayLivers.includes(member.channelID)) {
-        tempDatabase = { ...tempDatabase, [member.channelID]: member };
-      }
-    });
-    setDatabaseInfo(tempDatabase);
   }
 
   async function getAPIData() {
@@ -99,41 +82,36 @@ export default function DisplayMyLivers({
 
   function getLiveStatus() {
     let tempLiveStatus = {};
-    displayLivers.forEach((memberID) => {
+    for (const [key, value] of Object.entries(displayLivers)) {
       for (let index = 0; index < APIResponse.length; index++) {
         if (
-          memberID === APIResponse[index].channel.id &&
+          key === APIResponse[index].channel.id &&
           APIResponse[index].status === 'live'
         )
           tempLiveStatus = {
             ...tempLiveStatus,
-            [memberID]: {
+            [key]: {
+              ...value,
               status: 'live',
               title: APIResponse[index].title,
               started: APIResponse[index].start_actual,
             },
           };
       }
-      if (!Object.keys(tempLiveStatus).includes(memberID))
+      if (!Object.keys(tempLiveStatus).includes(key))
         tempLiveStatus = {
           ...tempLiveStatus,
-          [memberID]: { status: 'offline' },
+          [key]: { ...value, status: 'offline' },
         };
 
-      if (Object.keys(tempLiveStatus).length === displayLivers.length) {
-        setLiverStatus(tempLiveStatus);
+      if (
+        Object.keys(tempLiveStatus).length === Object.keys(displayLivers).length
+      ) {
+        console.log('temp', tempLiveStatus);
+        setDisplayLivers(tempLiveStatus);
         setLoading(false);
       }
-    });
-  }
-
-  function handleTwitter(memberID: string) {
-    flattenedDatabase.forEach((member) => {
-      if (member.channelID === memberID) {
-        const url = 'https://twitter.com/';
-        chrome.tabs.create({ url: url + member.twitter });
-      }
-    });
+    }
   }
 
   function startedStreaming(startTime: string) {
@@ -146,14 +124,11 @@ export default function DisplayMyLivers({
   return (
     <div className="my-2">
       <div className="flex flex-wrap justify-center gap-3">
-        {displayLivers.map((memberID) => {
+        {Object.keys(displayLivers).map((channelID) => {
           return (
-            <div key={memberID}>
+            <div key={channelID}>
               <DisplayedLiver
-                memberID={memberID}
-                databaseInfo={databaseInfo}
-                liverStatus={liverStatus}
-                handleTwitter={handleTwitter}
+                member={displayLivers[channelID]}
                 startedStreaming={startedStreaming}
                 loading={loading}
                 showStreamTitle={showStreamTitle}
