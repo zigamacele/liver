@@ -1,9 +1,9 @@
 import DisplayCustomList from '@/Components/Custom/DisplayCustomList';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
-import { createJSDocAugmentsTag } from 'typescript';
 
 export interface IliversArray {
   [key: string]: {
@@ -18,6 +18,7 @@ export default function Custom() {
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [customList, setCustomList] = useState<any>({});
+  const [darkMode, setDarkMode] = React.useState(false);
 
   async function getAPIData() {
     const config = {
@@ -102,42 +103,51 @@ export default function Custom() {
 
   useEffect(() => {
     chrome.storage.local.get('customList', function (data) {
-      console.log('data', data);
+      console.log('data', data.customList);
       setCustomList(data.customList);
+    });
+    chrome.storage.onChanged.addListener(function (changes) {
+      if ('customList' in changes) {
+        setCustomList(changes.customList.newValue);
+      }
     });
   }, []);
 
   const handleClick = () => {
-    setLoading(true);
-    getAPIData();
+    if (userInput.length > 3 && !loading) {
+      setLoading(true);
+      getAPIData();
+    }
   };
 
   return (
     <section>
+      <div
+        onClick={() =>
+          chrome.storage.local.set({
+            customList: {},
+          })
+        }
+      >
+        clear
+      </div>
       <div className="relative">
         <input
           value={userInput}
-          className="w-full outline-none rounded-lg h-10 border placeholder:text-slate-400 dark:placeholder:text-slate-400 border-slate-300 dark:border-slate-600 p-2 bg-slate-200 dark:bg-slate-700 pr-6"
+          className="w-full outline-none rounded-full h-10 border placeholder:text-slate-400 dark:placeholder:text-slate-400 border-slate-300 dark:border-slate-600 p-2 bg-slate-200 dark:bg-slate-700 pr-6"
           placeholder="Enter VTuber's Youtube ID"
           onChange={(e) => setUserInput(e.target.value)}
         />
         <PlusCircleIcon
           onClick={handleClick}
-          className="h-6 w-6 z-50 absolute top-1/2 right-2 -translate-y-1/2 hover:opacity-70 cursor-pointer"
+          className={`h-6 w-6 z-50 absolute top-1/2 right-2 -translate-y-1/2 hover:opacity-70 cursor-pointer ${
+            loading && 'animate-pulse'
+          }`}
         />
       </div>
-      <button
-        onClick={() =>
-          chrome.storage.local.remove('customList', function () {})
-        }
-      >
-        clear
-      </button>
+
       {Object.keys(customList).length > 0 && (
-        <DisplayCustomList
-          customList={customList}
-          setCustomList={setCustomList}
-        />
+        <DisplayCustomList customList={customList} />
       )}
     </section>
   );

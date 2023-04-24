@@ -20,7 +20,9 @@ export default function Selectors({
       setDarkMode(data.darkMode);
     });
     chrome.storage.onChanged.addListener(function (changes) {
-      setDarkMode(changes.darkMode.newValue);
+      if ('darkMode' in changes) {
+        setDarkMode(changes.darkMode.newValue);
+      }
     });
   }, []);
 

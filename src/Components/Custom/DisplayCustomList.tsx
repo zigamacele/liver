@@ -7,15 +7,9 @@ export interface customVTuber {
   twitter: string;
 }
 
-export default function DisplayCustomList({
-  customList,
-  setCustomList,
-}: {
-  customList: any;
-  setCustomList: Function;
-}) {
-  console.log('comp', customList);
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
+export default function DisplayCustomList({ customList }: { customList: any }) {
   useEffect(() => {
     console.log('updated display', customList);
   }, [customList]);
@@ -23,22 +17,35 @@ export default function DisplayCustomList({
   const removeFromCustom = (id: string) => {
     let tempCustomList = customList;
     delete tempCustomList[id];
-    setCustomList(tempCustomList);
     chrome.storage.local.set({
-      customList: tempCustomList,
+      customList: customList,
     });
   };
 
   return (
-    <section>
-      <button onClick={() => setCustomList('asdfasdf')}>asdfasdf</button>
-
-      <div>
+    <section className="mt-2">
+      <div className="flex flex-col gap-1.5">
         {Object.values(customList).flatMap((element: any) => {
           return (
-            <div className="flex justify-between">
-              <div>{element.name}</div>
-              <div onClick={() => removeFromCustom(element.id)}>X</div>
+            <div className="flex justify-between items-center px-1 py-1 bg fade-in bg-slate-300/30 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700 rounded-full">
+              <div className="flex items-center gap-2">
+                <img
+                  src={element.photo}
+                  className="h-10 w-10 rounded-full border-2 border-white dark:border-slate-500"
+                  alt={element.name}
+                />
+                <div className="flex flex-col">
+                  <span className="">{element.name}</span>
+                  <span className="text-[10px] font-light opacity-60">
+                    @{element.twitter}
+                  </span>
+                </div>
+              </div>
+
+              <XCircleIcon
+                onClick={() => removeFromCustom(element.id)}
+                className="h-6 w-6 mr-2 cursor-pointer hover:text-rose-500"
+              />
             </div>
           );
         })}
