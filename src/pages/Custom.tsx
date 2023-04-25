@@ -2,7 +2,11 @@ import DisplayCustomList from '@/Components/Custom/DisplayCustomList';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronDownIcon,
+  LifebuoyIcon,
+  PlusCircleIcon,
+} from '@heroicons/react/24/solid';
 
 export interface IliversArray {
   [key: string]: {
@@ -18,6 +22,7 @@ export default function Custom() {
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [customList, setCustomList] = useState<any>({});
+  const [needHelp, setNeedHelp] = useState(false);
 
   async function getAPIData() {
     const config = {
@@ -96,6 +101,7 @@ export default function Custom() {
           customList: liversArray,
         });
         setCustomList(liversArray);
+        setUserInput('');
       }
     });
   };
@@ -120,11 +126,11 @@ export default function Custom() {
   };
 
   return (
-    <section>
+    <section className="flex flex-col gap-1">
       <div className="relative">
         <input
           value={userInput}
-          className="w-full outline-none rounded-full h-10 border placeholder:text-slate-400 dark:placeholder:text-slate-400 border-slate-300 dark:border-slate-600 p-2 bg-slate-200 dark:bg-slate-700 pr-6"
+          className="w-full outline-none rounded-lg h-10 border placeholder:text-slate-400 dark:placeholder:text-slate-400 border-slate-300 dark:border-slate-600 px-4 py-1 bg-slate-200 dark:bg-slate-700 pr-6"
           placeholder="Enter VTuber's Youtube ID"
           onChange={(e) => setUserInput(e.target.value)}
         />
@@ -135,6 +141,38 @@ export default function Custom() {
           }`}
         />
       </div>
+      {!needHelp ? (
+        <div
+          onClick={() => setNeedHelp(true)}
+          className="flex items-center gap-1 px-1 py-0.5 cursor-pointer hover:opacity-60"
+        >
+          <LifebuoyIcon className="h-4 w-4" />
+          <span>Need help?</span>
+        </div>
+      ) : (
+        <div className="flex gap-1 bg-slate-200 dark:bg-slate-700 px-3 py-2 rounded-lg">
+          <div>
+            <div>Youtube ID needs to be in this format:</div>
+            <div className="flex items-center">
+              <div className="text-[10px]">youtube.com/channel/ </div>
+              <span className="bg-slate-300 dark:bg-slate-600 text-[14px] font-bold ">
+                UC4WvIIAo89_AzGUh1AZ6Dkg
+              </span>
+            </div>
+            <div>If VTuber is using @username format</div>
+            <div
+              onClick={() =>
+                chrome.tabs.create({
+                  url: 'https://commentpicker.com/youtube-channel-id.php',
+                })
+              }
+              className="text-blue-500 cursor-pointer hover:opacity-60"
+            >
+              You can find their ID here
+            </div>
+          </div>
+        </div>
+      )}
 
       {Object.keys(customList).length > 0 && (
         <DisplayCustomList customList={customList} />

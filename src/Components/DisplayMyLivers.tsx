@@ -2,7 +2,6 @@ import { database } from '@/database';
 import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
-import 'react-pulse-dot/dist/index.css';
 import { DisplayedLiver } from './DisplayedLiver';
 
 export interface vtuberInfo {
@@ -13,7 +12,11 @@ export interface vtuberInfo {
   twitter: string;
   status?: string;
   title?: string;
-  started?: number;
+  started?: string;
+  fullName?: string;
+  org?: string;
+  viewers?: number;
+  scheduled?: number;
 }
 
 interface vtubersFromDB {
@@ -95,6 +98,10 @@ export default function DisplayMyLivers({
               status: 'live',
               title: APIResponse[index].title,
               started: APIResponse[index].start_actual,
+              scheduled: APIResponse[index].start_scheduled,
+              viewers: APIResponse[index].live_viewers,
+              org: APIResponse[index].channel.org,
+              fullName: APIResponse[index].channel.name,
             },
           };
       }
@@ -114,13 +121,6 @@ export default function DisplayMyLivers({
     }
   }
 
-  function startedStreaming(startTime: string) {
-    const difference = +new Date() - +new Date(startTime);
-    const diffDuration = moment.duration(-difference).humanize(true);
-    if (diffDuration === 'Invalid date') return 'starting soon';
-    return diffDuration;
-  }
-
   return (
     <div className="my-2">
       <div className="flex flex-wrap justify-center gap-3">
@@ -129,10 +129,7 @@ export default function DisplayMyLivers({
             <div key={channelID}>
               <DisplayedLiver
                 member={displayLivers[channelID]}
-                startedStreaming={startedStreaming}
                 loading={loading}
-                showStreamTitle={showStreamTitle}
-                setShowStreamTitle={setShowStreamTitle}
               />
             </div>
           );

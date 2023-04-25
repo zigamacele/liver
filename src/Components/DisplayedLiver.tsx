@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import 'react-pulse-dot/dist/index.css';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { vtuberInfo } from './DisplayMyLivers';
-
-// @ts-ignore
-import PulseDot from 'react-pulse-dot';
+import LiveStatus from './DisplayedLiver/LiveStatus';
 
 import { AiFillTwitterCircle } from 'react-icons/ai';
 
 export function DisplayedLiver({
   member,
-
-  startedStreaming,
   loading,
-  showStreamTitle,
-  setShowStreamTitle,
 }: {
   member: vtuberInfo;
-  startedStreaming: any;
   loading: boolean;
-  showStreamTitle: string;
-  setShowStreamTitle: Function;
 }) {
-  const [showWhenStarted, setWhenStarted] = useState(false);
+  const [showLiveStatus, setShowLiveStatus] = useState(false);
 
   function handleTwitter(twitterID: string) {
     const url = 'https://twitter.com/';
@@ -30,60 +20,75 @@ export function DisplayedLiver({
   }
 
   const url = `https://youtube.com/channel/${member.channelID}/live`;
+  const isLive = member.status === 'live';
 
   return (
     <div className="fade-in">
+      {showLiveStatus && isLive && <LiveStatus member={member} />}
       <div
-        className="relative"
+        className="relative bg-green-"
         onMouseEnter={() => {
-          setWhenStarted(true);
-          if (member.status === 'live') setShowStreamTitle(member.title);
+          setShowLiveStatus(true);
         }}
         onMouseLeave={() => {
-          setWhenStarted(false);
-          setShowStreamTitle('');
+          setShowLiveStatus(false);
         }}
       >
         <img
           src={member.imageURL}
           alt={member.name}
-          className="rounded-full h-20 liver border-4 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
+          className={`rounded-full h-20 liver border-4 ${
+            isLive
+              ? 'border-red-500'
+              : 'border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800'
+          } cursor-pointer hover:opacity-80`}
           onClick={(e) => {
             chrome.tabs.create({ url: url });
           }}
         />
-        <div
-          className="text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer absolute left-[4em] bottom-[4em]"
-          onClick={() => handleTwitter(member.twitter)}
-        >
-          <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em] z-10 " />
-          <span className="absolute text-xl left-[0.975em] bottom-[-0.82em] bg-white dark:bg-slate-700 h-5 w-5 rounded-full"></span>
-        </div>
-
-        {loading ? (
-          <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700 fade-in">
-            <ClipLoader size={15} />
+        {!loading && (
+          <div
+            className={`${
+              isLive
+                ? 'text-white hover:text-red-200'
+                : 'text-blue-400 hover:text-blue-700 dark:hover:text-blue-300'
+            } cursor-pointer absolute left-[3em] bottom-[6em] fade-in`}
+            onClick={() => handleTwitter(member.twitter)}
+          >
+            <AiFillTwitterCircle className="absolute text-lg left-[1.15em] bottom-[-0.85em] z-10 " />
+            <span
+              className={`absolute text-xl left-[0.975em] bottom-[-0.82em] ${
+                isLive ? 'bg-red-500' : 'bg-white dark:bg-slate-700'
+              } h-5 w-5 rounded-full`}
+            ></span>
           </div>
-        ) : (
-          <div className="absolute left-[4em] bottom-[4em]">
-            {member.status === 'offline' ? (
-              <div className="absolute left-[-1em] bottom-[0.7em] py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
+        )}
+
+        {loading && (
+          <div>
+            <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700 fade-in">
+              <ClipLoader size={15} />
+            </div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[-5px]">
+              <div className="py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
                 <p className="text-[10px] fade-in">OFFLINE</p>
               </div>
-            ) : (
-              <div>
-                {!showWhenStarted ? null : (
-                  <div className="flex absolute justify-center items-center left-[-5.95em] bottom-[-4.5em] w-32 z-15 font-light text-xs animate-bounce">
-                    <span className="py-0.5 px-1.5 bg-white dark:bg-slate-700 rounded-full fade-in">
-                      {startedStreaming(member.started)}
-                    </span>
-                  </div>
-                )}
-                <PulseDot
-                  className="absolute text-xl bottom-[-0.15em] z-10 cursor-pointer fade-in"
-                  color="danger"
-                />
-                <span className="absolute text-xl left-[0.3em] bottom-[0.17em] bg-white dark:bg-slate-700 h-7 w-7 rounded-full"></span>
+            </div>
+          </div>
+        )}
+        {!loading && (
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[-5px]">
+            {isLive && (
+              <div className="relative">
+                <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 py-0.5 px-1.5 bg-red-500 text-slate-100 dark:text-white rounded-full z-50">
+                  <p className="text-[10px] fade-in">LIVE</p>
+                </div>
+                <div className="absolute bottom-[-1.25px] left-[-1.25em] w-8 h-5 rounded-full bg-red-500/60 animate-ping"></div>
+              </div>
+            )}
+            {!isLive && (
+              <div className="py-0.5 px-1.5 bg-white dark:bg-slate-700  dark:text-white rounded-full">
+                <p className="text-[10px] fade-in">OFFLINE</p>
               </div>
             )}
           </div>
