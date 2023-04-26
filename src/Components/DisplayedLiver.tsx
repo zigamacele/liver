@@ -1,25 +1,88 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { vtuberInfo } from './DisplayMyLivers';
 import LiveStatus from './DisplayedLiver/LiveStatus';
 
+import { BookmarkIcon, BookmarkSlashIcon } from '@heroicons/react/24/solid';
 import { AiFillTwitterCircle } from 'react-icons/ai';
 
 export function DisplayedLiver({
   member,
   loading,
+  path,
 }: {
-  member: vtuberInfo;
+  member: any;
   loading: boolean;
+  path: string;
 }) {
   const [showLiveStatus, setShowLiveStatus] = useState(false);
+  const [customList, setCustomList] = useState<any>({});
+  const [fetchingVTuber, setFetchingVTuber] = useState(false);
+
+  function checkMyLivers() {
+    chrome.storage.local.get(['myLivers', 'customList'], function (data) {
+      setCustomList(data.customList);
+    });
+  }
+
+  useEffect(() => {
+    if (path === 'viewAll') checkMyLivers();
+  }, []);
+
+  const deleteFromMyLivers = (channelID: string) => {
+    let tempCustomList = customList;
+    delete tempCustomList[channelID];
+    chrome.storage.local.set({ customList: tempCustomList });
+    setCustomList(tempCustomList);
+  };
+
+  const addToMyLivers = async (channelID: string) => {
+    let vtuberTwitter = '';
+    setFetchingVTuber(true);
+    const config = {
+      url: `https://holodex.net/api/v2/channels/${channelID}`,
+      headers: {
+        'X-APIKEY': process.env.NEXT_PUBLIC_HOLODEX,
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const { data } = await axios.request(config);
+      vtuberTwitter = data.twitter;
+      setFetchingVTuber(false);
+    } catch (error) {
+      console.log(error);
+    }
+
+    let tempCustomList = customList;
+
+    tempCustomList = {
+      ...tempCustomList,
+      [channelID]: {
+        name: member.channel.english_name,
+        imageURL: member.channel.photo,
+        channelID: member.channel.id,
+        twitter: vtuberTwitter,
+        status: member.status,
+        title: member.title,
+        started: member.start_actual,
+        org: member.channel.org,
+        viewers: member.live_viewers,
+      },
+    };
+    chrome.storage.local.set({ customList: tempCustomList });
+    setCustomList(tempCustomList);
+  };
 
   function handleTwitter(twitterID: string) {
     const url = 'https://twitter.com/';
     chrome.tabs.create({ url: url + twitterID });
   }
 
-  const url = `https://youtube.com/channel/${member.channelID}/live`;
+  const url = `https://youtube.com/channel/${
+    member.channelID || member.channel.id
+  }/live`;
   const isLive = member.status === 'live';
 
   return (
@@ -35,8 +98,8 @@ export function DisplayedLiver({
         }}
       >
         <img
-          src={member.imageURL}
-          alt={member.name}
+          src={member.imageURL || member.channel.photo}
+          alt={member.name || member.channel.english_name}
           className={`rounded-full h-20 liver border-4 ${
             isLive
               ? 'border-red-500'
@@ -46,7 +109,7 @@ export function DisplayedLiver({
             chrome.tabs.create({ url: url });
           }}
         />
-        {!loading && (
+        {!loading && member.twitter && (
           <div
             className={`${
               isLive
@@ -63,7 +126,26 @@ export function DisplayedLiver({
             ></span>
           </div>
         )}
-
+        {path === 'viewAll' && !fetchingVTuber && (
+          <div className="absolute left-[4.8em] bottom-[4.8em] rounded-full  fade-in text-red-500">
+            {Object.keys(customList).includes(member.channel.id) ? (
+              <BookmarkSlashIcon
+                onClick={() => deleteFromMyLivers(member.channel.id)}
+                className="h-5 w-5 p-0.5  bg-white border-2 hover:text-red-300 border-red-500 rounded-full cursor-pointer"
+              />
+            ) : (
+              <BookmarkIcon
+                onClick={() => addToMyLivers(member.channel.id)}
+                className="h-5 w-5 p-0.5 text-black hover:text-neutral-800 bg-white border-2 border-red-500 rounded-full cursor-pointer"
+              />
+            )}
+          </div>
+        )}
+        {fetchingVTuber && (
+          <div className="absolute left-[4.7em] bottom-[4.6em] bg-red-500 p-1 pb-0 rounded-full fade-in">
+            <ClipLoader size={15} color="white" />
+          </div>
+        )}
         {loading && (
           <div>
             <div className="absolute left-[4.5em] bottom-[4.5em] bg-white p-1 pb-0 rounded-full dark:bg-slate-700 fade-in">

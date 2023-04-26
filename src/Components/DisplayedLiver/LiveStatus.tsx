@@ -16,8 +16,10 @@ export default function LiveStatus({ member }: { member: any }) {
         <div className="flex items-center justify-between">
           <div>
             <div className="flex flex-col">
-              <span className="text-[10px] font-light">{member.org}</span>
-              <span>{member.name}</span>
+              <span className="text-[10px] font-light">
+                {member.org || member.channel.org}
+              </span>
+              <span>{member.name || member.channel.english_name}</span>
             </div>
           </div>
           <div className="flex flex-col justify-end items-end">
@@ -25,11 +27,13 @@ export default function LiveStatus({ member }: { member: any }) {
               <div className="bg-red-500 h-2 w-2 rounded-full">
                 <div className=" bg-red-500 h-2 w-2 rounded-full animate-ping"></div>
               </div>
-              <span>{member.viewers}</span>
+              <span>{member.viewers || member.live_viewers}</span>
             </div>
             <div className="flex gap-1 items-center">
               <ClockIcon className="h-4 w-4" />
-              <span>{startedStreaming(member.started)}</span>
+              <span>
+                {startedStreaming(member.started || member.start_actual)}
+              </span>
             </div>
           </div>
         </div>

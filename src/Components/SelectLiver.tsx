@@ -3,6 +3,19 @@ import React, { useEffect, useState } from 'react';
 
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
+export const flattenedDatabase = Object.values(database).flatMap((group: any) =>
+  group.flatMap((branch: any) => branch.members)
+);
+
+export function databaseSearch(memberID: string) {
+  for (const member of flattenedDatabase) {
+    if (member.channelID === memberID) {
+      return member;
+    }
+  }
+  return {};
+}
+
 export default function SelectLiver({
   settingsQuery,
   showStreamTitle,
@@ -13,10 +26,6 @@ export default function SelectLiver({
   setShowStreamTitle: Function;
 }) {
   const [selectedLivers, setSelectedLivers] = useState({});
-
-  const flattenedDatabase = Object.values(database).flatMap((group: any) =>
-    group.flatMap((branch: any) => branch.members)
-  );
 
   function databaseSearch(memberID: string) {
     for (const member of flattenedDatabase) {

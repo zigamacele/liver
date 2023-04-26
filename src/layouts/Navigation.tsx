@@ -2,6 +2,7 @@ import Tooltip from '@/Components/Navigation/Tooltip';
 import Custom from '@/pages/Custom';
 import Home from '@/pages/Home';
 import Settings from '@/pages/Settings';
+import ViewAll from '@/pages/ViewAll';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-chrome-extension-router';
 
@@ -105,7 +106,9 @@ export default function Navigation({
             </Link>
           </Tooltip>
           <Tooltip title="All Live VTubers">
-            <UserGroupIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
+            <Link component={ViewAll} onClick={() => setShowStreamTitle('')}>
+              <UserGroupIcon className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500" />
+            </Link>
           </Tooltip>
         </div>
 

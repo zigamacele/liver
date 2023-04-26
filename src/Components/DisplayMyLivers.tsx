@@ -1,8 +1,9 @@
 import { database } from '@/database';
 import axios from 'axios';
-import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DisplayedLiver } from './DisplayedLiver';
+import { databaseSearch, flattenedDatabase } from './SelectLiver';
+//TODO convert all format -> new format of myLivers
 
 export interface vtuberInfo {
   name: string;
@@ -23,20 +24,6 @@ interface vtubersFromDB {
   [key: string]: vtuberInfo;
 }
 
-interface Members {
-  name: string;
-  imageURL: string;
-  channelID: string;
-  retired: boolean;
-  twitter: string;
-}
-
-interface Branch {
-  branchID: string;
-  debut: string;
-  members: Members[];
-}
-
 export default function DisplayMyLivers({
   showStreamTitle,
   setShowStreamTitle,
@@ -47,10 +34,6 @@ export default function DisplayMyLivers({
   const [displayLivers, setDisplayLivers] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
-
-  const flattenedDatabase = Object.values(database).flatMap((group: any) =>
-    group.flatMap((branch: any) => branch.members)
-  );
 
   useEffect(() => {
     getMyLivers();
@@ -77,6 +60,7 @@ export default function DisplayMyLivers({
     };
     try {
       const response = await axios.get(url, config);
+      console.log(response);
       setAPIResponse(response.data);
     } catch (error) {
       console.log(error);
@@ -130,6 +114,7 @@ export default function DisplayMyLivers({
               <DisplayedLiver
                 member={displayLivers[channelID]}
                 loading={loading}
+                path="Home"
               />
             </div>
           );
