@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { vtuberInfo } from './DisplayMyLivers';
 import LiveStatus from './DisplayedLiver/LiveStatus';
 
 import { BookmarkIcon, BookmarkSlashIcon } from '@heroicons/react/24/solid';
@@ -19,9 +18,10 @@ export function DisplayedLiver({
   const [showLiveStatus, setShowLiveStatus] = useState(false);
   const [customList, setCustomList] = useState<any>({});
   const [fetchingVTuber, setFetchingVTuber] = useState(false);
+  let test: any;
 
   function checkMyLivers() {
-    chrome.storage.local.get(['myLivers', 'customList'], function (data) {
+    chrome.storage.local.get('customList', function (data) {
       setCustomList(data.customList);
     });
   }
@@ -30,15 +30,21 @@ export function DisplayedLiver({
     if (path === 'viewAll') checkMyLivers();
   }, []);
 
+  useEffect(() => {
+    chrome.storage.local.get('customList', function (data) {});
+  }, [customList]);
+
   const deleteFromMyLivers = (channelID: string) => {
-    let tempCustomList = customList;
-    delete tempCustomList[channelID];
-    chrome.storage.local.set({ customList: tempCustomList });
-    setCustomList(tempCustomList);
+    chrome.storage.local.get('customList', function (data) {
+      let tempCustomList: any;
+      tempCustomList = data.customList;
+      delete tempCustomList[channelID];
+      chrome.storage.local.set({ customList: tempCustomList });
+      setCustomList(tempCustomList);
+    });
   };
 
   const addToMyLivers = async (channelID: string) => {
-    let vtuberTwitter = '';
     setFetchingVTuber(true);
     const config = {
       url: `https://holodex.net/api/v2/channels/${channelID}`,
@@ -49,30 +55,30 @@ export function DisplayedLiver({
     };
     try {
       const { data } = await axios.request(config);
-      vtuberTwitter = data.twitter;
+      const twitter = data.twitter;
+      chrome.storage.local.get('customList', function (data) {
+        let tempCustomList = data.customList;
+        tempCustomList = {
+          ...tempCustomList,
+          [channelID]: {
+            name: member.channel.english_name,
+            imageURL: member.channel.photo,
+            channelID: member.channel.id,
+            twitter: twitter,
+            status: member.status,
+            title: member.title,
+            started: member.start_actual,
+            org: member.channel.org,
+            viewers: member.live_viewers,
+          },
+        };
+        chrome.storage.local.set({ customList: tempCustomList });
+        setCustomList(tempCustomList);
+      });
       setFetchingVTuber(false);
     } catch (error) {
       console.log(error);
     }
-
-    let tempCustomList = customList;
-
-    tempCustomList = {
-      ...tempCustomList,
-      [channelID]: {
-        name: member.channel.english_name,
-        imageURL: member.channel.photo,
-        channelID: member.channel.id,
-        twitter: vtuberTwitter,
-        status: member.status,
-        title: member.title,
-        started: member.start_actual,
-        org: member.channel.org,
-        viewers: member.live_viewers,
-      },
-    };
-    chrome.storage.local.set({ customList: tempCustomList });
-    setCustomList(tempCustomList);
   };
 
   function handleTwitter(twitterID: string) {
@@ -86,7 +92,7 @@ export function DisplayedLiver({
   const isLive = member.status === 'live';
 
   return (
-    <div className="fade-in">
+    <div className="fade-in ">
       {showLiveStatus && isLive && <LiveStatus member={member} />}
       <div
         className="relative bg-green-"
@@ -100,7 +106,7 @@ export function DisplayedLiver({
         <img
           src={member.imageURL || member.channel.photo}
           alt={member.name || member.channel.english_name}
-          className={`rounded-full h-20 liver border-4 ${
+          className={`rounded-full h-20 liver border-4 shadow-md ${
             isLive
               ? 'border-red-500'
               : 'border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800'
@@ -136,7 +142,7 @@ export function DisplayedLiver({
             ) : (
               <BookmarkIcon
                 onClick={() => addToMyLivers(member.channel.id)}
-                className="h-5 w-5 p-0.5 text-black hover:text-neutral-800 bg-white border-2 border-red-500 rounded-full cursor-pointer"
+                className="h-5 w-5 p-0.5 text-black hover:text-neutral-500 bg-white border-2 border-red-500 rounded-full cursor-pointer"
               />
             )}
           </div>

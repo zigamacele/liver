@@ -1,23 +1,14 @@
 import DisplayMyLivers from '@/Components/DisplayMyLivers';
 import React, { useEffect } from 'react';
 
-export default function Home({
-  showStreamTitle,
-  setShowStreamTitle,
-}: {
-  showStreamTitle: string;
-  setShowStreamTitle: Function;
-}) {
+export default function Home() {
   useEffect(() => {
     chrome.storage.local.set({ goToSettings: true });
   }, []);
 
   return (
     <div>
-      <DisplayMyLivers
-        showStreamTitle={showStreamTitle}
-        setShowStreamTitle={setShowStreamTitle}
-      />
+      <DisplayMyLivers />
     </div>
   );
 }

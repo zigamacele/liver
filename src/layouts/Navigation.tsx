@@ -65,14 +65,7 @@ export default function Navigation({
   return (
     <nav className="flex justify-between items-center fixed w-96 z-50 dark:bg-slate-800/80 bg-slate-100/80 px-3 py-2 backdrop-blur-md">
       {showStreamTitle === '' ? (
-        <Link
-          component={Home}
-          onClick={() => setShowStreamTitle('')}
-          props={{
-            showStreamTitle: showStreamTitle,
-            setShowStreamTitle: setShowStreamTitle,
-          }}
-        >
+        <Link component={Home} onClick={() => setShowStreamTitle('')}>
           <div className="text-xl font-medium cursor-pointer hover:opacity-60">
             Liver
           </div>
@@ -85,14 +78,14 @@ export default function Navigation({
         </div>
       )}
       <div className="flex items-center gap-2 dark:text-blue-500 text-slate-700">
-        <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2 shadow-sm">
           <ArrowPathIcon
             className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500 hover:animate-spin"
             onClick={handleReload}
           />
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2 shadow-sm">
           <Tooltip title="Add New VTuber">
             <Link
               component={Custom}
@@ -112,7 +105,7 @@ export default function Navigation({
           </Tooltip>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2">
+        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700 rounded py-1.5 px-2 shadow-sm">
           <Tooltip title={`${darkMode ? 'Light' : 'Dark'} Mode`}>
             {darkMode ? (
               <SunIconOutline

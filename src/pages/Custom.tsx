@@ -35,7 +35,6 @@ export default function Custom() {
     try {
       const { data } = await axios.request(config);
       await saveToChromeStorage(data);
-      console.log(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -108,7 +107,6 @@ export default function Custom() {
 
   useEffect(() => {
     chrome.storage.local.get('customList', function (data) {
-      console.log('data', data.customList);
       setCustomList(data.customList);
     });
     chrome.storage.onChanged.addListener(function (changes) {
@@ -126,7 +124,7 @@ export default function Custom() {
   };
 
   return (
-    <section className="flex flex-col gap-1">
+    <section className="flex flex-col gap-1 min-h-[6em]">
       <div className="relative">
         <input
           value={userInput}
@@ -150,7 +148,7 @@ export default function Custom() {
           <span>Need help?</span>
         </div>
       ) : (
-        <div className="flex gap-1 bg-slate-200 dark:bg-slate-700 px-3 py-2 rounded-lg">
+        <div className="flex gap-1 bg-slate-200 dark:bg-slate-700 px-3 py-2 rounded-lg shadow-sm">
           <div>
             <div>Youtube ID needs to be in this format:</div>
             <div className="flex items-center">
@@ -173,7 +171,6 @@ export default function Custom() {
           </div>
         </div>
       )}
-
       {Object.keys(customList).length > 0 && (
         <DisplayCustomList customList={customList} />
       )}

@@ -30,6 +30,7 @@ export default function SelectLiver({
   function databaseSearch(memberID: string) {
     for (const member of flattenedDatabase) {
       if (member.channelID === memberID) {
+        console.log('MEMBEr', member);
         return member;
       }
     }
@@ -49,7 +50,6 @@ export default function SelectLiver({
   function handleARLiver(memberID: string) {
     let liversArray: AnyArray = {};
     chrome.storage.local.get('myLivers', function (data) {
-      console.log(data);
       if (data.myLivers === undefined || data.myLivers.length === 0) {
         chrome.storage.local.set({
           myLivers: { [memberID]: databaseSearch(memberID) },
@@ -107,11 +107,11 @@ export default function SelectLiver({
                             <img
                               src={member.imageURL}
                               alt={member.name}
-                              className="h-14 w-14 rounded-full border-2 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80"
+                              className="h-14 w-14 rounded-full border-2 border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800 cursor-pointer hover:opacity-80 shadow-sm"
                             />
                           ) : (
                             <div className="relative cursor-pointer">
-                              <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10" />
+                              <CheckCircleIcon className="dark:text-slate-200 text-slate-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 " />
                               <img
                                 src={member.imageURL}
                                 alt={member.name}

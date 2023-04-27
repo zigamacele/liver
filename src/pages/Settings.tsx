@@ -32,7 +32,7 @@ export default function Settings({
         <Tooltip title="Remove All">
           <div
             onClick={handleReset}
-            className="h-[30px] w-[30px] flex justify-center items-center cursor-pointer hover:text-rose-500 bg-white dark:bg-slate-700 rounded py-0.5 px-1"
+            className="h-[30px] w-[30px] shadow-sm flex justify-center items-center cursor-pointer hover:text-rose-500 bg-white dark:bg-slate-700 rounded py-0.5 px-1"
           >
             <TrashIcon className="h-5 w-5" />
           </div>

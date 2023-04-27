@@ -16,7 +16,6 @@ export default function Selectors({
 
   useEffect(() => {
     chrome.storage.local.get('darkMode', function (data) {
-      console.log(data);
       setDarkMode(data.darkMode);
     });
     chrome.storage.onChanged.addListener(function (changes) {
@@ -44,6 +43,7 @@ export default function Selectors({
         }}
       >
         <Select
+          className="shadow-sm"
           value={selectedCorpo}
           style={{ width: 120 }}
           onChange={(newCorpo: string) => setSelectedCorpo(newCorpo)}
@@ -62,6 +62,7 @@ export default function Selectors({
           ]}
         />
         <Select
+          className="shadow-sm"
           value={selectedLanguage}
           style={{ width: 120 }}
           onChange={(newLanguage: string) => setSelectedLanguage(newLanguage)}

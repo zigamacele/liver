@@ -19,14 +19,14 @@ export default function Footer() {
         </span>
       </div>
       <div className="flex items-center gap-3">
-        <SiKofi
+        {/* <SiKofi
           className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500 rounded"
           onClick={() =>
             chrome.tabs.create({
               url: 'https://ko-fi.com/macele',
             })
           }
-        />
+        /> */}
         <BsGithub
           className="h-5 w-5 cursor-pointer hover:dark:text-blue-400 hover:text-slate-500 rounded"
           onClick={() =>

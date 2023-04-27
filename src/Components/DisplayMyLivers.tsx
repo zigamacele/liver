@@ -2,8 +2,7 @@ import { database } from '@/database';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { DisplayedLiver } from './DisplayedLiver';
-import { databaseSearch, flattenedDatabase } from './SelectLiver';
-//TODO convert all format -> new format of myLivers
+import { databaseSearch } from './SelectLiver';
 
 export interface vtuberInfo {
   name: string;
@@ -24,13 +23,7 @@ interface vtubersFromDB {
   [key: string]: vtuberInfo;
 }
 
-export default function DisplayMyLivers({
-  showStreamTitle,
-  setShowStreamTitle,
-}: {
-  showStreamTitle: string;
-  setShowStreamTitle: Function;
-}) {
+export default function DisplayMyLivers() {
   const [displayLivers, setDisplayLivers] = useState<vtubersFromDB>({});
   const [loading, setLoading] = useState(true);
   const [APIResponse, setAPIResponse] = useState<any>([]);
@@ -47,6 +40,15 @@ export default function DisplayMyLivers({
   function getMyLivers() {
     chrome.storage.local.get(['myLivers', 'customList'], function (data) {
       setDisplayLivers({ ...data.myLivers, ...data.customList });
+
+      if (Array.isArray(data.myLivers)) {
+        let tempMyLivers: any = {};
+        data.myLivers.forEach((channelID) => {
+          tempMyLivers[channelID] = databaseSearch(channelID);
+        });
+        chrome.storage.local.set({ myLivers: tempMyLivers });
+        window.location.reload();
+      }
     });
   }
 
@@ -60,7 +62,6 @@ export default function DisplayMyLivers({
     };
     try {
       const response = await axios.get(url, config);
-      console.log(response);
       setAPIResponse(response.data);
     } catch (error) {
       console.log(error);
@@ -98,7 +99,6 @@ export default function DisplayMyLivers({
       if (
         Object.keys(tempLiveStatus).length === Object.keys(displayLivers).length
       ) {
-        console.log('temp', tempLiveStatus);
         setDisplayLivers(tempLiveStatus);
         setLoading(false);
       }
@@ -107,19 +107,25 @@ export default function DisplayMyLivers({
 
   return (
     <div className="my-2">
-      <div className="flex flex-wrap justify-center gap-3">
-        {Object.keys(displayLivers).map((channelID) => {
-          return (
-            <div key={channelID}>
-              <DisplayedLiver
-                member={displayLivers[channelID]}
-                loading={loading}
-                path="Home"
-              />
-            </div>
-          );
-        })}
-      </div>
+      {Object.keys(displayLivers).length !== 0 ? (
+        <div className="flex flex-wrap justify-center gap-3">
+          {Object.keys(displayLivers).map((channelID) => {
+            return (
+              <div key={channelID}>
+                <DisplayedLiver
+                  member={displayLivers[channelID]}
+                  loading={loading}
+                  path="Home"
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex justify-center opacity-40 mt-2">
+          <span>Looks like your list is empty..</span>
+        </div>
+      )}
     </div>
   );
 }
