@@ -53,7 +53,7 @@ export default function Custom() {
         chrome.storage.local.set({
           customList: {
             [userInput]: {
-              name: APIData.english_name,
+              name: APIData.english_name || APIData.name,
               channelID: APIData.id,
               imageURL: APIData.photo,
               twitter: APIData.twitter,
@@ -62,7 +62,7 @@ export default function Custom() {
         });
         setCustomList({
           [userInput]: {
-            name: APIData.english_name,
+            name: APIData.english_name || APIData.name,
             channelID: APIData.id,
             imageURL: APIData.photo,
             twitter: APIData.twitter,
@@ -76,7 +76,7 @@ export default function Custom() {
         liversArray = {
           ...liversArray,
           [userInput]: {
-            name: APIData.english_name,
+            name: APIData.english_name || APIData.name,
             channelID: APIData.id,
             imageURL: APIData.photo,
             twitter: APIData.twitter,
@@ -90,7 +90,7 @@ export default function Custom() {
         liversArray = {
           ...liversArray,
           [userInput]: {
-            name: APIData.english_name,
+            name: APIData.english_name || APIData.name,
             channelID: APIData.id,
             imageURL: APIData.photo,
             twitter: APIData.twitter,
@@ -107,7 +107,9 @@ export default function Custom() {
 
   useEffect(() => {
     chrome.storage.local.get('customList', function (data) {
-      setCustomList(data.customList);
+      if (data.customList) {
+        setCustomList(data.customList);
+      }
     });
     chrome.storage.onChanged.addListener(function (changes) {
       if ('customList' in changes) {
@@ -129,7 +131,7 @@ export default function Custom() {
         <input
           value={userInput}
           className="w-full outline-none rounded-lg h-10 border placeholder:text-slate-400 dark:placeholder:text-slate-400 border-slate-300 dark:border-slate-600 px-4 py-1 bg-slate-200 dark:bg-slate-700 pr-6"
-          placeholder="Enter VTuber's Youtube ID"
+          placeholder="VTuber's Channel ID"
           onChange={(e) => setUserInput(e.target.value)}
         />
         <PlusCircleIcon
@@ -148,9 +150,9 @@ export default function Custom() {
           <span>Need help?</span>
         </div>
       ) : (
-        <div className="flex gap-1 bg-slate-200 dark:bg-slate-700 px-3 py-2 rounded-lg shadow-sm">
+        <div className="flex gap-1 bg-slate-200 dark:bg-slate-700 px-3 py-2 rounded-lg shadow-sm border border-slate-300 dark:border-slate-600">
           <div>
-            <div>Youtube ID needs to be in this format:</div>
+            <div>Channel ID needs to be in this format:</div>
             <div className="flex items-center">
               <div className="text-[10px]">youtube.com/channel/ </div>
               <span className="bg-slate-300 dark:bg-slate-600 text-[14px] font-bold ">

@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showStreamTitle, setShowStreamTitle] = useState('');
-
   return (
     <div className="flex flex-col gap-2">
       <Navigation

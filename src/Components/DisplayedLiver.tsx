@@ -22,7 +22,11 @@ export function DisplayedLiver({
 
   function checkMyLivers() {
     chrome.storage.local.get('customList', function (data) {
-      setCustomList(data.customList);
+      if (data.customList) setCustomList(data.customList);
+      else {
+        chrome.storage.local.set({ customList: {} });
+        setCustomList({});
+      }
     });
   }
 
@@ -56,12 +60,13 @@ export function DisplayedLiver({
     try {
       const { data } = await axios.request(config);
       const twitter = data.twitter;
+      const name = data.name;
       chrome.storage.local.get('customList', function (data) {
         let tempCustomList = data.customList;
         tempCustomList = {
           ...tempCustomList,
           [channelID]: {
-            name: member.channel.english_name,
+            name: member.channel.english_name || name,
             imageURL: member.channel.photo,
             channelID: member.channel.id,
             twitter: twitter,
@@ -105,7 +110,7 @@ export function DisplayedLiver({
       >
         <img
           src={member.imageURL || member.channel.photo}
-          alt={member.name || member.channel.english_name}
+          alt={member.name}
           className={`rounded-full h-20 liver border-4 shadow-md ${
             isLive
               ? 'border-red-500'
@@ -142,7 +147,7 @@ export function DisplayedLiver({
             ) : (
               <BookmarkIcon
                 onClick={() => addToMyLivers(member.channel.id)}
-                className="h-5 w-5 p-0.5 text-black hover:text-neutral-500 bg-white border-2 border-red-500 rounded-full cursor-pointer"
+                className="h-5 w-5 p-0.5 text-slate-700 hover:text-neutral-500 bg-white border-2 border-red-500 rounded-full cursor-pointer"
               />
             )}
           </div>

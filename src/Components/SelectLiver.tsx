@@ -30,7 +30,6 @@ export default function SelectLiver({
   function databaseSearch(memberID: string) {
     for (const member of flattenedDatabase) {
       if (member.channelID === memberID) {
-        console.log('MEMBEr', member);
         return member;
       }
     }

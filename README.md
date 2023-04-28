@@ -1,4 +1,4 @@
-# Liver ![version](https://img.shields.io/badge/Version-v0.0.3-pink?style=for-the-badge&logo)
+# Liver ![version](https://img.shields.io/badge/Version-v0.1-pink?style=for-the-badge&logo)
 
 <a><img align="right" src="https://i.imgur.com/F9qenDY.png"></a>
 
@@ -11,7 +11,7 @@ Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmji
 
 ## Images
 
-<img src="https://i.imgur.com/YHybind.png" width="700">
+<img src="https://i.imgur.com/YHybind.png" width="800">
 
 <br />
 

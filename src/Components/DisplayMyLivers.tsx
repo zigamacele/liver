@@ -39,8 +39,6 @@ export default function DisplayMyLivers() {
 
   function getMyLivers() {
     chrome.storage.local.get(['myLivers', 'customList'], function (data) {
-      setDisplayLivers({ ...data.myLivers, ...data.customList });
-
       if (Array.isArray(data.myLivers)) {
         let tempMyLivers: any = {};
         data.myLivers.forEach((channelID) => {
@@ -48,7 +46,7 @@ export default function DisplayMyLivers() {
         });
         chrome.storage.local.set({ myLivers: tempMyLivers });
         window.location.reload();
-      }
+      } else setDisplayLivers({ ...data.myLivers, ...data.customList });
     });
   }
 
