@@ -381,6 +381,40 @@ export const database: any = {
         },
       ],
     },
+    {
+      branchID: 'Council',
+      debut: '2021/08/23',
+      members: [
+        {
+          name: 'Shiori Novella',
+          imageURL: 'https://i.imgur.com/QtT5wKO.png',
+          channelID: 'UCgnfPPb9JI3e9A4cXHnWbyg',
+          retired: false,
+          twitter: 'shiorinovella',
+        },
+        {
+          name: 'Koseki Bijou',
+          imageURL: 'https://i.imgur.com/hsJpPv7.png',
+          channelID: 'UC9p_lqQ0FEDz327Vgf5JwqA',
+          retired: false,
+          twitter: 'kosekibijou',
+        },
+        {
+          name: 'Nerissa Ravencroft',
+          imageURL: 'https://i.imgur.com/tVwzTRa.png',
+          channelID: 'UC_sFNM0z0MWm9A6WlKPuMMg',
+          retired: false,
+          twitter: 'nerissa_en',
+        },
+        {
+          name: 'FUWAMOCO',
+          imageURL: 'https://i.imgur.com/sXeb75W.png',
+          channelID: 'UCt9H_RpQzhxzlyBxFqrdHqA',
+          retired: false,
+          twitter: 'fuwamoco_en',
+        },
+      ],
+    },
   ],
   HOLOLIVE_JP: [
     {
