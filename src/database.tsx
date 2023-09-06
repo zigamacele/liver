@@ -738,6 +738,47 @@ export const database: any = {
         },
       ],
     },
+    {
+      branchID: 'DEV_IS: ReGLOSS',
+      debut: '2023/09/09',
+      members: [
+        {
+          name: 'Hiodoshi Ao',
+          imageURL: 'https://i.imgur.com/0u2v2J3.png',
+          channelID: 'UCMGfV7TVTmHhEErVJg1oHBQ',
+          retired: false,
+          twitter: 'hiodoshiao',
+        },
+        {
+          name: 'Otonose Kanade',
+          imageURL: 'https://i.imgur.com/Rex2cmK.png',
+          channelID: 'UCWQtYtq9EOB4-I5P-3fh8lA',
+          retired: false,
+          twitter: 'otonosekanade',
+        },
+        {
+          name: 'Ichijou Ririka',
+          imageURL: 'https://i.imgur.com/96DzunP.png',
+          channelID: 'UCtyWhCj3AqKh2dXctLkDtng',
+          retired: false,
+          twitter: 'ichijouririka',
+        },
+        {
+          name: 'Juufuutei Raden',
+          imageURL: 'https://i.imgur.com/h57qPAB.png',
+          channelID: 'UCdXAk5MpyLD8594lm_OvtGQ',
+          retired: false,
+          twitter: 'juufuuteiraden',
+        },
+        {
+          name: 'Todoroki Hajime',
+          imageURL: 'https://i.imgur.com/dh1PwAz.png',
+          channelID: 'UC1iA6_NT4mtAcIII6ygrvCw',
+          retired: true,
+          twitter: 'todoroki_hajime',
+        },
+      ],
+    },
   ],
   HOLOSTARS_EN: [
     {
