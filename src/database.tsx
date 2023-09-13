@@ -1232,7 +1232,7 @@ export const database: any = {
         },
         {
           name: 'Dola',
-          imageURL: 'https://i.imgur.com/APlj7pQ.png',
+          imageURL: 'https://i.imgur.com/N6VWw98.png',
           channelID: 'UC53UDnhAAYwvNO7j_2Ju1cQ',
           retired: false,
           twitter: '___Dola',
