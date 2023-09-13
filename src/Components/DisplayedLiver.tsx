@@ -111,7 +111,7 @@ export function DisplayedLiver({
         <img
           src={member.imageURL || member.channel.photo}
           alt={member.name}
-          className={`rounded-full h-20 liver border-4 shadow-md ${
+          className={`rounded-full h-20 w-20 object-cover liver border-4 shadow-md ${
             isLive
               ? 'border-red-500'
               : 'border-white dark:border-slate-700 bg-slate-200 dark:bg-slate-800'
