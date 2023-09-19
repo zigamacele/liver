@@ -284,6 +284,33 @@ export const database: any = {
         },
       ],
     },
+    {
+      branchID: 'Krisis',
+      debut: '2023/06/24',
+      members: [
+        {
+          name: 'Vezalius Bandage',
+          imageURL: 'https://i.imgur.com/ILGoIzw.png',
+          channelID: 'UCK9l6rTwU3hiSZijIMq51Gw',
+          retired: false,
+          twitter: 'VezaliusBandage',
+        },
+        {
+          name: 'Vantacrow Bringer',
+          imageURL: 'https://i.imgur.com/fRe6Qek.png',
+          channelID: 'UCpYf6C9QsP_BRf97vLuXlIA',
+          retired: false,
+          twitter: 'Tyrant_Vanta',
+        },
+        {
+          name: 'Yu Q. Wilson',
+          imageURL: 'https://i.imgur.com/Pw2C8ID.png',
+          channelID: 'UCKpKC3M5fkcEvtOr06dmYlA',
+          retired: false,
+          twitter: 'YuQWilson',
+        },
+      ],
+    },
   ],
   HOLOLIVE_EN: [
     {
