@@ -1,5 +1,11 @@
+import Footer from '@/layouts/Footer.tsx'
+
 const Settings: React.FC = () => {
-  return <div className='bg-red-500'>test</div>
+  return (
+    <div>
+      <Footer />
+    </div>
+  )
 }
 
 export default Settings

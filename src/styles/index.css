@@ -5,7 +5,7 @@
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
-  @apply w-96 bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100;
+  @apply h-[48em] w-96 bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100;
 }
 
 body::-webkit-scrollbar {
