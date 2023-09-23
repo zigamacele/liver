@@ -1,5 +1,6 @@
 import { crx, ManifestV3Export } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -12,7 +13,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react(), crx({ manifest })],
   resolve: {
     alias: {
-      '@': '/src',
+      '@': path.resolve(__dirname, './src'),
     },
   },
 })

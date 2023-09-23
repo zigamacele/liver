@@ -5,7 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "types": ["vite/client", "chrome"],
+    "types": ["vite/client", "chrome", "node"],
 
     "baseUrl": ".",
     "paths": {

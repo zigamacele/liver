@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter as Router } from 'react-router'
 
-import './styles/index.css'
+import './styles/globals.css'
 
 import Navbar from '@/layouts/Navbar.tsx'
 import Routes from '@/routes/AppRoutes.tsx'
