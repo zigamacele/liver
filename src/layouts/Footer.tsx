@@ -1,4 +1,4 @@
-import { Github } from 'lucide-react'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
 import { GITHUB_REPO, HOLODEX_WEBSITE } from '@/constants/links.ts'
 
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
           Holodex
         </p>
       </div>
-      <Github
+      <GitHubLogoIcon
         className='h-5 w-5 cursor-pointer rounded hover:text-slate-500 hover:dark:text-blue-400'
         onClick={() =>
           void chrome.tabs.create({

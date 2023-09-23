@@ -1,4 +1,10 @@
-import { RefreshCw, Settings, Sun, UserPlus, Users } from 'lucide-react'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import {
+  Cog6ToothIcon,
+  SunIcon,
+  UserGroupIcon,
+  UserPlusIcon,
+} from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
 
 import NavButton from '@/components/Navbar/NavButton.tsx'
@@ -12,19 +18,23 @@ const Navbar = () => {
           Liver
         </p>
       </Link>
-      <div className='flex items-center gap-2 text-slate-700 dark:text-blue-500'>
-        <div className='rounded bg-slate-200 px-2 py-1.5 shadow-sm dark:bg-slate-700'>
-          <NavButton Icon={<RefreshCw size={20} />} linkTo={HOME} />
+      <section className='flex items-center gap-2 text-slate-700 dark:text-blue-500'>
+        <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 shadow-sm dark:bg-slate-700'>
+          <NavButton Icon={<ArrowPathIcon />} tooltipText='Refresh' />
         </div>
         <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 shadow-sm dark:bg-slate-700'>
-          <NavButton Icon={<UserPlus size={20} />} />
-          <NavButton Icon={<Users size={20} />} />
+          <NavButton Icon={<UserPlusIcon />} tooltipText='Add New VTuber' />
+          <NavButton Icon={<UserGroupIcon />} tooltipText='All Live VTubers' />
         </div>
         <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 shadow-sm dark:bg-slate-700'>
-          <NavButton Icon={<Sun size={20} />} />
-          <NavButton Icon={<Settings size={20} />} linkTo={SETTINGS} />
+          <NavButton Icon={<SunIcon />} tooltipText='Light/Dark Mode' />
+          <NavButton
+            Icon={<Cog6ToothIcon />}
+            linkTo={SETTINGS}
+            tooltipText='Settings'
+          />
         </div>
-      </div>
+      </section>
     </nav>
   )
 }
