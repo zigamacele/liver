@@ -27,6 +27,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
       <SelectGroup>
         {data.map((item) => (
           <SelectItem
+            key={item.value}
             value={item.value}
             disabled={Array.isArray(disabled) && disabled.includes(item.value)}
           >

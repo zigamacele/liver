@@ -51,42 +51,38 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
   }
 
   return (
-    <section>
-      {VTuberDatabase[selected]?.map((branch) => {
-        return (
-          <div>
-            <div key={branch.branchID}>{branch.branchID}</div>
-            <div className='flex flex-wrap gap-1.5'>
-              {branch.members.map((member) => {
-                return (
-                  <div
-                    key={member.name}
-                    onClick={() => saveToChromeStorage(member.channelID)}
-                    className='mt-1 fade-in'
-                  >
-                    {!Object.keys(selectedLivers).includes(member.channelID) ? (
-                      <img
-                        src={member.imageURL}
-                        alt={member.name}
-                        className='h-14 w-14 cursor-pointer rounded-full border-2 border-white bg-slate-200 shadow-sm hover:opacity-80 dark:border-slate-700 dark:bg-slate-800'
-                      />
-                    ) : (
-                      <div className='relative cursor-pointer'>
-                        <CheckCircleIcon className='absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-slate-700 dark:text-slate-200 ' />
-                        <img
-                          src={member.imageURL}
-                          alt={member.name}
-                          className='h-14 w-14 rounded-full bg-slate-200 p-1 opacity-50 dark:bg-slate-700'
-                        />
-                      </div>
-                    )}
+    <section className='mt-2.5 flex flex-col gap-1'>
+      {VTuberDatabase[selected]?.map((branch) => (
+        <div key={branch.branchID}>
+          <p className='mx-1 font-medium capitalize'>{branch.branchID}</p>
+          <div className='flex flex-wrap gap-1.5'>
+            {branch.members.map((member) => (
+              <div
+                key={member.name}
+                onClick={() => saveToChromeStorage(member.channelID)}
+                className='mt-1 fade-in'
+              >
+                {!Object.keys(selectedLivers).includes(member.channelID) ? (
+                  <img
+                    src={member.imageURL}
+                    alt={member.name}
+                    className='h-14 w-14 cursor-pointer rounded-full border-2 border-white bg-slate-200 shadow-sm hover:opacity-80 dark:border-slate-700 dark:bg-slate-800'
+                  />
+                ) : (
+                  <div className='relative cursor-pointer'>
+                    <CheckCircleIcon className='absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-slate-700 dark:text-slate-200 ' />
+                    <img
+                      src={member.imageURL}
+                      alt={member.name}
+                      className='h-14 w-14 rounded-full bg-slate-200 p-1 opacity-50 dark:bg-slate-700'
+                    />
                   </div>
-                )
-              })}
-            </div>
+                )}
+              </div>
+            ))}
           </div>
-        )
-      })}
+        </div>
+      ))}
     </section>
   )
 }

@@ -28,7 +28,7 @@ const Navbar = () => {
           <NavButton Icon={<UserGroupIcon />} tooltipText='All Live VTubers' />
         </div>
         <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
-          <NavButton Icon={<SunIcon />} tooltipText='Light/Dark Mode' />
+          <NavButton Icon={<SunIcon />} tooltipText='Appearance' />
           <NavButton
             Icon={<Cog6ToothIcon />}
             linkTo={SETTINGS}
