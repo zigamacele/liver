@@ -1,4 +1,6 @@
 import database from '@/lib/database.json'
+
+import { VTDatabase } from '@/types/database.ts'
 export const corpos = [
   { value: 'NIJISANJI', label: 'Nijisanji' },
   { value: 'HOLOLIVE', label: 'Hololive' },
@@ -10,22 +12,4 @@ export const regions = [
   { value: 'ID', label: 'Indonesia' },
 ]
 
-type Member = {
-  name: string
-  imageURL: string
-  channelID: string
-  retired: boolean
-  twitter: string
-}
-
-interface BranchInfo {
-  branchID: string
-  debut: string
-  members: Member[]
-}
-
-interface VTuberDatabase {
-  [key: string]: BranchInfo[]
-}
-
-const VTuberDatabase: VTuberDatabase = database
+export const VTuberDatabase: VTDatabase = database
