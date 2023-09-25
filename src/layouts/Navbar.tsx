@@ -10,7 +10,7 @@ import { AppearanceToggle } from '@/lib/shadcn/ui/appearance-toggle.tsx'
 
 import NavButton from '@/components/Navbar/NavButton.tsx'
 
-import { HOME, SETTINGS } from '@/constants/paths.ts'
+import { ALL, CUSTOM, HOME, SETTINGS } from '@/constants/paths.ts'
 const Navbar = () => {
   return (
     <nav className='fixed z-50 flex w-full items-center justify-between bg-slate-100/80 px-3 py-2 backdrop-blur-md dark:bg-slate-800/80'>
@@ -25,8 +25,16 @@ const Navbar = () => {
           <NavButton Icon={<ArrowPathIcon />} tooltipText='Refresh' />
         </div>
         <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
-          <NavButton Icon={<UserPlusIcon />} tooltipText='Add New VTuber' />
-          <NavButton Icon={<UserGroupIcon />} tooltipText='All Live VTubers' />
+          <NavButton
+            Icon={<UserPlusIcon />}
+            linkTo={CUSTOM}
+            tooltipText='Add New VTuber'
+          />
+          <NavButton
+            Icon={<UserGroupIcon />}
+            linkTo={ALL}
+            tooltipText='All Live VTubers'
+          />
         </div>
         <div className='relative flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
           <AppearanceToggle />
