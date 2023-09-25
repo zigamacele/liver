@@ -5,6 +5,7 @@ import { MemoryRouter as Router } from 'react-router'
 import './styles/globals.css'
 
 import { ThemeProvider } from '@/lib/shadcn/theme-provider.tsx'
+import { Toaster } from '@/lib/shadcn/ui/toaster'
 
 import Navbar from '@/layouts/Navbar.tsx'
 import Routes from '@/routes/AppRoutes.tsx'
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <Navbar />
         <Routes />
       </Router>
+      <Toaster />
     </ThemeProvider>
   </StrictMode>,
 )
