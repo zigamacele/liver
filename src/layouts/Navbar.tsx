@@ -1,11 +1,12 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import {
   Cog6ToothIcon,
-  SunIcon,
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
+
+import { AppearanceToggle } from '@/lib/shadcn/ui/appearance-toggle.tsx'
 
 import NavButton from '@/components/Navbar/NavButton.tsx'
 
@@ -27,8 +28,8 @@ const Navbar = () => {
           <NavButton Icon={<UserPlusIcon />} tooltipText='Add New VTuber' />
           <NavButton Icon={<UserGroupIcon />} tooltipText='All Live VTubers' />
         </div>
-        <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
-          <NavButton Icon={<SunIcon />} tooltipText='Appearance' />
+        <div className='relative flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
+          <AppearanceToggle />
           <NavButton
             Icon={<Cog6ToothIcon />}
             linkTo={SETTINGS}
