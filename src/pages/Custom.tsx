@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { toast } from '@/lib/shadcn/ui/use-toast.ts'
 import { cn } from '@/lib/shadcn/utils.ts'
 
+import DisplayCustomList from '@/components/Custom/DisplayCustomList.tsx'
 import NeedHelp from '@/components/Custom/NeedHelp.tsx'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
@@ -23,8 +24,6 @@ const Custom: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [customList, setCustomList] = useState<CustomList>({})
   const [showHelp, setShowHelp] = useState(false)
-
-  console.error(customList)
 
   const saveToChromeStorage = (APIData: ChannelInformation) => {
     let customLivers: CustomList = {}
@@ -55,7 +54,6 @@ const Custom: React.FC = () => {
 
       customLivers = data['customList'] as CustomList
       if (Object.keys(customLivers).includes(userInput)) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete customLivers[userInput as keyof CustomList]
         customLivers = {
           ...customLivers,
@@ -145,9 +143,9 @@ const Custom: React.FC = () => {
         />
       </div>
       <NeedHelp show={showHelp} setShowHelp={setShowHelp} />
-      {/*{Object.keys(customList).length > 0 && (*/}
-      {/*  <DisplayCustomList customList={customList} />*/}
-      {/*)}*/}
+      {!!Object.keys(customList).length && (
+        <DisplayCustomList customList={customList} />
+      )}
     </section>
   )
 }
