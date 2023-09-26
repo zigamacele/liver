@@ -5,7 +5,7 @@ import { VTuberDatabase } from '@/constants/database.ts'
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
 import { databaseSearch } from '@/helpers/database.ts'
 
-import { MyLivers } from '@/types/chrome-storage.ts'
+import { MyLivers } from '@/types/chrome-api.ts'
 
 interface VTuberSelectorProps {
   selected: string
