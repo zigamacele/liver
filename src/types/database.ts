@@ -15,3 +15,13 @@ export interface BranchInfo {
 export interface VTDatabase {
   [key: string]: BranchInfo[]
 }
+
+export interface CustomList {
+  [key: string]: {
+    name: string
+    channelID: string
+    imageURL: string
+    twitter: string
+    retired?: boolean
+  }
+}

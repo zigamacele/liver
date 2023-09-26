@@ -8,3 +8,7 @@ export const errorToast = {
   title: 'Uh oh! Something went wrong.',
   description: 'There was a problem with your request.',
 }
+
+export const customErrorMessage = (message: string) => {
+  return { description: message }
+}
