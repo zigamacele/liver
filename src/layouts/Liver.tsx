@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
 import { createTab, setChromeStorage } from '@/helpers/chrome-api.ts'
+import LiveStatus from '@/layouts/Liver/LiveStatus.tsx'
 
 import { ChannelInformation, LiveChannel } from '@/types/api.ts'
 import { ChromeStorageData, VTuberFromStorage } from '@/types/chrome-api.ts'
@@ -22,8 +23,8 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
 
   console.error(showLiveStatus, customList, setFetchingVTuber)
 
-  function checkMyLivers() {
-    chrome.storage.local.get('customList', function (data) {
+  const checkMyLivers = () => {
+    chrome.storage.local.get('customList', (data) => {
       if (data['customList']) {
         setCustomList(data['customList'] as ChromeStorageData)
       } else {
@@ -38,7 +39,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   }, [])
 
   const deleteFromMyLivers = (channelID: string) => {
-    chrome.storage.local.get('customList', function (data) {
+    chrome.storage.local.get('customList', (data) => {
       const tempCustomList = data['customList'] as ChromeStorageData
       delete tempCustomList[channelID]
       void setChromeStorage('customList', tempCustomList)
@@ -58,7 +59,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
         await axios.request(config)
       const twitter = data.twitter
       const name = data.name
-      chrome.storage.local.get('customList', function (data) {
+      chrome.storage.local.get('customList', (data) => {
         let tempCustomList = data['customList'] as ChromeStorageData
         tempCustomList = {
           ...tempCustomList,
@@ -96,7 +97,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
 
   return (
     <div className='fade-in '>
-      {/*{showLiveStatus && isLive && <LiveStatus member={member} />}*/}
+      {showLiveStatus && isLive && <LiveStatus member={member} />}
       <div
         className='relative'
         onMouseEnter={() => {
