@@ -98,7 +98,7 @@ const DisplayMyLivers = () => {
                 displayLivers[channelID] as LiveChannel & VTuberFromStorage
               }
               loading={isLoading}
-              path='Home'
+              path='home'
             />
           </div>
         )

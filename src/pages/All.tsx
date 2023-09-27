@@ -29,7 +29,7 @@ const All = () => {
             <Liver
               member={VTuber as LiveChannel & VTuberFromStorage}
               loading={isLoading}
-              path='viewAll'
+              path='all'
               key={VTuber.id}
             />
           )
