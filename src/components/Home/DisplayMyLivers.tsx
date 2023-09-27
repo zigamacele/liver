@@ -4,12 +4,18 @@ import useLiveChannels from '@/hooks/useLiveChannels.tsx'
 
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
 import { databaseSearch } from '@/helpers/database.ts'
+import Liver from '@/layouts/Liver.tsx'
 
-import { ChromeStorageData, MyLivers } from '@/types/chrome-api.ts'
+import { LiveChannel } from '@/types/api.ts'
+import {
+  ChromeStorageData,
+  MyLivers,
+  VTuberFromStorage,
+} from '@/types/chrome-api.ts'
 
 const DisplayMyLivers = () => {
   const [displayLivers, setDisplayLivers] = useState<ChromeStorageData>({})
-  const { data } = useLiveChannels()
+  const { data, isLoading } = useLiveChannels()
 
   useEffect(() => {
     getMyLivers()
@@ -44,7 +50,7 @@ const DisplayMyLivers = () => {
     let tempLiveStatus = {}
     for (const [key, value] of Object.entries(displayLivers)) {
       for (let index = 0; index < data.length; index++) {
-        if (key === data[index]?.channel.id && data[index]?.status === 'live')
+        if (key === data[index]?.channel.id && data[index]?.status === 'live') {
           tempLiveStatus = {
             ...tempLiveStatus,
             [key]: {
@@ -54,11 +60,11 @@ const DisplayMyLivers = () => {
               started: data[index]?.start_actual,
               scheduled: data[index]?.start_scheduled,
               viewers: data[index]?.live_viewers,
-              // TODO: check if this works
-              org: displayLivers[key]?.org,
+              org: data[index]?.channel.org,
               fullName: data[index]?.channel.name,
             },
           }
+        }
       }
       if (!Object.keys(tempLiveStatus).includes(key))
         tempLiveStatus = {
@@ -70,29 +76,30 @@ const DisplayMyLivers = () => {
         Object.keys(tempLiveStatus).length === Object.keys(displayLivers).length
       ) {
         setDisplayLivers(tempLiveStatus)
-        // setLoading(false)
       }
     }
   }
 
   if (!Object.keys(displayLivers).length) {
     return (
-      <span className='mt-2 flex justify-center opacity-40'>
+      <span className='flex justify-center opacity-40'>
         <p>Looks like your list is empty..</p>
       </span>
     )
   }
 
   return (
-    <section className='my-2 flex flex-wrap justify-center gap-3'>
+    <section className='flex flex-wrap justify-center gap-3 pt-14'>
       {Object.keys(displayLivers).map((channelID) => {
         return (
           <div key={channelID}>
-            {/*<DisplayedLiver*/}
-            {/*  member={displayLivers[channelID]}*/}
-            {/*  loading={loading}*/}
-            {/*  path='Home'*/}
-            {/*/>*/}
+            <Liver
+              member={
+                displayLivers[channelID] as LiveChannel & VTuberFromStorage
+              }
+              loading={isLoading}
+              path='Home'
+            />
           </div>
         )
       })}

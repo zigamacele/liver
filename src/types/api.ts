@@ -4,6 +4,7 @@ type ChannelInfo = {
   name: string
   photo: string
   type: string
+  org: string
 }
 
 export type LiveChannel = {

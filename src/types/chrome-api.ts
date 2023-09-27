@@ -4,11 +4,11 @@ export interface MyLivers {
   [key: string]: Member
 }
 
-type VTuberFromStorage = {
+export type VTuberFromStorage = {
   name: string
   imageURL: string
   channelID: string
-  retired: boolean
+  retired?: boolean
   twitter: string
   status?: string
   title?: string
