@@ -21,7 +21,7 @@ const LiveStatus: React.FC<LiveStatusProps> = ({ member }) => {
         <div className='flex items-center justify-between px-3'>
           <div>
             <div className='flex flex-col'>
-              <span className='text-[10px] font-light'>
+              <span className='text-[10px] font-light opacity-80'>
                 {member.org || member.channel.org}
               </span>
               <span>{member.name || member.channel.english_name}</span>
@@ -35,7 +35,7 @@ const LiveStatus: React.FC<LiveStatusProps> = ({ member }) => {
               <span>{member.viewers || member.live_viewers || 0}</span>
             </div>
             <div className='flex items-center gap-1'>
-              <ClockIcon className='h-4 w-4' />
+              <ClockIcon className='h-4 w-4 opacity-60' />
               <span>
                 {startedStreaming(member.started || member.start_actual)}
               </span>

@@ -55,7 +55,7 @@
   }
 
   body {
-    @apply h-[48em] w-96 bg-background text-foreground;
+    @apply h-[48em] w-96 bg-slate-100 text-foreground dark:bg-slate-800;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }

@@ -161,7 +161,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
         )}
         {loading && (
           <>
-            <div className='absolute bottom-[4.6em] left-[4.7em] rounded-full bg-white p-1 pb-0 fade-in dark:bg-slate-700'>
+            <div className='absolute bottom-[4.5em] left-[4.5em] rounded-full bg-white p-1 pb-0 fade-in dark:bg-slate-700'>
               <ClipLoader size={15} />
             </div>
             <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2 transform'>

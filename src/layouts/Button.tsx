@@ -11,6 +11,7 @@ interface ButtonProps {
   size: keyof typeof ButtonSize | null | undefined
   children: ReactNode
   onClick?: () => void | Promise<void>
+  className?: string
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
@@ -19,10 +20,16 @@ const ButtonComponent: React.FC<ButtonProps> = ({
   size,
   children,
   onClick,
+  className,
 }) => {
   return (
     <Tooltip text={tooltipText}>
-      <Button variant={variant} size={size} onClick={onClick}>
+      <Button
+        variant={variant}
+        size={size}
+        onClick={onClick}
+        className={className}
+      >
         {children}
       </Button>
     </Tooltip>
