@@ -22,7 +22,11 @@ const Navbar = () => {
       </Link>
       <section className='flex items-center gap-2 text-slate-700 dark:text-blue-500'>
         <div className='flex items-center rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
-          <NavButton Icon={<ArrowPathIcon />} tooltipText='Refresh' />
+          <NavButton
+            Icon={<ArrowPathIcon />}
+            tooltipText='Refresh'
+            onClick={() => window.location.reload()}
+          />
         </div>
         <div className='flex items-center gap-2 rounded bg-slate-200 px-2 py-1.5 dark:bg-slate-700'>
           <NavButton

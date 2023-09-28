@@ -56,5 +56,11 @@
 
   body {
     @apply h-[48em] w-96 bg-background text-foreground;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 }

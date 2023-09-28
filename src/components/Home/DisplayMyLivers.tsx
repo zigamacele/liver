@@ -89,7 +89,7 @@ const DisplayMyLivers = () => {
   }
 
   return (
-    <section className='flex flex-wrap justify-center gap-3 pt-14'>
+    <section className='flex flex-wrap justify-center gap-3 pb-4 pt-14'>
       {Object.keys(displayLivers).map((channelID) => {
         return (
           <div key={channelID}>

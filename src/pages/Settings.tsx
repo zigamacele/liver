@@ -12,7 +12,7 @@ import Footer from '@/layouts/Footer.tsx'
 const Settings: React.FC = () => {
   const [selector, setSelector] = useState('NIJISANJI_EN')
   return (
-    <section className='px-4 py-14'>
+    <section className='px-2 py-14'>
       <span className='flex items-center justify-between'>
         <Selectors setSelector={setSelector} />
         <Button
