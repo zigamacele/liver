@@ -24,8 +24,6 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   const [customList, setCustomList] = useState<ChromeStorageData>({})
   const [fetchingVTuber, setFetchingVTuber] = useState(false)
 
-  console.error(showLiveStatus, customList, setFetchingVTuber)
-
   const checkMyLivers = () => {
     chrome.storage.local.get('customList', (data) => {
       if (data['customList']) {
@@ -99,7 +97,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   const isLive = member.status === 'live'
 
   return (
-    <section className='fade-in '>
+    <section>
       {showLiveStatus && isLive && <LiveStatus member={member} />}
       <div
         className='relative'
@@ -124,7 +122,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
         {!loading && member['twitter'] && (
           <div
             className={cn(
-              'absolute bottom-[6em] left-[3em] cursor-pointer fade-in',
+              'absolute bottom-[6em] left-[3em] cursor-pointer',
               isLive
                 ? 'text-white hover:text-red-200'
                 : 'text-blue-400 hover:text-blue-700 dark:hover:text-blue-300',
@@ -140,7 +138,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           </div>
         )}
         {path === 'all' && !fetchingVTuber && (
-          <div className='absolute bottom-[4.8em] left-[4.8em] rounded-full text-red-500 fade-in'>
+          <div className='absolute bottom-[4.8em] left-[4.8em] rounded-full text-red-500'>
             {Object.keys(customList).includes(member['channel'].id) ? (
               <BookmarkSlashIcon
                 onClick={() => deleteFromMyLivers(member['channel'].id)}
@@ -155,18 +153,18 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           </div>
         )}
         {fetchingVTuber && (
-          <div className='absolute bottom-[4.6em] left-[4.7em] rounded-full bg-red-500 p-1 pb-0 fade-in'>
+          <div className='absolute bottom-[4.6em] left-[4.7em] rounded-full bg-red-500 p-1 pb-0'>
             <ClipLoader size={15} color='white' />
           </div>
         )}
         {loading && (
           <>
-            <div className='absolute bottom-[4.5em] left-[4.5em] rounded-full bg-white p-1 pb-0 fade-in dark:bg-slate-700'>
+            <div className='absolute bottom-[4.5em] left-[4.5em] rounded-full bg-white p-1 pb-0 dark:bg-slate-700'>
               <ClipLoader size={15} />
             </div>
             <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2 transform'>
               <div className='rounded-full bg-white px-1.5 py-0.5  dark:bg-slate-700 dark:text-white'>
-                <p className='text-[10px] fade-in'>OFFLINE</p>
+                <p className='text-[10px]'>OFFLINE</p>
               </div>
             </div>
           </>
@@ -176,14 +174,14 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
             {isLive && (
               <div className='relative'>
                 <div className='absolute bottom-0 left-1/2 z-50 -translate-x-1/2 transform rounded-full bg-red-500 px-1.5 py-0.5 text-slate-100 dark:text-white'>
-                  <p className='text-[10px] fade-in'>LIVE</p>
+                  <p className='text-[10px]'>LIVE</p>
                 </div>
                 <div className='absolute bottom-[-1.25px] left-[-1.25em] h-5 w-8 animate-ping rounded-full bg-red-500/60'></div>
               </div>
             )}
             {!isLive && (
               <div className='rounded-full bg-white px-1.5 py-0.5  dark:bg-slate-700 dark:text-white'>
-                <p className='text-[10px] fade-in'>OFFLINE</p>
+                <p className='text-[10px]'>OFFLINE</p>
               </div>
             )}
           </div>

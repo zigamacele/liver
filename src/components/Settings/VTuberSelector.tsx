@@ -59,7 +59,7 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
               <div
                 key={member.name}
                 onClick={() => saveToChromeStorage(member.channelID)}
-                className='mt-1 fade-in'
+                className='mt-1'
               >
                 {!Object.keys(selectedLivers).includes(member.channelID) ? (
                   <img

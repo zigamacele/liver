@@ -21,7 +21,7 @@ const DisplayCustomList: React.FC<DisplayCustomListProps> = ({
     <section className='mt-2 flex flex-col gap-1.5'>
       {Object.values(customList).flatMap((VTuber) => {
         return (
-          <div className='bg flex items-center justify-between rounded-full border border-slate-300 bg-slate-300/30 px-1 py-1 shadow-sm fade-in dark:border-slate-700 dark:bg-slate-700/50'>
+          <div className='bg flex items-center justify-between rounded-full border border-slate-300 bg-slate-300/30 px-1 py-1 shadow-sm dark:border-slate-700 dark:bg-slate-700/50'>
             <div className='flex items-center gap-2'>
               <img
                 src={VTuber.imageURL}

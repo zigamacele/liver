@@ -16,7 +16,7 @@ const LiveStatus: React.FC<LiveStatusProps> = ({ member }) => {
   }
 
   return (
-    <section className='fixed left-0 top-0 z-50 h-16 w-screen bg-slate-100/80 py-2 text-xs backdrop-blur-sm fade-in dark:bg-slate-800/80'>
+    <section className='fixed left-0 top-0 z-50 h-16 w-screen bg-slate-100/80 py-2 text-xs backdrop-blur-sm dark:bg-slate-800/80'>
       <div className='flex flex-col gap-0.5'>
         <div className='flex items-center justify-between px-3'>
           <div>
