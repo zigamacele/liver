@@ -137,7 +137,7 @@ const Custom: React.FC = () => {
         <PlusCircleIcon
           onClick={handleInputSubmit}
           className={cn(
-            'absolute right-2 top-1/2 z-50 h-6 w-6 -translate-y-1/2 cursor-pointer hover:opacity-70',
+            'absolute right-2 top-1/2 z-10 h-6 w-6 -translate-y-1/2 cursor-pointer hover:opacity-70',
             loading && 'animate-pulse',
           )}
         />

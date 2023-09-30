@@ -11,7 +11,7 @@ const All = () => {
   if (isLoading) {
     return (
       <section className='flex flex-wrap justify-center gap-3 pt-14'>
-        {Array.from({ length: 20 }).map((_, index) => (
+        {Array.from({ length: 24 }).map((_, index) => (
           <div
             key={index}
             className='h-20 w-20 animate-pulse rounded-full bg-slate-300/60 dark:bg-slate-700/80'

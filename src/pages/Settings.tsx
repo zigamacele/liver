@@ -12,7 +12,7 @@ import Footer from '@/layouts/Footer.tsx'
 const Settings: React.FC = () => {
   const [selector, setSelector] = useState('NIJISANJI_EN')
   return (
-    <section className='px-3 py-14'>
+    <section className='px-2 py-14'>
       <span className='flex items-center justify-between'>
         <Selectors setSelector={setSelector} />
         <Button
@@ -20,8 +20,9 @@ const Settings: React.FC = () => {
           variant={ButtonVariants.outline}
           size={ButtonSize.icon}
           onClick={resetMyLivers}
+          className='group mr-1 bg-white animate-in slide-in-from-right dark:border-slate-600 dark:bg-slate-700'
         >
-          <TrashIcon className='h-5 w-5' />
+          <TrashIcon className='h-5 w-5 transition-colors group-hover:text-red-500' />
         </Button>
       </span>
       <VTuberSelector selected={selector} />

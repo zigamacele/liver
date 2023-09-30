@@ -12,7 +12,7 @@ const NeedHelp: React.FC<NeedHelpProps> = ({ show, setShowHelp }) => {
     return (
       <div
         onClick={() => setShowHelp((current) => !current)}
-        className='flex cursor-pointer items-center gap-1 px-1 py-0.5 hover:opacity-60'
+        className='flex cursor-pointer items-center gap-1 px-1 py-0.5 animate-in slide-in-from-top hover:opacity-60'
       >
         <LifebuoyIcon className='h-4 w-4' />
         <span>Need help?</span>

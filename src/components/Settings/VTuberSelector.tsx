@@ -69,7 +69,7 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
                   />
                 ) : (
                   <div className='relative cursor-pointer'>
-                    <CheckCircleIcon className='absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-slate-700 dark:text-slate-200 ' />
+                    <CheckCircleIcon className='absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-slate-700 dark:text-slate-200 ' />
                     <img
                       src={member.imageURL}
                       alt={member.name}

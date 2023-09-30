@@ -21,20 +21,22 @@ const LiveStatus: React.FC<LiveStatusProps> = ({ member }) => {
         <div className='flex items-center justify-between px-3'>
           <div>
             <div className='flex flex-col'>
-              <span className='text-[10px] font-light opacity-80'>
+              <span className='text-[10px] font-light opacity-80 animate-in slide-in-from-left'>
                 {member.org || member.channel.org}
               </span>
-              <span>{member.name || member.channel.english_name}</span>
+              <span className='duration-300 animate-in slide-in-from-left'>
+                {member.name || member.channel.english_name}
+              </span>
             </div>
           </div>
           <div className='flex flex-col items-end justify-end'>
-            <div className='flex items-center gap-1.5'>
+            <div className='flex items-center gap-1.5 duration-500 animate-in slide-in-from-right'>
               <div className='h-2 w-2 rounded-full bg-red-500'>
                 <div className=' h-2 w-2 animate-ping rounded-full bg-red-500'></div>
               </div>
               <span>{member.viewers || member.live_viewers || 0}</span>
             </div>
-            <div className='flex items-center gap-1'>
+            <div className='flex items-center gap-1 duration-500 animate-in slide-in-from-right'>
               <ClockIcon className='h-4 w-4 opacity-60' />
               <span>
                 {startedStreaming(member.started || member.start_actual)}
@@ -42,7 +44,9 @@ const LiveStatus: React.FC<LiveStatusProps> = ({ member }) => {
             </div>
           </div>
         </div>
-        <Marquee speed={45}>{member.title}</Marquee>
+        <Marquee speed={45} className='duration-700 animate-in fade-in'>
+          {member.title}
+        </Marquee>
       </div>
     </section>
   )

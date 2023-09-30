@@ -4,9 +4,9 @@ import { GITHUB_REPO, HOLODEX_WEBSITE } from '@/constants/links.ts'
 
 const Footer: React.FC = () => {
   return (
-    <footer className='fixed bottom-0 left-0 z-50 flex w-full items-center justify-between bg-slate-100/80 px-3 py-3 backdrop-blur-md dark:bg-slate-800/80'>
+    <footer className='bottom fixed bottom-0 left-0 z-50 flex w-full items-center justify-between bg-slate-100/80 px-3 py-3 backdrop-blur-md duration-500 animate-in slide-in-from-bottom dark:bg-slate-800/80'>
       <div className='flex items-center gap-1'>
-        <p className='text-[10px] font-light'>Powered by</p>
+        <p className='font-light'>Powered by</p>
         <p
           onClick={() =>
             void chrome.tabs.create({

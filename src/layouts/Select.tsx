@@ -20,7 +20,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
   setSelected,
 }) => (
   <Select value={selected} onValueChange={(value) => setSelected(value)}>
-    <SelectTrigger className='h-8 w-36'>
+    <SelectTrigger className='h-8 w-36 bg-white dark:border-slate-600 dark:bg-slate-700'>
       <SelectValue />
     </SelectTrigger>
     <SelectContent>

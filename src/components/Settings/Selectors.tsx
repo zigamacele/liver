@@ -15,7 +15,7 @@ const Selectors: React.FC<SelectorsProps> = ({ setSelector }) => {
   }, [selectedCorpo, selectedRegion])
 
   return (
-    <section className='flex gap-2'>
+    <section className='flex gap-2 animate-in slide-in-from-left'>
       <Select
         data={corpos}
         disabled={selectedRegion === 'ID' && ['HOLOSTARS', 'NIJISANJI']}

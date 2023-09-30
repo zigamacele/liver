@@ -162,7 +162,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
             <div className='absolute bottom-[4.5em] left-[4.5em] rounded-full bg-white p-1 pb-0 dark:bg-slate-700'>
               <ClipLoader size={15} />
             </div>
-            <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2 transform'>
+            <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2'>
               <div className='rounded-full bg-white px-1.5 py-0.5  dark:bg-slate-700 dark:text-white'>
                 <p className='text-[10px]'>OFFLINE</p>
               </div>
@@ -170,10 +170,10 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           </>
         )}
         {!loading && (
-          <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2 transform'>
+          <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2'>
             {isLive && (
               <div className='relative'>
-                <div className='absolute bottom-0 left-1/2 z-50 -translate-x-1/2 transform rounded-full bg-red-500 px-1.5 py-0.5 text-slate-100 dark:text-white'>
+                <div className='absolute bottom-0 left-1/2 z-50 -translate-x-1/2 rounded-full bg-red-500 px-1.5 py-0.5 text-slate-100 dark:text-white'>
                   <p className='text-[10px]'>LIVE</p>
                 </div>
                 <div className='absolute bottom-[-1.25px] left-[-1.25em] h-5 w-8 animate-ping rounded-full bg-red-500/60'></div>
