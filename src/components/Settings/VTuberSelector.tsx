@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { VTuberDatabase } from '@/constants/database.ts'
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
 import { databaseSearch } from '@/helpers/database.ts'
+import InView from '@/layouts/InView.tsx'
 
 import { MyLivers } from '@/types/chrome-api.ts'
 
@@ -14,7 +15,7 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
   const [selectedLivers, setSelectedLivers] = useState({})
 
   useEffect(() => {
-    chrome.storage.local.get('myLivers', function (data) {
+    chrome.storage.local.get('myLivers', (data) => {
       setSelectedLivers({ ...(data['myLivers'] as MyLivers) })
     })
   }, [])
@@ -52,7 +53,7 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
   return (
     <section className='mt-2.5 flex flex-col gap-1'>
       {VTuberDatabase[selected]?.map((branch) => (
-        <div key={branch.branchID}>
+        <InView>
           <p className='mx-1 font-medium capitalize'>{branch.branchID}</p>
           <div className='flex flex-wrap gap-1.5'>
             {branch.members.map((member) => (
@@ -80,7 +81,7 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
               </div>
             ))}
           </div>
-        </div>
+        </InView>
       ))}
     </section>
   )

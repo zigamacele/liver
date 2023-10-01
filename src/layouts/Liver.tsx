@@ -8,6 +8,7 @@ import { cn } from '@/lib/shadcn/utils.ts'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
 import { createTab, setChromeStorage } from '@/helpers/chrome-api.ts'
+import InView from '@/layouts/InView.tsx'
 import LiveStatus from '@/layouts/Liver/LiveStatus.tsx'
 
 import { ChannelInformation, LiveChannel } from '@/types/api.ts'
@@ -97,7 +98,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   const isLive = member.status === 'live'
 
   return (
-    <section>
+    <InView>
       {showLiveStatus && isLive && <LiveStatus member={member} />}
       <div
         className='relative'
@@ -187,7 +188,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           </div>
         )}
       </div>
-    </section>
+    </InView>
   )
 }
 

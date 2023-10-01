@@ -26,7 +26,7 @@ const DisplayMyLivers = () => {
   }, [data])
 
   const getMyLivers = () => {
-    chrome.storage.local.get(['myLivers', 'customList'], function (data) {
+    chrome.storage.local.get(['myLivers', 'customList'], (data) => {
       if (Array.isArray(data['myLivers'])) {
         // TODO: remove when most users switch to latest version. devtools -> analytics -> users
         const myLivers: MyLivers = {}

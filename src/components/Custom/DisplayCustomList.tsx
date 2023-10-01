@@ -1,6 +1,7 @@
 import { XCircleIcon } from '@heroicons/react/24/solid'
 
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
+import InView from '@/layouts/InView.tsx'
 
 import { CustomList } from '@/types/database.ts'
 
@@ -21,7 +22,7 @@ const DisplayCustomList: React.FC<DisplayCustomListProps> = ({
     <section className='mt-2 flex flex-col gap-1.5'>
       {Object.values(customList).flatMap((VTuber) => {
         return (
-          <div className='bg flex items-center justify-between rounded-full border border-slate-300 bg-slate-300/30 px-1 py-1 shadow-sm dark:border-slate-700 dark:bg-slate-700/50'>
+          <InView className='bg flex items-center justify-between rounded-full border border-slate-300 bg-slate-300/30 px-1 py-1 shadow-sm dark:border-slate-700 dark:bg-slate-700/50'>
             <div className='flex items-center gap-2'>
               <img
                 src={VTuber.imageURL}
@@ -40,7 +41,7 @@ const DisplayCustomList: React.FC<DisplayCustomListProps> = ({
               onClick={() => removeFromCustomList(VTuber.channelID)}
               className='mr-2 h-6 w-6 cursor-pointer hover:text-rose-500'
             />
-          </div>
+          </InView>
         )
       })}
     </section>
