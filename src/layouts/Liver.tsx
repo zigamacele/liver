@@ -1,5 +1,4 @@
 import { BookmarkIcon, BookmarkSlashIcon } from '@heroicons/react/20/solid'
-import { TwitterLogoIcon } from '@radix-ui/react-icons'
 import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
@@ -8,6 +7,7 @@ import { cn } from '@/lib/shadcn/utils.ts'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
 import { createTab, setChromeStorage } from '@/helpers/chrome-api.ts'
+import Twitter from '@/layouts/Icons/Twitter.tsx'
 import InView from '@/layouts/InView.tsx'
 import LiveStatus from '@/layouts/Liver/LiveStatus.tsx'
 
@@ -130,7 +130,12 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
             )}
             onClick={() => handleTwitter(member['twitter'])}
           >
-            <TwitterLogoIcon className='absolute bottom-[-0.8em] left-[1.20em] z-10 text-lg ' />
+            <Twitter
+              width={16}
+              height={16}
+              className='absolute bottom-[-0.8em] left-[1.20em] z-10 fill-amber-400 text-lg hover:opacity-60'
+              fill={isLive ? '#ffffff' : '#60a5fa'}
+            />
             <span
               className={`absolute bottom-[-0.82em] left-[0.975em] text-xl ${
                 isLive ? 'bg-red-500' : 'bg-white dark:bg-slate-700'
