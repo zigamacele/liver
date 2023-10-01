@@ -7,19 +7,34 @@ import {
 import { Link } from 'react-router-dom'
 
 import { AppearanceToggle } from '@/lib/shadcn/ui/appearance-toggle.tsx'
+import { cn } from '@/lib/shadcn/utils.ts'
 
 import NavButton from '@/components/Navbar/NavButton.tsx'
 
+import useNavbarStore from '@/stores/navbar.ts'
+
 import { ALL, CUSTOM, HOME, SETTINGS } from '@/constants/paths.ts'
 const Navbar: React.FC = () => {
+  const { nameDisplay, showNavbar } = useNavbarStore()
   return (
-    <nav className='fixed z-50 flex w-full items-center justify-between bg-slate-100/80 px-3 py-2 backdrop-blur-md dark:bg-slate-800/80'>
-      <Link
-        to={HOME}
-        className='cursor-pointer text-xl font-medium animate-in slide-in-from-left hover:opacity-60'
-      >
-        Liver
-      </Link>
+    <nav
+      className={cn(
+        'fixed z-50 flex w-full items-center justify-between bg-slate-100/80 px-3 py-2 backdrop-blur-md dark:bg-slate-800/80',
+        !showNavbar && 'hidden',
+      )}
+    >
+      {!nameDisplay.length ? (
+        <Link
+          to={HOME}
+          className='cursor-pointer text-xl font-medium animate-in slide-in-from-left hover:opacity-60'
+        >
+          Liver
+        </Link>
+      ) : (
+        <p className='w-32 cursor-pointer overflow-auto truncate text-sm font-light animate-in slide-in-from-left'>
+          {nameDisplay}
+        </p>
+      )}
       <section className='flex items-center gap-2 text-slate-700 dark:text-blue-500'>
         <div className='group flex items-center rounded bg-slate-200 px-2 py-1.5 duration-300 animate-in slide-in-from-right dark:bg-slate-700'>
           <NavButton

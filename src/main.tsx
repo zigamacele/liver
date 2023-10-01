@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter as Router } from 'react-router'
 
-import './styles/globals.css'
+import '@/styles/globals.css'
 
 import { ThemeProvider } from '@/lib/shadcn/theme-provider.tsx'
 import { Toaster } from '@/lib/shadcn/ui/toaster'

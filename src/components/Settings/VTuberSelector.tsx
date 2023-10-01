@@ -1,6 +1,8 @@
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState } from 'react'
 
+import useNavbarStore from '@/stores/navbar.ts'
+
 import { VTuberDatabase } from '@/constants/database.ts'
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
 import { databaseSearch } from '@/helpers/database.ts'
@@ -13,6 +15,8 @@ interface VTuberSelectorProps {
 }
 const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
   const [selectedLivers, setSelectedLivers] = useState({})
+
+  const { setProperty } = useNavbarStore()
 
   useEffect(() => {
     chrome.storage.local.get('myLivers', (data) => {
@@ -60,6 +64,8 @@ const VTuberSelector: React.FC<VTuberSelectorProps> = ({ selected }) => {
               <div
                 key={member.name}
                 onClick={() => saveToChromeStorage(member.channelID)}
+                onMouseEnter={() => setProperty('nameDisplay', member.name)}
+                onMouseLeave={() => setProperty('nameDisplay', '')}
                 className='mt-1'
               >
                 {!Object.keys(selectedLivers).includes(member.channelID) ? (

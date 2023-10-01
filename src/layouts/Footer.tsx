@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
         </p>
       </div>
       <GitHubLogoIcon
-        className='h-5 w-5 cursor-pointer rounded hover:text-slate-500 hover:dark:text-blue-400'
+        className='h-6 w-6 cursor-pointer rounded hover:text-slate-500 hover:dark:text-blue-400'
         onClick={() =>
           void chrome.tabs.create({
             url: GITHUB_REPO,

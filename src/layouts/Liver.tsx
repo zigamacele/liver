@@ -3,7 +3,10 @@ import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
+import { useTheme } from '@/lib/shadcn/theme-provider.tsx'
 import { cn } from '@/lib/shadcn/utils.ts'
+
+import useNavbarStore from '@/stores/navbar.ts'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
 import { createTab, setChromeStorage } from '@/helpers/chrome-api.ts'
@@ -24,6 +27,9 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   const [showLiveStatus, setShowLiveStatus] = useState(false)
   const [customList, setCustomList] = useState<ChromeStorageData>({})
   const [fetchingVTuber, setFetchingVTuber] = useState(false)
+
+  const { setProperty } = useNavbarStore()
+  const { theme } = useTheme()
 
   const checkMyLivers = () => {
     chrome.storage.local.get('customList', (data) => {
@@ -104,9 +110,11 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
         className='relative'
         onMouseEnter={() => {
           setShowLiveStatus(true)
+          if (isLive) setProperty('showNavbar', false)
         }}
         onMouseLeave={() => {
           setShowLiveStatus(false)
+          setProperty('showNavbar', true)
         }}
       >
         <img
@@ -159,14 +167,20 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           </div>
         )}
         {fetchingVTuber && (
-          <div className='absolute bottom-[4.6em] left-[4.7em] rounded-full bg-red-500 p-1 pb-0'>
-            <ClipLoader size={15} color='white' />
-          </div>
+          <span className='absolute bottom-[4.6em] left-[4.7em] rounded-full bg-red-500 p-1 pb-0'>
+            <ClipLoader
+              size={15}
+              color={theme === 'light' ? '#020617' : '#ffffff'}
+            />
+          </span>
         )}
         {loading && (
           <>
             <div className='absolute bottom-[4.5em] left-[4.5em] rounded-full bg-white p-1 pb-0 dark:bg-slate-700'>
-              <ClipLoader size={15} />
+              <ClipLoader
+                size={15}
+                color={theme === 'light' ? '#020617' : '#ffffff'}
+              />
             </div>
             <div className='absolute bottom-[-5px] left-1/2 -translate-x-1/2'>
               <div className='rounded-full bg-white px-1.5 py-0.5  dark:bg-slate-700 dark:text-white'>
