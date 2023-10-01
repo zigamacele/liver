@@ -27,8 +27,25 @@ const DisplayMyLivers = () => {
 
   const getMyLivers = () => {
     chrome.storage.local.get(['myLivers', 'customList'], (data) => {
+      // TODO: REMOVES STATUS FROM CUSTOMLIST-remove when most users switch to latest version. devtools -> analytics -> users
+      if (
+        data['customList'] &&
+        Object.keys(data['customList'] as ChromeStorageData).length
+      ) {
+        const myCustomList = {
+          ...(data['customList'] as ChromeStorageData),
+        }
+        Object.keys(myCustomList).forEach((channelID) => {
+          delete myCustomList[channelID]?.status
+          delete myCustomList[channelID]?.title
+          delete myCustomList[channelID]?.started
+          delete myCustomList[channelID]?.org
+          delete myCustomList[channelID]?.viewers
+        })
+        void setChromeStorage('customList', myCustomList)
+      }
       if (Array.isArray(data['myLivers'])) {
-        // TODO: remove when most users switch to latest version. devtools -> analytics -> users
+        // TODO: CONVERTS MYLIVERS FROM ARRAY TO OBJECT-remove when most users switch to latest version. devtools -> analytics -> users
         const myLivers: MyLivers = {}
         data['myLivers'].forEach((channelID) => {
           myLivers[channelID as keyof typeof myLivers] = databaseSearch(
@@ -92,15 +109,12 @@ const DisplayMyLivers = () => {
     <section className='flex flex-wrap justify-center gap-3 pb-4 pt-14'>
       {Object.keys(displayLivers).map((channelID) => {
         return (
-          <div key={channelID}>
-            <Liver
-              member={
-                displayLivers[channelID] as LiveChannel & VTuberFromStorage
-              }
-              loading={isLoading}
-              path='home'
-            />
-          </div>
+          <Liver
+            key={channelID}
+            member={displayLivers[channelID] as LiveChannel & VTuberFromStorage}
+            loading={isLoading}
+            path='home'
+          />
         )
       })}
     </section>

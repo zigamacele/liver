@@ -75,12 +75,7 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
             name: member['channel'].english_name || name,
             imageURL: member['channel'].photo,
             channelID: member['channel'].id,
-            twitter: twitter,
-            status: member['status'],
-            title: member['title'],
-            started: member['start_actual'],
-            org: member['channel'].org,
-            viewers: member['live_viewers'],
+            twitter,
           },
         }
         void setChromeStorage('customList', tempCustomList)
