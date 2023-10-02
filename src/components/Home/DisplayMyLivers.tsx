@@ -99,9 +99,12 @@ const DisplayMyLivers = () => {
 
   if (!Object.keys(displayLivers).length) {
     return (
-      <span className='flex justify-center opacity-40'>
-        <p>Looks like your list is empty..</p>
-      </span>
+      <section className='flex flex-col items-center gap-1 pt-16'>
+        <p className='animate-bounce text-lg font-light opacity-20'>
+          ¯\_(ツ)_/¯
+        </p>
+        <p className='opacity-60'>Looks like your list is empty..</p>
+      </section>
     )
   }
 

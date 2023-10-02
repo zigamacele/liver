@@ -10,18 +10,18 @@ interface NeedHelpProps {
 const NeedHelp: React.FC<NeedHelpProps> = ({ show, setShowHelp }) => {
   if (!show) {
     return (
-      <div
+      <section
         onClick={() => setShowHelp((current) => !current)}
         className='flex cursor-pointer items-center gap-1 px-1 py-0.5 animate-in slide-in-from-top hover:opacity-60'
       >
         <LifebuoyIcon className='h-4 w-4' />
         <span>Need help?</span>
-      </div>
+      </section>
     )
   }
 
   return (
-    <div className='rounded-lg border border-slate-300 bg-slate-200 px-3 py-2 shadow-sm dark:border-slate-600 dark:bg-slate-700'>
+    <section className='rounded-lg border border-slate-300 bg-slate-200 px-3 py-2 shadow-sm dark:border-slate-600 dark:bg-slate-700'>
       <p>Channel ID needs to be in this format:</p>
       <div className='flex items-center'>
         <p className='text-[10px]'>youtube.com/channel/ </p>
@@ -38,7 +38,7 @@ const NeedHelp: React.FC<NeedHelpProps> = ({ show, setShowHelp }) => {
       >
         You can find their ID here
       </a>
-    </div>
+    </section>
   )
 }
 
