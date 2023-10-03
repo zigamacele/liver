@@ -81,13 +81,29 @@ const DisplayMyLivers = () => {
               fullName: data[index]?.channel.name,
             },
           }
+        } else if (
+          key === data[index]?.channel.id &&
+          !Object.keys(tempLiveStatus).includes(key)
+        ) {
+          tempLiveStatus = {
+            ...tempLiveStatus,
+            [key]: {
+              ...value,
+              status: 'offline',
+              scheduled: data[index]?.start_scheduled,
+            },
+          }
         }
       }
-      if (!Object.keys(tempLiveStatus).includes(key))
+      if (!Object.keys(tempLiveStatus).includes(key)) {
         tempLiveStatus = {
           ...tempLiveStatus,
-          [key]: { ...value, status: 'offline' },
+          [key]: {
+            ...value,
+            status: 'offline',
+          },
         }
+      }
 
       if (
         Object.keys(tempLiveStatus).length === Object.keys(displayLivers).length
@@ -99,10 +115,8 @@ const DisplayMyLivers = () => {
 
   if (!Object.keys(displayLivers).length) {
     return (
-      <section className='flex flex-col items-center gap-1 pt-16'>
-        <p className='animate-bounce text-lg font-light opacity-20'>
-          ¯\_(ツ)_/¯
-        </p>
+      <section className='flex flex-col items-center gap-1 pb-10 pt-20'>
+        <p className='text-lg font-light opacity-20'>¯\_(ツ)_/¯</p>
         <p className='opacity-60'>Looks like your list is empty..</p>
       </section>
     )

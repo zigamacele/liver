@@ -16,7 +16,7 @@ export type VTuberFromStorage = {
   fullName?: string
   org?: string
   viewers?: number
-  scheduled?: number
+  scheduled?: string
 }
 
 export interface ChromeStorageData {

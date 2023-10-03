@@ -1,5 +1,6 @@
 import { BookmarkIcon, BookmarkSlashIcon } from '@heroicons/react/20/solid'
 import axios, { AxiosResponse } from 'axios'
+import { duration } from 'moment/moment'
 import { useEffect, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
@@ -98,6 +99,14 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
   }/live`
   const isLive = member.status === 'live'
 
+  // TODO: put this into helpers, similar function in LiveStatus.tsx
+  const timeUntilSchedule = (startTime: string) => {
+    const difference = +new Date() - +new Date(startTime)
+    const diffDuration = duration(-difference).humanize(false)
+    if (diffDuration === 'Invalid date') return 'starting soon'
+    return `IN: ${diffDuration}`
+  }
+
   return (
     <InView>
       {showLiveStatus && isLive && <LiveStatus member={member} />}
@@ -116,10 +125,11 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
           src={member.imageURL || member.channel.photo}
           alt={member.name}
           className={cn(
-            'h-20 w-20 cursor-pointer rounded-full border-4 object-cover shadow-md hover:opacity-80',
-            isLive
-              ? 'border-red-500'
-              : 'border-white bg-slate-200 dark:border-slate-700 dark:bg-slate-800',
+            'h-20 w-20 cursor-pointer rounded-full border-4 border-white bg-slate-200 object-cover shadow-md hover:opacity-80 dark:border-slate-700 dark:bg-slate-800',
+            isLive && 'border-red-500 dark:border-red-500',
+            !isLive &&
+              member.scheduled &&
+              'border-blue-500 dark:border-blue-500',
           )}
           onClick={() => void createTab(url)}
         />
@@ -136,13 +146,15 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
             <Twitter
               width={16}
               height={16}
-              className='absolute bottom-[-0.8em] left-[1.20em] z-10 fill-amber-400 text-lg hover:opacity-60'
-              fill={isLive ? '#ffffff' : '#60a5fa'}
+              className='absolute bottom-[-0.8em] left-[1.20em] z-10 text-lg hover:opacity-60'
+              fill={isLive || member.scheduled ? '#ffffff' : '#60a5fa'}
             />
             <span
-              className={`absolute bottom-[-0.82em] left-[0.975em] text-xl ${
-                isLive ? 'bg-red-500' : 'bg-white dark:bg-slate-700'
-              } h-5 w-5 rounded-full`}
+              className={cn(
+                'absolute bottom-[-0.82em] left-[0.975em] h-5 w-5 rounded-full bg-white text-xl dark:bg-slate-700',
+                isLive && 'bg-red-500 dark:bg-red-500',
+                !isLive && member.scheduled && 'bg-blue-500 dark:bg-blue-500',
+              )}
             />
           </div>
         )}
@@ -195,9 +207,17 @@ const Liver: React.FC<LiverProps> = ({ member, loading, path }) => {
               </div>
             )}
             {!isLive && (
-              <div className='rounded-full bg-white px-1.5 py-0.5  dark:bg-slate-700 dark:text-white'>
-                <p className='text-[10px]'>OFFLINE</p>
-              </div>
+              <p
+                className={cn(
+                  'whitespace-nowrap rounded-full bg-white px-1.5 py-0.5 text-[10px] capitalize dark:bg-slate-700 dark:text-white',
+                  member.scheduled &&
+                    'bg-blue-500 text-white dark:bg-blue-500 ',
+                )}
+              >
+                {member.scheduled
+                  ? timeUntilSchedule(member.scheduled)
+                  : 'OFFLINE'}
+              </p>
             )}
           </div>
         )}
