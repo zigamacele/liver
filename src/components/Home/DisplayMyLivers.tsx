@@ -64,7 +64,7 @@ const DisplayMyLivers = () => {
   }
 
   const getLiveStatus = () => {
-    let tempLiveStatus = {}
+    let tempLiveStatus: ChromeStorageData = {}
     for (const [key, value] of Object.entries(displayLivers)) {
       for (let index = 0; index < data.length; index++) {
         if (key === data[index]?.channel.id && data[index]?.status === 'live') {
@@ -108,7 +108,27 @@ const DisplayMyLivers = () => {
       if (
         Object.keys(tempLiveStatus).length === Object.keys(displayLivers).length
       ) {
-        setDisplayLivers(tempLiveStatus)
+        const output: ChromeStorageData = {}
+
+        const sorted = Object.keys(tempLiveStatus).sort((a, b) => {
+          if (
+            tempLiveStatus[a]?.status === 'live' &&
+            tempLiveStatus[b]?.status !== 'live'
+          ) {
+            return -1
+          } else if (
+            tempLiveStatus[b]?.status === 'live' &&
+            tempLiveStatus[a]?.status !== 'live'
+          )
+            return 1
+          return 0
+        })
+
+        sorted.forEach((key) => {
+          output[key] = tempLiveStatus[key] as VTuberFromStorage
+        })
+
+        setDisplayLivers(output)
       }
     }
   }
