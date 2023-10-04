@@ -1,4 +1,4 @@
-# Liver ![version](https://img.shields.io/badge/Version-v0.1-pink?style=for-the-badge&logo)
+# Liver ![version](https://img.shields.io/badge/Version-v0.1.5-pink?style=for-the-badge&logo)
 
 <a><img align="right" src="https://i.imgur.com/F9qenDY.png"></a>
 
@@ -7,7 +7,7 @@
 Liver is a Chrome extension powered by Holodex API that lets you quickly check if your favorite Liver is streaming.
 Liver is designed to be a fast and simple way to check Livers stream status.
 
-Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmjikjjmbaiabncnhcbkphfh?hl=en&authuser=0)
+Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmjikjjmbaiabncnhcbkphfh?hl=en&authuser=0) (Brave, Edge, Opera, etc.)
 
 ## Images
 
@@ -17,7 +17,8 @@ Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmji
 
 ## Technologies used
 
--NextJS \
--TypeScript \
--TailwindCSS \
--Chrome Storage API
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
