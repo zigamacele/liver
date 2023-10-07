@@ -10,11 +10,7 @@ import NeedHelp from '@/components/Custom/NeedHelp.tsx'
 
 import { apiHeaders, channelEndpoint } from '@/constants/api.ts'
 import { setChromeStorage } from '@/helpers/chrome-api.ts'
-import {
-  customErrorMessage,
-  errorToast,
-  successToast,
-} from '@/helpers/toast.ts'
+import { customErrorMessage, successToast } from '@/helpers/toast.ts'
 
 import { ChannelInformation } from '@/types/api.ts'
 import { CustomList } from '@/types/database.ts'
@@ -91,15 +87,19 @@ const Custom: React.FC = () => {
 
     try {
       setLoading(true)
-      const { data }: AxiosResponse<ChannelInformation> =
+      const response: AxiosResponse<ChannelInformation> =
         await axios.request(config)
 
-      saveToChromeStorage(data)
-      // console.log(data)
-      toast(successToast(data.english_name ?? data.name))
+      const contentType = response.headers['content-type'] as string
+      if (contentType.includes('application/json') && response.status === 200) {
+        saveToChromeStorage(response.data)
+        toast(successToast(response.data.english_name ?? response.data.name))
+      } else {
+        toast(customErrorMessage('Channel ID is invalid or does not exist'))
+      }
       setLoading(false)
     } catch (error) {
-      toast(errorToast)
+      toast(customErrorMessage('Channel ID is invalid or does not exist'))
       setLoading(false)
       console.error(error)
     }
