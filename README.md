@@ -11,7 +11,9 @@ Get it for [Chrome](https://chrome.google.com/webstore/detail/liver/pjnhlmepkmji
 
 ## Images
 
-<img src="https://i.imgur.com/YHybind.png" width="800">
+![screenshot-light](https://github.com/zigamacele/liver/assets/19758116/5525c340-9340-4f99-9242-38e95a8217af)
+
+![screenshot-dark](https://github.com/zigamacele/liver/assets/19758116/13795a32-082a-4246-a349-3ca37b3b2169)
 
 <br />
 
