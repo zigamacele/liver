@@ -1,7 +1,7 @@
 {
   "name": "Liver",
   "description": "Check if your favorite VTuber is live!",
-  "version": "0.1.51",
+  "version": "0.1.52",
   "manifest_version": 3,
   "permissions": ["storage"],
   "action": {
