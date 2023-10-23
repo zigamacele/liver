@@ -1,3 +1,4 @@
+import moment from 'moment/moment'
 import { useEffect, useState } from 'react'
 
 import useLiveChannels from '@/hooks/useLiveChannels.tsx'
@@ -111,23 +112,26 @@ const DisplayMyLivers = () => {
         const output: ChromeStorageData = {}
 
         const sorted = Object.keys(tempLiveStatus).sort((a, b) => {
-          if (
-            tempLiveStatus[a]?.status === 'live' &&
-            tempLiveStatus[b]?.status !== 'live'
-          ) {
+          const statusA = tempLiveStatus[a]?.status
+          const statusB = tempLiveStatus[b]?.status
+          const scheduledA = tempLiveStatus[a]?.scheduled
+          const scheduledB = tempLiveStatus[b]?.scheduled
+
+          if (statusA === 'live' && statusB !== 'live') {
             return -1
-          } else if (
-            tempLiveStatus[b]?.status === 'live' &&
-            tempLiveStatus[a]?.status !== 'live'
-          )
-            return 1
+          }
+          if (scheduledA && scheduledB) {
+            return moment(scheduledA).valueOf() - moment(scheduledB).valueOf()
+          }
+          if (scheduledA) {
+            return -1
+          }
           return 0
         })
 
         sorted.forEach((key) => {
           output[key] = tempLiveStatus[key] as VTuberFromStorage
         })
-
         setDisplayLivers(output)
       }
     }
