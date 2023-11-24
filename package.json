@@ -2,7 +2,7 @@
   "name": "liver",
   "author": "Ziga Macele",
   "license": "MIT",
-  "version": "0.1.5",
+  "version": "0.1.53",
   "type": "module",
   "scripts": {
     "dev": "vite",

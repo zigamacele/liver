@@ -292,6 +292,33 @@
           "twitter": "YuQWilson"
         }
       ]
+    },
+    {
+      "branchID": "These Three Troublemakers",
+      "debut": "2023/10/27",
+      "members": [
+        {
+          "name": "Kunai Nakasato",
+          "imageURL": "https://i.imgur.com/JjrFLRD.png",
+          "channelID": "UCwqtK-m6954_aHEvOYtZpyQ",
+          "retired": false,
+          "twitter": "KunaiNakasato"
+        },
+        {
+          "name": "Victoria Brightshield",
+          "imageURL": "https://i.imgur.com/bDZ7saY.png",
+          "channelID": "UChTA8kHyInr2rKZ2aBv5ULw",
+          "retired": false,
+          "twitter": "VBrightshield"
+        },
+        {
+          "name": "Yu Q. Wilson",
+          "imageURL": "https://i.imgur.com/LxMRh43.png",
+          "channelID": "UCdh-YF2gTzqDNu0VU9lwPPw",
+          "retired": false,
+          "twitter": "ClaudeClawmark"
+        }
+      ]
     }
   ],
   "HOLOLIVE_EN": [
