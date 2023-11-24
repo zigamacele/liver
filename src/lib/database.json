@@ -884,6 +884,40 @@
           "twitter": "josuijishinri"
         }
       ]
+    },
+    {
+      "branchID": "ARMIS",
+      "debut": "2023/11/17",
+      "members": [
+        {
+          "name": "Jurard T Rexford",
+          "imageURL": "https://i.imgur.com/LyXiZED.png",
+          "channelID": "UCTVSOgYuSWmNAt-lnJPkEEw",
+          "retired": false,
+          "twitter": "jurardtrexford"
+        },
+        {
+          "name": "Goldbullet",
+          "imageURL": "https://i.imgur.com/Om5Hmiv.png",
+          "channelID": "UCJv02SHZgav7Mv3V0kBOR8Q",
+          "retired": false,
+          "twitter": "goldbullet_en"
+        },
+        {
+          "name": "Octavio",
+          "imageURL": "https://i.imgur.com/1sA9D7h.png",
+          "channelID": "UCLk1hcmxg8rJ3Nm1_GvxTRA",
+          "retired": false,
+          "twitter": "octavio_holo"
+        },
+        {
+          "name": "Crimzon Ruze",
+          "imageURL": "https://i.imgur.com/tp2dKPF.png",
+          "channelID": "UCajbFh6e_R8QZdHAMbbi4rQ",
+          "retired": false,
+          "twitter": "crimzonruze"
+        }
+      ]
     }
   ],
   "HOLOSTARS_JP": [
@@ -2149,7 +2183,7 @@
           "twitter": "Saiki_Supadari"
         },
         {
-          "name": "Ibachi Mana",
+          "name": "Hibachi Mana",
           "imageURL": "https://i.imgur.com/eFsS5cZ.png",
           "channelID": "UCqXxS-9x9Ha_UiH6hG4kh5Q",
           "retired": false,
